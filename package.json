@@ -9,7 +9,7 @@
     "check-types": "turbo run check-types",
     "test:coverage": "turbo run test:coverage",
     "prepare": "node scripts/setup-git-hooks.mjs",
-    "precommit:check": "pnpm lint && pnpm check-types"
+    "precommit:check": "pnpm lint && pnpm check-types && pnpm test:coverage && pnpm --filter api openapi && pnpm --filter api validate-openapi:local"
   },
   "devDependencies": {
     "prettier": "^3.7.4",
