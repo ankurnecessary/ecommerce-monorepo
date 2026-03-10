@@ -1,0 +1,20 @@
+ARG NODE_VERSION=22
+
+# Builder
+FROM public.ecr.aws/lambda/nodejs:${NODE_VERSION} AS builder
+WORKDIR /usr/app
+COPY ./ ./
+RUN corepack enable && corepack prepare pnpm@10 --activate
+RUN pnpm install --frozen-lockfile
+RUN pnpm --filter api build
+
+#Final
+FROM public.ecr.aws/lambda/nodejs:${NODE_VERSION} AS final
+WORKDIR ${LAMBDA_TASK_ROOT}
+COPY --from=builder /usr/app/apps/api/package.json ./package.json
+COPY --from=builder /usr/app/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /usr/app/apps/api/dist ./
+RUN corepack enable && corepack prepare pnpm@10 --activate
+RUN node -e "const fs=require('fs');const p=require('./package.json');delete p.devDependencies;fs.writeFileSync('package.json', JSON.stringify(p, null, 2));"
+RUN pnpm install --prod --no-frozen-lockfile --ignore-scripts
+CMD ["index.handler"]

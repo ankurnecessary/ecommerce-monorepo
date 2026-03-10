@@ -1,0 +1,10 @@
+**/.git
+**/.turbo
+**/.vscode
+**/node_modules
+**/dist
+**/coverage
+**/.env
+**/.env.*
+**/.pnpm-store
+**/.DS_Store

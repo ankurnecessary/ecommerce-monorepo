@@ -1,0 +1,85 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  
+  # Dev server - http://localhost:${PORT}
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        NODE_VERSION: ${NODE_VERSION}
+        PNPM_VERSION: ${PNPM_VERSION}
+    container_name: ecommerce-backend-server
+    environment:
+      NODE_ENV: ${NODE_ENV} # ${NODE_ENV} is from .env file
+      DATABASE_URL: ${DATABASE_URL_DOCKER}
+    ports:
+      - ${PORT}:${PORT}
+      - '${PORT_DEBUG}:${PORT_DEBUG}'
+    depends_on:
+      db:
+        condition: service_healthy
+    working_dir: /usr/src/app/apps/api
+    volumes:
+      - ../..:/usr/src/app
+    command: ${SERVER_COMMAND:-pnpm dev-api}
+    develop:
+      watch:
+        - action: rebuild
+          path: .
+          
+  # Swagger link activation - http://localhost:8080
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: ecommerce-swagger
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./openapi.yaml:/spec/openapi.yaml
+      - ./scripts/swagger/translator.js:/usr/share/nginx/configurator/translator.js
+    environment:
+      SWAGGER_JSON: /spec/openapi.yaml
+
+  # Postgres DB
+  db:
+    image: postgres:18-alpine
+    container_name: ecommerce-db
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommerce
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  # PgAdmin postgresql client - http://localhost:8000
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  pgdata:
+  pgadmin_data:
