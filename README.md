@@ -50,6 +50,16 @@ You can develop a specific package by using a [filter](https://turborepo.dev/doc
 pnpm dev --filter=api
 ```
 
+### Git hooks
+
+Pre-commit hooks are versioned in `.githooks/` and are configured automatically by `pnpm install` via the root `prepare` script.
+
+If hooks are not active in an existing clone, run:
+
+```sh
+pnpm prepare
+```
+
 ### Remote Caching
 
 > [!TIP]
