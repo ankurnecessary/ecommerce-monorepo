@@ -1,0 +1,39 @@
+name: Linting and Testing 
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  openapi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run OpenAPI generation
+        run: pnpm openapi
+
+      - name: Run OpenAPI validation
+        run: pnpm validate-openapi
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run lint
+        run: pnpm lint
+
+      - name: Run tests
+        run: pnpm test
