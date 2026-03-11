@@ -4,6 +4,17 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apps/api/**"
+      - "packages/eslint-config/**"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "turbo.json"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/api-deployment.yml"
 env:
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
   AUTH_ACCESS_TOKEN_SECRET: ${{ secrets.AUTH_ACCESS_TOKEN_SECRET }}
@@ -22,16 +33,16 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
       
       - name: Generating prisma files
-        run: pnpm prisma generate
+        run: pnpm --filter api prisma generate
 
       - name: Run lint
-        run: pnpm lint
+        run: pnpm --filter api lint
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm --filter api test
 
       - name: Make build
-        run: pnpm build
+        run: pnpm --filter api build
 
   deploy-db:
     runs-on: ubuntu-latest
@@ -54,13 +65,13 @@ jobs:
           echo "${{ secrets.AIVEN_CA_CERT }}" > prisma/ca.pem 
 
       - name: Generating prisma files
-        run: pnpm prisma generate
+        run: pnpm --filter api prisma generate
 
       - name: DB migration
-        run: pnpm prisma migrate deploy
+        run: pnpm --filter api prisma migrate deploy
 
       - name: Seeding DB
-        run: pnpm prisma db seed
+        run: pnpm --filter prisma db seed
 
   deploy:
     runs-on: ubuntu-latest
@@ -74,7 +85,7 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
 
       - name: Generating prisma files
-        run: pnpm prisma generate
+        run: pnpm --filter api prisma generate
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -92,7 +103,7 @@ jobs:
             --platform linux/amd64 \
             --provenance=false \
             -t docker-image:test \
-            -f Dockerfile.prod \
+            -f apps/api/Dockerfile.prod \
             --build-arg NODE_VERSION="${NODE_VERSION}" \
             .
 

@@ -4,6 +4,17 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - "apps/api/**"
+      - "packages/eslint-config/**"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "turbo.json"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/ci.yml"
 
 jobs:
   openapi:
@@ -17,10 +28,10 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
 
       - name: Run OpenAPI generation
-        run: pnpm openapi
+        run: pnpm --filter api openapi
 
       - name: Run OpenAPI validation
-        run: pnpm validate-openapi
+        run: pnpm --filter api validate-openapi
 
   build:
     runs-on: ubuntu-latest
@@ -33,7 +44,7 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
 
       - name: Run lint
-        run: pnpm lint
+        run: pnpm --filter api lint
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm --filter api test

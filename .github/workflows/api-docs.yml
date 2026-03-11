@@ -4,6 +4,18 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "apps/api/src/**"
+      - "apps/api/scripts/swagger/**"
+      - "apps/api/package.json"
+      - "apps/api/tsconfig.json"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/api-docs.yml"
 
 jobs:
   build-and-deploy:
@@ -20,13 +32,13 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
 
       - name: Create openapi.yaml
-        run: pnpm run openapi
+        run: pnpm --filter api openapi
 
       - name: Lint OpenAPI spec
-        run: pnpm run validate-openapi 
+        run: pnpm --filter api validate-openapi 
 
       - name: Generate static API docs
-        run: pnpm run static-api-doc
+        run: pnpm --filter api static-api-doc
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
