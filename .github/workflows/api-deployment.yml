@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
       
       - name: Generating prisma files
-        run: pnpm --filter api prisma generate
+        run: pnpm --filter api exec prisma generate
 
       - name: Run lint
         run: pnpm --filter api lint
@@ -59,19 +59,26 @@ jobs:
       - name: Setup node and pnpm
         uses: ./.github/actions/setup-node-pnpm
 
-      - name: Write Aiven CA cert to file
+      - name: Write Aiven CA cert to file in apps/api
         run: |
+          cd apps/api
           mkdir -p prisma
-          echo "${{ secrets.AIVEN_CA_CERT }}" > prisma/ca.pem 
+          echo "${{ secrets.AIVEN_CA_CERT }}" > prisma/ca.pem
 
       - name: Generating prisma files
-        run: pnpm --filter api prisma generate
+        run: |
+          cd apps/api
+          pnpm exec prisma generate
 
       - name: DB migration
-        run: pnpm --filter api prisma migrate deploy
+        run: |
+          cd apps/api
+          pnpm exec prisma migrate deploy
 
       - name: Seeding DB
-        run: pnpm --filter prisma db seed
+        run: |
+          cd apps/api
+          pnpm exec prisma db seed
 
   deploy:
     runs-on: ubuntu-latest
@@ -85,7 +92,7 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
 
       - name: Generating prisma files
-        run: pnpm --filter api prisma generate
+        run: pnpm --filter api exec prisma generate
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
