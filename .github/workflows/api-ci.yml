@@ -1,0 +1,50 @@
+name: Linting and Testing 
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "apps/api/**"
+      - "packages/eslint-config/**"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "turbo.json"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/ci.yml"
+
+jobs:
+  openapi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run OpenAPI generation
+        run: pnpm --filter api openapi
+
+      - name: Run OpenAPI validation
+        run: pnpm --filter api validate-openapi
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run lint
+        run: pnpm --filter api lint
+
+      - name: Run tests
+        run: pnpm --filter api test

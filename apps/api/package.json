@@ -54,7 +54,8 @@
     "swagger-jsdoc": "^6.2.8",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "yaml": "^2.8.2"
+    "yaml": "^2.8.2",
+    "eslint": "^9.39.1"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.4.2",

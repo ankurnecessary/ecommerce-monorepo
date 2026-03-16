@@ -1,0 +1,47 @@
+name: Deploy API Docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/api/src/**"
+      - "apps/api/scripts/swagger/**"
+      - "apps/api/package.json"
+      - "apps/api/tsconfig.json"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/api-docs.yml"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      OPENAPI_SERVER_URL: https://dixsh76emoj4bu7f7tlzbqfbxa0tokev.lambda-url.ap-southeast-2.on.aws/api
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Create openapi.yaml
+        run: pnpm --filter api openapi
+
+      - name: Lint OpenAPI spec
+        run: pnpm --filter api validate-openapi 
+
+      - name: Generate static API docs
+        run: pnpm --filter api static-api-doc
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
