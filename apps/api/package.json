@@ -8,7 +8,7 @@
     "dev-api": "concurrently \"pnpm watch-openapi\" \"pnpm dev:server\"",
     "dev:server": "tsx watch src/server.ts",
     "dev:debug": "dotenv -- nodemon --watch src --ext ts,json --signal SIGTERM --exec \"sh -lc 'test -n \\\"\\$PORT_DEBUG\\\" || { echo PORT_DEBUG is not set in .env; exit 1; }; node --inspect=0.0.0.0:\\$PORT_DEBUG --import tsx src/server.ts'\"",
-    "dev:docker": "sed -i \"s/^NODE_VERSION=.*/NODE_VERSION=$(cat .nvmrc)/\" .env && pnpm openapi && docker compose up --build",
+    "dev:docker": "sed -i \"s/^NODE_VERSION=.*/NODE_VERSION=$(cat ./../../.nvmrc)/\" .env && pnpm openapi && docker compose up --build",
     "dev": "SERVER_COMMAND=\"pnpm dev:debug\" pnpm dev:docker",
     "openapi": "tsx scripts/swagger/generate-openapi",
     "validate-openapi": "pnpm exec redocly lint openapi.yaml",
