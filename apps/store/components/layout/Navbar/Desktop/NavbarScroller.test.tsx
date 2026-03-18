@@ -1,34 +1,34 @@
-import { afterEach, describe, expect, it, Mock, vi } from 'vitest';
-import NavbarScroller from '@/components/layout/Navbar/Desktop/NavbarScroller';
-import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
-import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
+import { afterEach, describe, expect, it, Mock, vi } from "vitest";
+import NavbarScroller from "@/components/layout/Navbar/Desktop/NavbarScroller";
+import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
+import { mockUseHeaderContext } from "@/components/layout/Header/Header.context.test.mock";
 
-describe('NavbarScroller', () => {
-  it('should render the component', () => {
+describe("NavbarScroller", () => {
+  it("should render the component", () => {
     const { getByRole } = render(<NavbarScroller />);
 
-    const leftArrowButton = getByRole('button', {
-      name: 'left scroller',
+    const leftArrowButton = getByRole("button", {
+      name: "left scroller",
     });
     expect(leftArrowButton).toBeInTheDocument();
 
-    const rightArrowButton = getByRole('button', {
-      name: 'right scroller',
+    const rightArrowButton = getByRole("button", {
+      name: "right scroller",
     });
     expect(rightArrowButton).toBeInTheDocument();
   });
 
-  it('renders <NavbarScroller />. Its left arrow button should be disabled initially.', () => {
+  it("renders <NavbarScroller />. Its left arrow button should be disabled initially.", () => {
     const { getByRole } = render(<NavbarScroller />);
-    const leftArrowButton = getByRole('button', {
-      name: 'left scroller',
+    const leftArrowButton = getByRole("button", {
+      name: "left scroller",
     });
     expect(leftArrowButton).toBeInTheDocument();
     expect(leftArrowButton).toBeDisabled();
   });
 
-  it('renders <NavbarScroller />. Its right arrow button shold be enabled initially.', () => {
+  it("renders <NavbarScroller />. Its right arrow button shold be enabled initially.", () => {
     (useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
         desktop: {
@@ -66,28 +66,28 @@ describe('NavbarScroller', () => {
     );
 
     const { getByRole } = render(<NavbarScroller />);
-    const rightArrowButton = getByRole('button', {
-      name: 'right scroller',
+    const rightArrowButton = getByRole("button", {
+      name: "right scroller",
     });
     expect(rightArrowButton).toBeInTheDocument();
     expect(rightArrowButton).not.toBeDisabled();
   });
 
-  it('renders <NavbarScroller />. Its left arrow button should be enabled as childOffset != 0', async () => {
+  it("renders <NavbarScroller />. Its left arrow button should be enabled as childOffset != 0", async () => {
     // Mocking HeaderContext
     (useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({ desktop: { navbar: { childOffset: -1000 } } }),
     );
 
     const { getByRole } = render(<NavbarScroller />);
-    const leftArrowButton = getByRole('button', {
-      name: 'left scroller',
+    const leftArrowButton = getByRole("button", {
+      name: "left scroller",
     });
     expect(leftArrowButton).toBeInTheDocument();
     expect(leftArrowButton).not.toBeDisabled();
   });
 
-  it('renders <NavbarScroller />. Its left arrow button should be enabled after clicking on right arrow', async () => {
+  it("renders <NavbarScroller />. Its left arrow button should be enabled after clicking on right arrow", async () => {
     (useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
         desktop: {
@@ -126,14 +126,14 @@ describe('NavbarScroller', () => {
 
     const { getByRole, rerender } = render(<NavbarScroller />);
 
-    const leftArrowButton = getByRole('button', {
-      name: 'left scroller',
+    const leftArrowButton = getByRole("button", {
+      name: "left scroller",
     });
     expect(leftArrowButton).toBeInTheDocument();
     expect(leftArrowButton).toBeDisabled();
 
-    const rightArrowButton = getByRole('button', {
-      name: 'right scroller',
+    const rightArrowButton = getByRole("button", {
+      name: "right scroller",
     });
     expect(rightArrowButton).toBeInTheDocument();
     expect(rightArrowButton).not.toBeDisabled();
@@ -149,7 +149,7 @@ describe('NavbarScroller', () => {
     });
   });
 
-  it('renders <NavbarScroller />. Its right arrow button should be disabled when childOffset == maxRightOffset', async () => {
+  it("renders <NavbarScroller />. Its right arrow button should be disabled when childOffset == maxRightOffset", async () => {
     // Mocking HeaderContext
     (useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
@@ -189,20 +189,20 @@ describe('NavbarScroller', () => {
 
     const { getByRole } = render(<NavbarScroller />);
 
-    const leftArrowButton = getByRole('button', {
-      name: 'left scroller',
+    const leftArrowButton = getByRole("button", {
+      name: "left scroller",
     });
     expect(leftArrowButton).toBeInTheDocument();
     expect(leftArrowButton).not.toBeDisabled();
 
-    const rightArrowButton = getByRole('button', {
-      name: 'right scroller',
+    const rightArrowButton = getByRole("button", {
+      name: "right scroller",
     });
     expect(rightArrowButton).toBeInTheDocument();
     expect(rightArrowButton).toBeDisabled();
   });
 
-  it('renders <NavbarScroller />. Its left and right arrow buttons should be disabled when childWidth <= parentWidth', () => {
+  it("renders <NavbarScroller />. Its left and right arrow buttons should be disabled when childWidth <= parentWidth", () => {
     // Mocking HeaderContext
     (useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
@@ -242,8 +242,8 @@ describe('NavbarScroller', () => {
     const { container } = render(<NavbarScroller />);
 
     // Assert that the parent <div> has the 'hidden' class
-    const parentDiv = container.querySelector('div.shadow-left');
-    expect(parentDiv).toHaveClass('hidden');
+    const parentDiv = container.querySelector("div.shadow-left");
+    expect(parentDiv).toHaveClass("hidden");
   });
 
   afterEach(() => {

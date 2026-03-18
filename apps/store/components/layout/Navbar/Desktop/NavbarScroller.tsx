@@ -1,9 +1,9 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
-import { CalculateOffset } from '@/components/layout/Header/types';
-import clsx from 'clsx';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+"use client";
+import React, { useEffect, useState } from "react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
+import { CalculateOffset } from "@/components/layout/Header/types";
+import clsx from "clsx";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 const calculateOffset: CalculateOffset =
   (direction) => (parentWidth, childWidth) => (offset) => {
@@ -15,7 +15,7 @@ const calculateOffset: CalculateOffset =
     }
 
     // Handling left movement
-    if (direction === 'left') {
+    if (direction === "left") {
       offset = offset + displacer;
       const maxLeftOffset = 0;
       return offset < maxLeftOffset ? offset : maxLeftOffset;
@@ -67,8 +67,8 @@ const NavbarScroller = () => {
 
   const maxRightOffset = parentWidth - childWidth;
 
-  const calculateLeftOffset = calculateOffset('left')(parentWidth, childWidth);
-  const calculateRightOffset = calculateOffset('right')(
+  const calculateLeftOffset = calculateOffset("left")(parentWidth, childWidth);
+  const calculateRightOffset = calculateOffset("right")(
     parentWidth,
     childWidth,
   );
@@ -83,7 +83,7 @@ const NavbarScroller = () => {
 
   return (
     <div
-      className={clsx('shadow-left flex whitespace-nowrap dark:text-zinc-300', {
+      className={clsx("shadow-left flex whitespace-nowrap dark:text-zinc-300", {
         hidden: childWidth <= parentWidth,
       })}
     >

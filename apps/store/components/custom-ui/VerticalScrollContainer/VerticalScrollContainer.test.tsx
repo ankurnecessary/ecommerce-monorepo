@@ -1,33 +1,33 @@
-import { act, fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import VerticalScrollContainer from '@/components/custom-ui/VerticalScrollContainer';
+import { act, fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContainer";
 
-describe('VerticalScrollContainer', () => {
-  it('should render the component', () => {
+describe("VerticalScrollContainer", () => {
+  it("should render the component", () => {
     const { getByRole } = render(
       <VerticalScrollContainer>
         <div className="content">Test Content</div>
       </VerticalScrollContainer>,
     );
-    const container = getByRole('group', { hidden: true }); // Use role if applicable
+    const container = getByRole("group", { hidden: true }); // Use role if applicable
     expect(container).toBeInTheDocument();
   });
 
-  it('renders children correctly', () => {
+  it("renders children correctly", () => {
     const { getByText } = render(
       <VerticalScrollContainer>
         <div>Test Content</div>
       </VerticalScrollContainer>,
     );
 
-    expect(getByText('Test Content')).toBeInTheDocument();
+    expect(getByText("Test Content")).toBeInTheDocument();
   });
 
-  it('calculates height correctly', () => {
+  it("calculates height correctly", () => {
     render(<div data-testid="my-div">Test</div>);
-    const div = screen.getByTestId('my-div');
+    const div = screen.getByTestId("my-div");
 
-    Object.defineProperty(div, 'offsetHeight', {
+    Object.defineProperty(div, "offsetHeight", {
       configurable: true,
       value: 200,
     });
@@ -35,23 +35,23 @@ describe('VerticalScrollContainer', () => {
     expect(div.offsetHeight).toBe(200);
   });
 
-  it('shows scrollbar when content overflows container', async () => {
+  it("shows scrollbar when content overflows container", async () => {
     const { getByTestId, getByRole, rerender } = render(
       <VerticalScrollContainer>
-        <div style={{ height: '200px' }}>Long Content</div>
+        <div style={{ height: "200px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole('group', { hidden: true });
-    Object.defineProperty(container, 'offsetHeight', {
+    const container = getByRole("group", { hidden: true });
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
     });
     expect(container.offsetHeight).toBe(100);
     // screen.debug(); // Debugging line to check the rendered output
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 200,
     });
@@ -63,36 +63,36 @@ describe('VerticalScrollContainer', () => {
 
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '200px' }}>Long Content</div>
+        <div style={{ height: "200px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
-    expect(getByTestId('scrollbar')).toBeInTheDocument();
+    expect(getByTestId("scrollbar")).toBeInTheDocument();
   });
 
-  it('should sync thumb position on scroll', () => {
+  it("should sync thumb position on scroll", () => {
     const { getByTestId, getByRole, rerender } = render(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole('group', { hidden: true });
-    Object.defineProperty(container, 'offsetHeight', {
+    const container = getByRole("group", { hidden: true });
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
     });
     expect(container.offsetHeight).toBe(100);
     // screen.debug(); // Debugging line to check the rendered output
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 300,
     });
     expect(scrollableContent.scrollHeight).toBe(300);
 
     // Mock scrollTop
-    Object.defineProperty(scrollableContent, 'scrollTop', {
+    Object.defineProperty(scrollableContent, "scrollTop", {
       configurable: true,
       writable: true, // Make it writable so we can modify it
       value: 0, // Initial value
@@ -106,11 +106,11 @@ describe('VerticalScrollContainer', () => {
     // After rerendering, thumb becomes part of the DOM
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const thumb = container.querySelector('.rounded-md') as HTMLElement;
+    const thumb = container.querySelector(".rounded-md") as HTMLElement;
 
     // Simulate scrolling
     scrollableContent.scrollTop = 50; // Set scrollTop to a new value
@@ -119,29 +119,29 @@ describe('VerticalScrollContainer', () => {
     expect(scrollableContent.scrollTop).toBe(50);
 
     // Verify thumb position is updated
-    expect(thumb.style.top).not.toBe('0px');
+    expect(thumb.style.top).not.toBe("0px");
   });
 
-  it('scrolls to the correct element when scrollToElementId is provided', () => {
+  it("scrolls to the correct element when scrollToElementId is provided", () => {
     const { getByTestId } = render(
       <VerticalScrollContainer scrollToElementId="target">
-        <div style={{ height: '600px' }}>Long Content</div>
+        <div style={{ height: "600px" }}>Long Content</div>
         <div id="target">Target Element</div>
       </VerticalScrollContainer>,
     );
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    const target = scrollableContent.querySelector('#target') as HTMLElement;
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    const target = scrollableContent.querySelector("#target") as HTMLElement;
 
     // Mock offsetTop of the target element
-    Object.defineProperty(target, 'offsetTop', {
+    Object.defineProperty(target, "offsetTop", {
       configurable: true,
       value: 500,
     });
     expect(target.offsetTop).toBe(500);
 
     // Mock scrollTop
-    Object.defineProperty(scrollableContent, 'scrollTop', {
+    Object.defineProperty(scrollableContent, "scrollTop", {
       configurable: true,
       writable: true, // Make it writable so we can modify it
       value: 0, // Initial value
@@ -161,30 +161,30 @@ describe('VerticalScrollContainer', () => {
     expect(scrollableContent.scrollTop).toBe(target.offsetTop - 60); // 500 - 60
   });
 
-  it('should handle mouse down, move, and up events for dragging', () => {
+  it("should handle mouse down, move, and up events for dragging", () => {
     const { getByTestId, getByRole, rerender } = render(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole('group', { hidden: true });
-    Object.defineProperty(container, 'offsetHeight', {
+    const container = getByRole("group", { hidden: true });
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
     });
     expect(container.offsetHeight).toBe(100);
     // screen.debug(); // Debugging line to check the rendered output
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 300,
     });
     expect(scrollableContent.scrollHeight).toBe(300);
 
     // Mock scrollTop
-    Object.defineProperty(scrollableContent, 'scrollTop', {
+    Object.defineProperty(scrollableContent, "scrollTop", {
       configurable: true,
       writable: true, // Make it writable so we can modify it
       value: 0, // Initial value
@@ -198,11 +198,11 @@ describe('VerticalScrollContainer', () => {
     // After rerendering, thumb becomes part of the DOM
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const thumb = container.querySelector('.rounded-md') as HTMLElement;
+    const thumb = container.querySelector(".rounded-md") as HTMLElement;
 
     // Simulate mouse down on the thumb
     fireEvent.mouseDown(thumb, { clientY: 0 });
@@ -214,30 +214,30 @@ describe('VerticalScrollContainer', () => {
     expect(scrollableContent.scrollTop).toBeGreaterThan(0);
   });
 
-  it('updates thumb height on window resize', () => {
+  it("updates thumb height on window resize", () => {
     const { getByTestId, getByRole, rerender } = render(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole('group', { hidden: true });
-    Object.defineProperty(container, 'offsetHeight', {
+    const container = getByRole("group", { hidden: true });
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
     });
     expect(container.offsetHeight).toBe(100);
     // screen.debug(); // Debugging line to check the rendered output
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 300,
     });
     expect(scrollableContent.scrollHeight).toBe(300);
 
     // Mock scrollTop
-    Object.defineProperty(scrollableContent, 'scrollTop', {
+    Object.defineProperty(scrollableContent, "scrollTop", {
       configurable: true,
       writable: true, // Make it writable so we can modify it
       value: 0, // Initial value
@@ -251,35 +251,35 @@ describe('VerticalScrollContainer', () => {
     // After rerendering, thumb becomes part of the DOM
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const thumb = container.querySelector('.rounded-md') as HTMLElement;
+    const thumb = container.querySelector(".rounded-md") as HTMLElement;
 
     // Mock resize event
-    fireEvent(window, new Event('resize'));
+    fireEvent(window, new Event("resize"));
 
     // Verify thumb height is updated
-    expect(thumb.style.height).not.toBe('');
+    expect(thumb.style.height).not.toBe("");
   });
-  it('updates thumb height on window resize1', () => {
+  it("updates thumb height on window resize1", () => {
     const { getByTestId, getByRole, rerender } = render(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole('group', { hidden: true });
-    Object.defineProperty(container, 'offsetHeight', {
+    const container = getByRole("group", { hidden: true });
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
     });
     expect(container.offsetHeight).toBe(100);
     // screen.debug(); // Debugging line to check the rendered output
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 300,
     });
@@ -292,32 +292,32 @@ describe('VerticalScrollContainer', () => {
     // After rerendering, thumb becomes part of the DOM
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const thumb = container.querySelector('.rounded-md') as HTMLElement;
+    const thumb = container.querySelector(".rounded-md") as HTMLElement;
 
     // Check initial thumb height
     const initialThumbHeight = (100 / 300) * 100; // (containerHeight / contentHeight) * containerHeight
     expect(thumb.style.height).toBe(`${initialThumbHeight.toFixed(4)}px`);
 
     // Mock new dimensions after resize
-    Object.defineProperty(container, 'offsetHeight', {
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 50, // New container height
     });
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 300, // New content height
     });
 
     // Trigger resize event
-    fireEvent(window, new Event('resize'));
+    fireEvent(window, new Event("resize"));
 
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
@@ -326,23 +326,23 @@ describe('VerticalScrollContainer', () => {
     expect(thumb.style.height).toBe(`${updatedThumbHeight.toFixed(5)}px`);
   });
 
-  it('should handle scroll wheel events', () => {
+  it("should handle scroll wheel events", () => {
     const { getByTestId, getByRole, rerender } = render(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole('group', { hidden: true });
-    Object.defineProperty(container, 'offsetHeight', {
+    const container = getByRole("group", { hidden: true });
+    Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
     });
     expect(container.offsetHeight).toBe(100);
     // screen.debug(); // Debugging line to check the rendered output
 
-    const scrollableContent = getByTestId('vertical-scrollable-content');
-    Object.defineProperty(scrollableContent, 'scrollHeight', {
+    const scrollableContent = getByTestId("vertical-scrollable-content");
+    Object.defineProperty(scrollableContent, "scrollHeight", {
       configurable: true,
       value: 300,
     });
@@ -353,7 +353,7 @@ describe('VerticalScrollContainer', () => {
     );
 
     // Mock scrollTop
-    Object.defineProperty(scrollableContent, 'scrollTop', {
+    Object.defineProperty(scrollableContent, "scrollTop", {
       configurable: true,
       writable: true, // Make it writable so we can modify it
       value: 0, // Initial value
@@ -363,11 +363,11 @@ describe('VerticalScrollContainer', () => {
     // After rerendering, thumb becomes part of the DOM
     rerender(
       <VerticalScrollContainer>
-        <div style={{ height: '300px' }}>Long Content</div>
+        <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
     );
 
-    const scrollbar = getByTestId('scrollbar');
+    const scrollbar = getByTestId("scrollbar");
 
     // Simulate mouse wheel event
     fireEvent.wheel(scrollbar, { deltaY: 50 });

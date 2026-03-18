@@ -1,10 +1,10 @@
-'use client';
-import Link from 'next/link';
-import React, { useEffect, useRef } from 'react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
-import { CategoryMouseEventHandler } from '@/components/layout/Header/types';
-import clsx from 'clsx';
-import { Skeleton } from '@/components/ui/skeleton';
+"use client";
+import Link from "next/link";
+import React, { useEffect, useRef } from "react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
+import { CategoryMouseEventHandler } from "@/components/layout/Header/types";
+import clsx from "clsx";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type NavbarLinksProps = {
   mouseOverHandler: CategoryMouseEventHandler;
@@ -39,9 +39,9 @@ const NavbarLinks = ({
     >
       <div
         className={clsx(
-          'inline-flex translate-y-1 transition-transform duration-300',
+          "inline-flex translate-y-1 transition-transform duration-300",
           {
-            'pt-3': navLinks.length === 0,
+            "pt-3": navLinks.length === 0,
           },
         )}
         style={{ transform: `translateX(${childOffset || 0}px)` }}
@@ -56,7 +56,7 @@ const NavbarLinks = ({
               className={clsx(
                 "relative top-[1px] inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
                 {
-                  'bg-gray-100 after:scale-x-100 dark:bg-zinc-800':
+                  "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
                     selectedHorizontalNavLink === link.name,
                 },
               )}

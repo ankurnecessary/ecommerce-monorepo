@@ -1,10 +1,10 @@
-import { ChevronRight } from 'lucide-react';
-import React from 'react';
-import NavbarMobileLink from '@/components/layout/Navbar/Mobile/NavbarMobileLink';
+import { ChevronRight } from "lucide-react";
+import React from "react";
+import NavbarMobileLink from "@/components/layout/Navbar/Mobile/NavbarMobileLink";
 import {
   MenuCategory,
   MenuSubCategory,
-} from '@/components/layout/Header/types';
+} from "@/components/layout/Header/types";
 
 type navbarMobileMenu = {
   links: MenuCategory[];

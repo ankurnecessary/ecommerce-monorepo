@@ -1,16 +1,16 @@
-'use client';
-import React, { createContext, useContext, useReducer } from 'react';
+"use client";
+import React, { createContext, useContext, useReducer } from "react";
 import {
   HeaderContext,
   ToggleMenu,
   SetNavbarElementsDsktp,
   SetNavbarOffsetDsktp,
   MenuCategory,
-} from '@/components/layout/Header/types';
+} from "@/components/layout/Header/types";
 import {
   headerReducer,
   headerInitialState,
-} from '@/components/layout/Header/Header.reducer';
+} from "@/components/layout/Header/Header.reducer";
 // [ ] Change type HeaderContext to HeaderContextType
 // Created header context
 export const headerContext = createContext<HeaderContext>({
@@ -18,11 +18,11 @@ export const headerContext = createContext<HeaderContext>({
   setNavLinks() {},
   desktop: {
     isMenuVisible: [false, {} as MenuCategory],
-    selectedHorizontalNavLink: '',
+    selectedHorizontalNavLink: "",
     setSelectedHorizontalNavLink() {},
-    selectedVerticalNavLink: '',
+    selectedVerticalNavLink: "",
     setSelectedVerticalNavLink() {},
-    verticalNavScrollToElementId: '',
+    verticalNavScrollToElementId: "",
     setVerticalNavScrollToElementId() {},
     toggleMenu() {},
     navbar: {
@@ -65,7 +65,7 @@ export const HeaderContextProvider = ({
    */
   const toggleMenu: ToggleMenu = (isMenuVisible, menuCategory) => {
     dispatchHeaderActions({
-      type: 'TOGGLE_MENU_DSKTP',
+      type: "TOGGLE_MENU_DSKTP",
       isMenuVisible,
       menuCategory,
     });
@@ -82,7 +82,7 @@ export const HeaderContextProvider = ({
     navbarChildDsktp,
   ) => {
     dispatchHeaderActions({
-      type: 'UPDATE_NAVBAR_ELEMENTS_DSKTP',
+      type: "UPDATE_NAVBAR_ELEMENTS_DSKTP",
       navbarParentDsktp,
       navbarChildDsktp,
     });
@@ -97,7 +97,7 @@ export const HeaderContextProvider = ({
     navbarChildOffsetDsktp,
   ) => {
     dispatchHeaderActions({
-      type: 'UPDATE_NAVBAR_OFFSET_DSKTP',
+      type: "UPDATE_NAVBAR_OFFSET_DSKTP",
       navbarChildOffsetDsktp,
     });
   };
@@ -109,7 +109,7 @@ export const HeaderContextProvider = ({
    */
   const setNavLinks = (navLinks: MenuCategory[]) => {
     dispatchHeaderActions({
-      type: 'SET_NAV_LINKS',
+      type: "SET_NAV_LINKS",
       navLinks,
     });
   };
@@ -121,7 +121,7 @@ export const HeaderContextProvider = ({
    */
   const setSelectedHorizontalNavLink = (category: string) => {
     dispatchHeaderActions({
-      type: 'SET_SELECTED_HORIZONTAL_NAV_LINK',
+      type: "SET_SELECTED_HORIZONTAL_NAV_LINK",
       menuCategory: category,
     });
   };
@@ -133,7 +133,7 @@ export const HeaderContextProvider = ({
    */
   const setSelectedVerticalNavLink = (category: string) => {
     dispatchHeaderActions({
-      type: 'SET_SELECTED_VERTICAL_NAV_LINK',
+      type: "SET_SELECTED_VERTICAL_NAV_LINK",
       menuCategory: category,
     });
   };
@@ -145,14 +145,14 @@ export const HeaderContextProvider = ({
    */
   const setVerticalNavScrollToElementId = (elementId: string) => {
     dispatchHeaderActions({
-      type: 'SET_VERTICAL_NAV_SCROLL_TO_ELEMENT_ID',
+      type: "SET_VERTICAL_NAV_SCROLL_TO_ELEMENT_ID",
       elementId,
     });
   };
 
   const toggleMobileMenu = (isMenuVisible: boolean) => {
     dispatchHeaderActions({
-      type: 'TOGGLE_MOBILE_MENU',
+      type: "TOGGLE_MOBILE_MENU",
       isMenuVisible,
     });
   };
@@ -194,7 +194,7 @@ export const useHeaderContext = () => {
   const context = useContext<HeaderContext>(headerContext);
   if (!context) {
     throw new Error(
-      'useHeaderContext must be used within a HeaderContextProvider',
+      "useHeaderContext must be used within a HeaderContextProvider",
     );
   }
   return context;

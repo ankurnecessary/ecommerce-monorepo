@@ -1,16 +1,16 @@
-import { Meta, StoryObj } from '@storybook/nextjs-vite';
-import NavbarMobile from '@/components/layout/Navbar/Mobile/NavbarMobile';
-import MockHeaderContextProvider from '@/components/layout/Header/Header.context.stories.mock';
-import { links } from '@/components/layout/Navbar/XnavbarLinkObj';
+import { Meta, StoryObj } from "@storybook/nextjs-vite";
+import NavbarMobile from "@/components/layout/Navbar/Mobile/NavbarMobile";
+import MockHeaderContextProvider from "@/components/layout/Header/Header.context.stories.mock";
+import { links } from "@/components/layout/Navbar/XnavbarLinkObj";
 
 const meta = {
-  title: 'components/layout/Navbar/Mobile/NavbarMobile',
+  title: "components/layout/Navbar/Mobile/NavbarMobile",
   component: NavbarMobile,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   globals: {
-    viewport: { value: 'mobile1', isRotated: false },
+    viewport: { value: "mobile1", isRotated: false },
   },
   decorators: [
     (Story, context) => {

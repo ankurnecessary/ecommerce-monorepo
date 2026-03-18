@@ -1,14 +1,14 @@
-import React from 'react';
-import { Mulish } from 'next/font/google';
-import Link from 'next/link';
-import { Navbar } from '@/components/layout';
-import NavbarMenu from '@/components/layout/Navbar/Desktop/NavbarMenu';
-import { HeaderContextProvider } from '@/components/layout/Header/Header.context';
-import { Search } from 'lucide-react';
-import { links } from '@/components/layout/Navbar/XnavbarLinkObj';
-import MobileHamburgerButton from '@/components/layout/Header/MobileHamburgerButton';
+import React from "react";
+import { Mulish } from "next/font/google";
+import Link from "next/link";
+import { Navbar } from "@/components/layout";
+import NavbarMenu from "@/components/layout/Navbar/Desktop/NavbarMenu";
+import { HeaderContextProvider } from "@/components/layout/Header/Header.context";
+import { Search } from "lucide-react";
+import { links } from "@/components/layout/Navbar/XnavbarLinkObj";
+import MobileHamburgerButton from "@/components/layout/Header/MobileHamburgerButton";
 const mulish = Mulish({
-  subsets: ['latin'],
+  subsets: ["latin"],
 });
 
 const Header = () => {
@@ -25,7 +25,7 @@ const Header = () => {
             <h1
               className={`${mulish.className} relative p-1 text-3xl font-bold uppercase`}
             >
-              <Link href={'/'}>Celeb</Link>
+              <Link href={"/"}>Celeb</Link>
             </h1>
           </div>
 

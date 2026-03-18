@@ -1,13 +1,13 @@
-import { Meta, StoryObj } from '@storybook/nextjs-vite';
-import NavbarMobileLink from '@/components/layout/Navbar/Mobile/NavbarMobileLink';
+import { Meta, StoryObj } from "@storybook/nextjs-vite";
+import NavbarMobileLink from "@/components/layout/Navbar/Mobile/NavbarMobileLink";
 
 const meta = {
-  title: 'components/layout/Navbar/Mobile/NavbarMobileLink',
+  title: "components/layout/Navbar/Mobile/NavbarMobileLink",
   component: NavbarMobileLink,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof NavbarMobileLink>;
 
 export default meta;
@@ -16,8 +16,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     link: {
-      url: '/menclothing',
-      name: 'Men Clothing',
+      url: "/menclothing",
+      name: "Men Clothing",
     },
   },
 };

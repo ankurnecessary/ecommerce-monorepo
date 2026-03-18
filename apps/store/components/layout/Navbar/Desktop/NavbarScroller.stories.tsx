@@ -1,15 +1,15 @@
-import { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { action } from 'storybook/actions';
-import NavbarScroller from '@/components/layout/Navbar/Desktop/NavbarScroller';
-import MockHeaderContextProvider from '@/components/layout/Header/Header.context.stories.mock';
-import { expect, waitFor } from 'storybook/test';
+import { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { action } from "storybook/actions";
+import NavbarScroller from "@/components/layout/Navbar/Desktop/NavbarScroller";
+import MockHeaderContextProvider from "@/components/layout/Header/Header.context.stories.mock";
+import { expect, waitFor } from "storybook/test";
 const meta = {
-  title: 'components/layout/Navbar/Desktop/NavbarScroller',
+  title: "components/layout/Navbar/Desktop/NavbarScroller",
   component: NavbarScroller,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   decorators: [
     (Story, context) => {
       const overrides = context?.parameters?.overrides || {};
@@ -42,16 +42,16 @@ export const Default: Story = {
             }),
           },
           childOffset: 0,
-          setNavbarOffsetDsktp: action('setNavbarOffsetDsktp'),
+          setNavbarOffsetDsktp: action("setNavbarOffsetDsktp"),
         },
       },
     },
   },
   play: async ({ canvas }) => {
-    const leftButton = await canvas.findByLabelText('left scroller');
+    const leftButton = await canvas.findByLabelText("left scroller");
     await expect(leftButton).toBeInTheDocument();
     await expect(leftButton).toBeDisabled();
-    const rightButton = await canvas.findByLabelText('right scroller');
+    const rightButton = await canvas.findByLabelText("right scroller");
     await expect(rightButton).toBeInTheDocument();
     await waitFor(() => expect(rightButton).toBeEnabled(), { timeout: 1000 });
   },
@@ -74,16 +74,16 @@ export const BothButtonsEnabled: Story = {
             }),
           },
           childOffset: -10,
-          setNavbarOffsetDsktp: action('setNavbarOffsetDsktp'),
+          setNavbarOffsetDsktp: action("setNavbarOffsetDsktp"),
         },
       },
     },
   },
   play: async ({ canvas }) => {
-    const leftButton = await canvas.findByLabelText('left scroller');
+    const leftButton = await canvas.findByLabelText("left scroller");
     await expect(leftButton).toBeInTheDocument();
     await expect(leftButton).toBeEnabled();
-    const rightButton = await canvas.findByLabelText('right scroller');
+    const rightButton = await canvas.findByLabelText("right scroller");
     await expect(rightButton).toBeInTheDocument();
     await expect(rightButton).toBeEnabled();
   },
@@ -106,16 +106,16 @@ export const OnlyLeftButtonEnabled: Story = {
             }),
           },
           childOffset: -1216,
-          setNavbarOffsetDsktp: action('setNavbarOffsetDsktp'),
+          setNavbarOffsetDsktp: action("setNavbarOffsetDsktp"),
         },
       },
     },
   },
   play: async ({ canvas }) => {
-    const leftButton = await canvas.findByLabelText('left scroller');
+    const leftButton = await canvas.findByLabelText("left scroller");
     await expect(leftButton).toBeInTheDocument();
     await expect(leftButton).toBeEnabled();
-    const rightButton = await canvas.findByLabelText('right scroller');
+    const rightButton = await canvas.findByLabelText("right scroller");
     await expect(rightButton).toBeInTheDocument();
     await waitFor(() => expect(rightButton).toBeDisabled(), { timeout: 1000 });
   },

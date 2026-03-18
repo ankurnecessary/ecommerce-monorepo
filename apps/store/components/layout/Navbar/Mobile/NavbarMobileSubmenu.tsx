@@ -1,6 +1,6 @@
-import React from 'react';
-import NavbarMobileLink from '@/components/layout/Navbar/Mobile/NavbarMobileLink';
-import { MenuSubCategory } from '@/components/layout/Header/types';
+import React from "react";
+import NavbarMobileLink from "@/components/layout/Navbar/Mobile/NavbarMobileLink";
+import { MenuSubCategory } from "@/components/layout/Header/types";
 
 type navbarMobileSubmenu = {
   subcategories: MenuSubCategory[];

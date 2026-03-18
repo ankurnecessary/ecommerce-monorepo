@@ -1,20 +1,20 @@
-'use client';
-import React from 'react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
+"use client";
+import React from "react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
   CategoryMouseEventHandler,
   HeaderContext,
   MenuCategory,
-} from '@/components/layout/Header/types';
-import VerticalScrollContainer from '@/components/custom-ui/VerticalScrollContainer';
-import clsx from 'clsx';
-import { ChevronRight } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { MEDIA_QUERIES } from '@/constants';
+} from "@/components/layout/Header/types";
+import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContainer";
+import clsx from "clsx";
+import { ChevronRight } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { MEDIA_QUERIES } from "@/constants";
 
 const NavbarSubcategories = dynamic(
-  () => import('@/components/layout/Navbar/Desktop/NavbarSubcategories'),
+  () => import("@/components/layout/Navbar/Desktop/NavbarSubcategories"),
   {
     ssr: false,
     loading: () => <div>Loading...</div>,
@@ -46,13 +46,13 @@ const NavbarMenu = () => {
     toggleMenu(true, category);
     if (selectedVerticalNavLink && !selectedHorizontalNavLink) return;
     setSelectedHorizontalNavLink(selectedHorizontalNavLink);
-    setSelectedVerticalNavLink(category?.name || '');
+    setSelectedVerticalNavLink(category?.name || "");
   };
 
   // Can be done by FP
   const menuMouseOutHandler = () => {
     toggleMenu(false, {} as MenuCategory);
-    setSelectedHorizontalNavLink('');
+    setSelectedHorizontalNavLink("");
   };
 
   const categoryMouseOverHandler: CategoryMouseEventHandler =
@@ -61,21 +61,21 @@ const NavbarMenu = () => {
 
       // Fetching link text from the link
       const link = e.currentTarget as HTMLAnchorElement;
-      const linkText = link.textContent?.trim() || '';
+      const linkText = link.textContent?.trim() || "";
 
       setSelectedVerticalNavLink(linkText);
       toggleMenu(true, category);
-      setVerticalNavScrollToElementId('');
+      setVerticalNavScrollToElementId("");
     };
 
   return (
     <div
       data-testid="navbar-menu"
       className={clsx(
-        'absolute z-0 flex h-96 w-full overflow-hidden bg-white transition-transform duration-300 dark:bg-zinc-700',
+        "absolute z-0 flex h-96 w-full overflow-hidden bg-white transition-transform duration-300 dark:bg-zinc-700",
         {
-          '-translate-y-full': !isVisible,
-          'shadow-2xl dark:shadow-zinc-500': isVisible,
+          "-translate-y-full": !isVisible,
+          "shadow-2xl dark:shadow-zinc-500": isVisible,
         },
       )}
       onMouseOver={menuMouseOverHandler}
@@ -92,9 +92,9 @@ const NavbarMenu = () => {
               key={link.id}
               id={`vertical-${link.id}`}
               className={clsx(
-                'flex w-full cursor-pointer justify-between px-2 py-3 text-xs',
+                "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
-                  'bg-gray-100 dark:bg-zinc-800':
+                  "bg-gray-100 dark:bg-zinc-800":
                     selectedVerticalNavLink === link.name,
                 },
               )}

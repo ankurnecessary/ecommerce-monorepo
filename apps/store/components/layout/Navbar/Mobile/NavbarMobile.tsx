@@ -1,16 +1,16 @@
-'use client';
-import React, { useState } from 'react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
+"use client";
+import React, { useState } from "react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
   HeaderContext,
   MenuSubCategory,
-} from '@/components/layout/Header/types';
-import { ChevronLeft, X } from 'lucide-react';
-import clsx from 'clsx';
-import dynamic from 'next/dynamic';
+} from "@/components/layout/Header/types";
+import { ChevronLeft, X } from "lucide-react";
+import clsx from "clsx";
+import dynamic from "next/dynamic";
 
 const NavbarMobileMenu = dynamic(
-  () => import('@/components/layout/Navbar/Mobile/NavbarMobileMenu'),
+  () => import("@/components/layout/Navbar/Mobile/NavbarMobileMenu"),
   {
     ssr: false,
     loading: () => <div className="p-2">Loading...</div>,
@@ -18,7 +18,7 @@ const NavbarMobileMenu = dynamic(
 );
 
 const NavbarMobileSubmenu = dynamic(
-  () => import('@/components/layout/Navbar/Mobile/NavbarMobileSubmenu'),
+  () => import("@/components/layout/Navbar/Mobile/NavbarMobileSubmenu"),
   {
     ssr: false,
     loading: () => <div className="p-2">Loading...</div>,
@@ -44,7 +44,7 @@ const NavbarMobile = () => {
       {/* Mobile Navbar */}
       <div
         data-testid="mobile-menu"
-        className={`fixed left-0 top-0 z-[1] h-full w-[300px] border-r border-gray-300 bg-white transition-transform duration-300 dark:border-gray-500 dark:bg-zinc-700 ${!isMenuVisible && '-translate-x-full'}`}
+        className={`fixed left-0 top-0 z-[1] h-full w-[300px] border-r border-gray-300 bg-white transition-transform duration-300 dark:border-gray-500 dark:bg-zinc-700 ${!isMenuVisible && "-translate-x-full"}`}
       >
         {/* START: Button to collapse main mobile menu */}
         <button
@@ -83,8 +83,8 @@ const NavbarMobile = () => {
         <div
           data-testid="mobile-submenu"
           className={clsx(
-            'absolute left-0 top-0 z-[2] mt-9 h-full w-full overflow-auto bg-white transition-transform duration-300 dark:bg-zinc-700',
-            { '-translate-x-full': !isSubMenuVisible },
+            "absolute left-0 top-0 z-[2] mt-9 h-full w-full overflow-auto bg-white transition-transform duration-300 dark:bg-zinc-700",
+            { "-translate-x-full": !isSubMenuVisible },
           )}
         >
           {isSubMenuVisible && (

@@ -1,8 +1,8 @@
-'use client';
-import React from 'react';
-import { Menu } from 'lucide-react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
-import { HeaderContext } from '@/components/layout/Header/types';
+"use client";
+import React from "react";
+import { Menu } from "lucide-react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
+import { HeaderContext } from "@/components/layout/Header/types";
 
 const MobileHamburgerButton = () => {
   const {

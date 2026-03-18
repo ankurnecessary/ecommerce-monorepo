@@ -1,11 +1,11 @@
-'use client';
-import clsx from 'clsx';
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+"use client";
+import clsx from "clsx";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import {
   ScrollWheelHandler,
   ThumbMouseDownHandler,
-} from '@/components/custom-ui/VerticalScrollContainer/types';
-import { syncThumbPosition, updateThumbHeight } from './utils';
+} from "@/components/custom-ui/VerticalScrollContainer/types";
+import { syncThumbPosition, updateThumbHeight } from "./utils";
 
 type VerticalScrollContainerProps = {
   children: React.ReactNode;
@@ -20,8 +20,8 @@ const VerticalScrollContainer = ({
   children,
   containerClassName,
   contentClassName,
-  scrollbarClassName = '',
-  thumbClassName = '',
+  scrollbarClassName = "",
+  thumbClassName = "",
   scrollToElementId,
 }: VerticalScrollContainerProps) => {
   const verticalScrollContainerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ const VerticalScrollContainer = ({
     if (targetElement) {
       content.scrollTo({
         top: targetElement.offsetTop - 60, // Adjust for any offset
-        behavior: 'smooth', // Enables smooth scrolling
+        behavior: "smooth", // Enables smooth scrolling
       });
       syncThumbPosition(
         verticalScrollContainerRef.current,
@@ -78,13 +78,13 @@ const VerticalScrollContainer = ({
     setStartY(e.clientY);
     const thumb = scrollbarThumbRef.current;
     if (thumb) {
-      setStartTop(parseFloat(thumb.style.top || '0'));
+      setStartTop(parseFloat(thumb.style.top || "0"));
     }
   };
 
   const documentMouseUpHandler = () => {
     setIsDragging(false);
-    document.body.style.userSelect = ''; // Re-enable text selection
+    document.body.style.userSelect = ""; // Re-enable text selection
   };
 
   const documentMouseMoveHandler = useCallback(
@@ -121,7 +121,7 @@ const VerticalScrollContainer = ({
     if (!container || !content || !thumb) return;
     updateThumbHeight(container, content, thumb);
     syncThumbPosition(container, content, thumb);
-    scrollTo(scrollToElementId || '');
+    scrollTo(scrollToElementId || "");
   }, [children, scrollToElementId, isOverflowing]);
 
   useEffect(() => {
@@ -148,11 +148,11 @@ const VerticalScrollContainer = ({
   useEffect(() => {
     const container = verticalScrollContainerRef.current;
     if (!container) return;
-    container.addEventListener('mouseup', documentMouseUpHandler);
-    container.addEventListener('mousemove', documentMouseMoveHandler);
+    container.addEventListener("mouseup", documentMouseUpHandler);
+    container.addEventListener("mousemove", documentMouseMoveHandler);
     return () => {
-      container.removeEventListener('mouseup', documentMouseUpHandler);
-      container.removeEventListener('mousemove', documentMouseMoveHandler);
+      container.removeEventListener("mouseup", documentMouseUpHandler);
+      container.removeEventListener("mousemove", documentMouseMoveHandler);
     };
   }, [documentMouseMoveHandler]);
 
@@ -162,7 +162,7 @@ const VerticalScrollContainer = ({
       role="group"
       aria-label="Vertical Scroll Container"
       className={clsx(
-        'group relative h-full overflow-hidden',
+        "group relative h-full overflow-hidden",
         containerClassName,
       )}
       ref={verticalScrollContainerRef}
@@ -170,7 +170,7 @@ const VerticalScrollContainer = ({
       {/* content */}
       <div
         className={clsx(
-          'h-full overflow-y-auto overflow-x-hidden scrollbar-none',
+          "h-full overflow-y-auto overflow-x-hidden scrollbar-none",
           contentClassName,
         )}
         ref={verticalScrollContentRef}
@@ -185,7 +185,7 @@ const VerticalScrollContainer = ({
         <div
           data-testid="scrollbar"
           className={clsx(
-            'absolute right-0 top-0 h-full w-2 bg-transparent',
+            "absolute right-0 top-0 h-full w-2 bg-transparent",
             scrollbarClassName,
           )}
           onWheel={scrollWheelHandler}
@@ -193,7 +193,7 @@ const VerticalScrollContainer = ({
           {/* thumb */}
           <div
             className={clsx(
-              'absolute top-0 min-h-5 w-full rounded-md bg-transparent group-hover:bg-gray-400 group-active:bg-gray-400',
+              "absolute top-0 min-h-5 w-full rounded-md bg-transparent group-hover:bg-gray-400 group-active:bg-gray-400",
               thumbClassName,
             )}
             ref={scrollbarThumbRef}

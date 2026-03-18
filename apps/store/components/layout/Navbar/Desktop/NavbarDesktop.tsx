@@ -1,18 +1,18 @@
-'use client';
-import React from 'react';
-import { useHeaderContext } from '@/components/layout/Header/Header.context';
+"use client";
+import React from "react";
+import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
   CategoryMouseEventHandler,
   HeaderContext,
   MenuCategory,
   NavbarMouseEvent,
-} from '@/components/layout/Header/types';
-import NavbarLinks from '@/components/layout/Navbar/Desktop/NavbarLinks';
-import NavbarScroller from '@/components/layout/Navbar/Desktop/NavbarScroller';
-import clsx from 'clsx';
-import { ChevronDown } from 'lucide-react';
-import { useMediaQuery } from '@/lib/hooks/useMediaQuery';
-import { MEDIA_QUERIES } from '@/constants';
+} from "@/components/layout/Header/types";
+import NavbarLinks from "@/components/layout/Navbar/Desktop/NavbarLinks";
+import NavbarScroller from "@/components/layout/Navbar/Desktop/NavbarScroller";
+import clsx from "clsx";
+import { ChevronDown } from "lucide-react";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { MEDIA_QUERIES } from "@/constants";
 // [x] Check how horizontal menu nav items are getting highlighted on hover on shien.com.
 // [x]: test-case: Check how horizontal menu nav items are getting highlighted on hover on shien.com.
 // [x]: test-case: Add test cases for the navbar menu flap's category section.
@@ -49,25 +49,25 @@ const NavbarDesktop = () => {
     (e) => {
       e.stopPropagation();
       toggleMenu(true, category);
-      setSelectedHorizontalNavLink(category.name || '');
-      setSelectedVerticalNavLink(category.name || '');
+      setSelectedHorizontalNavLink(category.name || "");
+      setSelectedVerticalNavLink(category.name || "");
       setVerticalNavScrollToElementId(
-        category.id ? `vertical-${category.id}` : '',
+        category.id ? `vertical-${category.id}` : "",
       );
     };
 
   const mouseOutHandler: CategoryMouseEventHandler =
     (category: MenuCategory) => () => {
       toggleMenu(false, category);
-      setSelectedHorizontalNavLink('');
+      setSelectedHorizontalNavLink("");
     };
 
   const categoryMouseOverHandler: NavbarMouseEvent = (e) => {
     e.stopPropagation();
     const link = e.target as HTMLAnchorElement;
     toggleMenu(true, navLinks[0]);
-    setSelectedHorizontalNavLink(link.textContent || '');
-    setSelectedVerticalNavLink(navLinks[0].name || '');
+    setSelectedHorizontalNavLink(link.textContent || "");
+    setSelectedVerticalNavLink(navLinks[0].name || "");
     setVerticalNavScrollToElementId(`vertical-${navLinks[0].id}`);
   };
 
@@ -79,8 +79,8 @@ const NavbarDesktop = () => {
           className={clsx(
             "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
             {
-              'bg-gray-100 after:scale-x-100 dark:bg-zinc-800':
-                selectedHorizontalNavLink === 'Categories',
+              "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
+                selectedHorizontalNavLink === "Categories",
             },
           )}
           onMouseOver={categoryMouseOverHandler}
@@ -89,9 +89,9 @@ const NavbarDesktop = () => {
           Categories
           <ChevronDown
             className={clsx(
-              'mb-[1px] ml-1 inline-block w-4 text-xs transition-transform duration-300',
+              "mb-[1px] ml-1 inline-block w-4 text-xs transition-transform duration-300",
               {
-                'rotate-180': selectedHorizontalNavLink === 'Categories',
+                "rotate-180": selectedHorizontalNavLink === "Categories",
               },
             )}
           />

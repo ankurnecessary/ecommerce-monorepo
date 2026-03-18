@@ -1,21 +1,21 @@
-import { headerContext } from '@/components/layout/Header/Header.context';
+import { headerContext } from "@/components/layout/Header/Header.context";
 import {
   HeaderContext,
   HeaderContextOverrides,
   MenuCategory,
-} from '@/components/layout/Header/types';
-import { merge } from 'lodash';
+} from "@/components/layout/Header/types";
+import { merge } from "lodash";
 
 const defaultContext: HeaderContext = {
   navLinks: [],
   setNavLinks: () => {},
   desktop: {
     isMenuVisible: [false, {} as MenuCategory],
-    selectedHorizontalNavLink: '',
+    selectedHorizontalNavLink: "",
     setSelectedHorizontalNavLink: () => {},
-    selectedVerticalNavLink: '',
+    selectedVerticalNavLink: "",
     setSelectedVerticalNavLink: () => {},
-    verticalNavScrollToElementId: '',
+    verticalNavScrollToElementId: "",
     setVerticalNavScrollToElementId: () => {},
     toggleMenu: () => {},
     navbar: {

@@ -1,25 +1,25 @@
-import { vi } from 'vitest';
+import { vi } from "vitest";
 import {
   HeaderContext,
   HeaderContextOverrides,
   MenuCategory,
-} from '@/components/layout/Header/types';
-import { merge } from 'lodash';
+} from "@/components/layout/Header/types";
+import { merge } from "lodash";
 
 export const mockUseHeaderContext = (
   overrides: HeaderContextOverrides = {},
 ): HeaderContext => {
   const defaultContext: HeaderContext = {
-    navLinks: [{ id: 'fkjffh1', url: '/newIn', name: 'New In' }],
+    navLinks: [{ id: "fkjffh1", url: "/newIn", name: "New In" }],
     setNavLinks: vi.fn(),
     desktop: {
       isMenuVisible: [false, {} as MenuCategory],
       toggleMenu: vi.fn(),
-      selectedHorizontalNavLink: '',
+      selectedHorizontalNavLink: "",
       setSelectedHorizontalNavLink: vi.fn(),
-      selectedVerticalNavLink: '',
+      selectedVerticalNavLink: "",
       setSelectedVerticalNavLink: vi.fn(),
-      verticalNavScrollToElementId: '',
+      verticalNavScrollToElementId: "",
       setVerticalNavScrollToElementId: vi.fn(),
       navbar: {
         parent: null,
