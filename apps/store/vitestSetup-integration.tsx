@@ -1,14 +1,14 @@
 import * as matchers from '@testing-library/jest-dom/matchers';
 import { afterAll, afterEach, beforeAll, expect, vi } from 'vitest';
 import React from 'react';
-import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
+// import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
 import { cleanup } from '@testing-library/react';
 import MatchMediaMock from 'vitest-matchmedia-mock';
 
 expect.extend(matchers);
 
 declare global {
-  // eslint-disable-next-line no-var
+   
   var matchMediaMock: MatchMediaMock;
 }
 
@@ -46,7 +46,7 @@ vi.mock('next/link', () => {
 vi.mock('next/image', () => ({
   __esModule: true,
   default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element
     return <img {...props} />;
   },
 }));

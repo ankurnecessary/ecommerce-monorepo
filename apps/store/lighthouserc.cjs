@@ -1,4 +1,6 @@
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
+const LIGHTHOUSE_CHROME_FLAGS = typeof process !== 'undefined' ? process.env.LIGHTHOUSE_CHROME_FLAGS : undefined;
+
 module.exports = {
   ci: {
     collect: {
@@ -10,9 +12,9 @@ module.exports = {
         // preset: 'desktop',
         emulatedFormFactor: 'mobile', // Aligns screen size and interaction model
         chromeFlags:
-          process.env.LIGHTHOUSE_CHROME_FLAGS || '--headless --disable-gpu --no-sandbox',
-        "port": 9222,
-        "disableStorageReset": true
+          LIGHTHOUSE_CHROME_FLAGS || '--headless --disable-gpu --no-sandbox',
+        port: 9222,
+        disableStorageReset: true
       },
     },
     upload: {

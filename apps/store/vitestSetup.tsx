@@ -8,7 +8,7 @@ import MatchMediaMock from 'vitest-matchmedia-mock';
 expect.extend(matchers);
 
 declare global {
-  // eslint-disable-next-line no-var
+   
   var matchMediaMock: MatchMediaMock;
 }
 
@@ -54,7 +54,7 @@ vi.mock('@/components/layout/Header/Header.context', () => ({
 vi.mock('next/image', () => ({
   __esModule: true,
   default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
-    // eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element
+    // eslint-disable-next-line @next/next/no-img-element
     return <img {...props} />;
   },
 }));
