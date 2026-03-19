@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:analyze": "cross-env ANALYZE=true pnpm run build",
+    "build:analyze": "cross-env ANALYZE=true pnpm --filter store build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
