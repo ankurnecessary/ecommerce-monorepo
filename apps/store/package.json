@@ -23,7 +23,8 @@
     "validate-html": "html-w3c-validator",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic --exit-zero-on-changes"
+    "chromatic": "chromatic --exit-zero-on-changes",
+    "check-types": "next typegen && tsc --noEmit" 
   },
   "dependencies": {
     "@next/bundle-analyzer": "^15.3.1",
