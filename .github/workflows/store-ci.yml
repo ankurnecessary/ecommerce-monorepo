@@ -4,7 +4,17 @@ on:
   pull_request:
     branches:
       - main
-
+    paths:
+      - "apps/store/**"
+      - "packages/eslint-config/**"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "turbo.json"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/store-ci.yml"
 jobs:
   validate-html:
     runs-on: ubuntu-latest
