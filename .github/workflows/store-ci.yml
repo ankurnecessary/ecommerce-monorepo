@@ -1,4 +1,4 @@
-name: Test and build
+name: Store:Test and build
 
 on:
   pull_request:

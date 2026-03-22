@@ -1,4 +1,4 @@
-name: Linting and Testing 
+name: API:Linting and Testing 
 
 on:
   pull_request:

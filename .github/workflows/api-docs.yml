@@ -1,4 +1,4 @@
-name: Deploy API Docs to GitHub Pages
+name: API:Deploy API Docs to GitHub Pages
 
 on:
   push:
