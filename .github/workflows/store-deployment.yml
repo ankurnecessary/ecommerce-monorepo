@@ -1,0 +1,105 @@
+name: Test, Build, and Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/store/**"
+      - "packages/eslint-config/**"
+      - "packages/typescript-config/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "turbo.json"
+      - ".nvmrc"
+      - ".github/actions/setup-node-pnpm/**"
+      - ".github/workflows/store-deployment.yml"
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run lint
+        run: pnpm --filter store lint
+
+      - name: Make build
+        run: pnpm --filter store run build
+
+      - name: Start Next.js Server
+        run: pnpm --filter store start &
+        env:
+          NODE_ENV: development
+
+      - name: Wait for Server to Start
+        run: pnpm --filter store exec wait-on http://localhost:3000
+
+      - name: Validate HTML
+        run: pnpm --filter store run validate-html
+  
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.53.1-noble
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run tests
+        run: pnpm --filter store run coverage
+
+  build:
+    runs-on: ubuntu-latest
+    needs: 
+      - test
+      - validate-html
+
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run lint
+        run: pnpm --filter store run lint
+
+      - name: Make build
+        run: pnpm --filter store run build
+
+      - name: Run lighthouse
+        run: |
+          pnpm install -g @lhci/cli@latest
+          pnpm --filter store run lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to Amplify
+        run: aws amplify start-job --app-id ${{ secrets.AWS_APP_ID }} --branch-name main --job-type RELEASE --region ${{ secrets.AWS_REGION }}
+

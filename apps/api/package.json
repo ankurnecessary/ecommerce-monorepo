@@ -8,7 +8,7 @@
     "dev-api": "concurrently \"pnpm watch-openapi\" \"pnpm dev:server\"",
     "dev:server": "tsx watch src/server.ts",
     "dev:debug": "dotenv -- nodemon --watch src --ext ts,json --signal SIGTERM --exec \"sh -lc 'test -n \\\"\\$PORT_DEBUG\\\" || { echo PORT_DEBUG is not set in .env; exit 1; }; node --inspect=0.0.0.0:\\$PORT_DEBUG --import tsx src/server.ts'\"",
-    "dev:docker": "sed -i \"s/^NODE_VERSION=.*/NODE_VERSION=$(cat .nvmrc)/\" .env && pnpm openapi && docker compose up --build",
+    "dev:docker": "sed -i \"s/^NODE_VERSION=.*/NODE_VERSION=$(cat ./../../.nvmrc)/\" .env && pnpm openapi && docker compose up --build",
     "dev": "SERVER_COMMAND=\"pnpm dev:debug\" pnpm dev:docker",
     "openapi": "tsx scripts/swagger/generate-openapi",
     "validate-openapi": "pnpm exec redocly lint openapi.yaml",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.1",
-    "@redocly/cli": "^2.20.4",
+    "@redocly/cli": "^2.24.0",
     "@repo/typescript-config": "workspace:*",
     "@types/bcrypt": "^6.0.0",
     "@types/cookie-parser": "^1.4.10",
@@ -47,6 +47,7 @@
     "ajv": "^8.18.0",
     "concurrently": "^9.2.1",
     "dotenv-cli": "^11.0.0",
+    "eslint": "^9.39.1",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^16.5.0",
     "nodemon": "^3.1.14",
@@ -54,8 +55,7 @@
     "swagger-jsdoc": "^6.2.8",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "yaml": "^2.8.2",
-    "eslint": "^9.39.1"
+    "yaml": "^2.8.2"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.4.2",

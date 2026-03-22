@@ -14,7 +14,7 @@ on:
       - "turbo.json"
       - ".nvmrc"
       - ".github/actions/setup-node-pnpm/**"
-      - ".github/workflows/ci.yml"
+      - ".github/workflows/api-ci.yml"
 
 jobs:
   openapi:
