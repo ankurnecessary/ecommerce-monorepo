@@ -56,7 +56,7 @@ jobs:
         uses: ./.github/actions/setup-node-pnpm
 
       - name: Run tests
-        run: pnpm --filter store coverage
+        run: pnpm --filter store test:coverage
 
   build:
     runs-on: ubuntu-latest
