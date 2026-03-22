@@ -1,0 +1,100 @@
+name: Test and build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run lint
+        run: pnpm --filter store lint
+
+      - name: Make build
+        run: pnpm --filter store build
+
+      - name: Start Next.js Server
+        run: pnpm --filter store start &
+        env:
+          NODE_ENV: development
+
+      - name: Wait for Server to Start
+        run: pnpm --filter store exec wait-on http://localhost:3000
+
+      - name: Validate HTML
+        run: pnpm --filter store validate-html
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.53.1-noble
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run tests
+        run: pnpm --filter store coverage
+
+  build:
+    runs-on: ubuntu-latest
+    needs: 
+      - validate-html
+      - test
+
+    steps:
+      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run lint
+        run: pnpm --filter store lint
+
+      - name: Make build
+        run: pnpm --filter store build
+
+      - name: Run lighthouse
+        run: |
+          pnpm install -g @lhci/cli@0.13.0
+          pnpm --filter store lighthouse
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  chromatic:
+    runs-on: ubuntu-latest
+    needs: 
+      - validate-html
+      - test
+      - build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitZeroOnChanges: false # 👈 Fail workflow if changes are found
+
