@@ -50,6 +50,8 @@ async function main(): Promise<void> {
           email: adminEmail,
           password: hashedPassword,
           role: "dashboardUser",
+          firstName: "Ankur",
+          lastName: "Gupta"
         },
       });
 
