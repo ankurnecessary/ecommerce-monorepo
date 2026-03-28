@@ -10,6 +10,7 @@ export const ERROR_MESSAGES = {
   INVALID_OR_EXPIRED_ACCESS_TOKEN: "Invalid or expired access token",
   INTERNAL_SERVER_ERROR: "Internal server error",
   INVALID_LOGIN_REQUEST: "Invalid login request",
+  INVALID_REGISTRATION_REQUEST: "Invalid registration request",
 } as const;
 
 export type ErrorMessages =
