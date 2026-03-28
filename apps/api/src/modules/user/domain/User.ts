@@ -1,4 +1,4 @@
-import { REGEX } from "@/shared/config/constants.js";
+import { REGEX, VALIDATION_ERROR_MESSAGES } from "@/shared/config/constants.js";
 
 export interface UserProps {
   id: string;
@@ -12,7 +12,8 @@ export class User {
 
   static create(props: UserProps): User {
     if (!REGEX.EMAIL.test(props.email)) {
-      throw new Error("Invalid email address");
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_EMAIL);
+    }
     }
 
     return new User({

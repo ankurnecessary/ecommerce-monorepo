@@ -8,7 +8,11 @@ import { TokenServiceJWT } from "./infrastructure/TokenServiceJWT.js";
 import { authConfig } from "./config/auth.config.js";
 import { logout } from "./application/logout.js";
 import { getRefreshToken } from "./auth.utility.js";
-import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
+import {
+  ERROR_CODES,
+  ERROR_MESSAGES,
+  MESSAGES,
+} from "@/shared/config/constants.js";
 import { HttpError } from "@/shared/errors/HttpError.js";
 
 // curl -i
@@ -125,5 +129,5 @@ export const refreshController = async (req: Request, res: Response) => {
     maxAge: Number(authConfig.refreshToken.expiresIn) * 1000,
   });
 
-  return res.status(200).json({ message: "Tokens refreshed" });
+  return res.status(200).json({ message: MESSAGES.TOKEN_REFRESHED });
 };
