@@ -14,6 +14,8 @@ export const MESSAGES = {
 } as const;
 
 export const VALIDATION_ERROR_MESSAGES = {
+  INVALID_FIRSTNAME_REQUIRED: "First name is required",
+  INVALID_LASTNAME_REQUIRED: "Last name is required",
   INVALID_EMAIL: "Invalid email address",
   INVALID_PASSWORD_REQUIRED: "Password is required",
   INVALID_PASSWORD_LENGTH: "Password must be at least 8 characters long",

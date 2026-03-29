@@ -10,8 +10,12 @@ import {
 
 // Validation for user registration data
 const RegisterBodySchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
+  firstName: z
+    .string()
+    .min(1, VALIDATION_ERROR_MESSAGES.INVALID_FIRSTNAME_REQUIRED),
+  lastName: z
+    .string()
+    .min(1, VALIDATION_ERROR_MESSAGES.INVALID_LASTNAME_REQUIRED),
   email: z.email(), // [ ] Check whether email become actually required
   password: z
     .string()
