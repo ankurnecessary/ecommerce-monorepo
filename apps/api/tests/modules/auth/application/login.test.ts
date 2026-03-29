@@ -24,7 +24,7 @@ describe("login", () => {
     try {
       await login(
         "missing@example.com",
-        "password",
+        "Password@123",
         userRepo,
         authRepo,
         hasher,
@@ -48,8 +48,10 @@ describe("login", () => {
   it("throws when password is invalid", async () => {
     const user = User.create({
       id: "user-1",
+      firstName: "First",
+      lastName: "Last",
       email: "user@example.com",
-      password: "hashed",
+      password: "Hashed@123",
       role: "customer",
     });
     const userRepo = {
@@ -85,15 +87,17 @@ describe("login", () => {
       );
     }
 
-    expect(hasher.compare).toHaveBeenCalledWith("bad-password", "hashed");
+    expect(hasher.compare).toHaveBeenCalledWith("bad-password", "Hashed@123");
     expect(authRepo.saveRefreshToken).not.toHaveBeenCalled();
   });
 
   it("returns tokens and saves refresh token when valid", async () => {
     const user = User.create({
       id: "user-1",
+      firstName: "First",
+      lastName: "Last",
       email: "user@example.com",
-      password: "hashed",
+      password: "Hashed@123",
       role: "customer",
     });
     const userRepo = {

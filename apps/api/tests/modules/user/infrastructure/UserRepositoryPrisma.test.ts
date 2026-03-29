@@ -35,8 +35,10 @@ describe("UserRepositoryPrisma", () => {
   it("returns a User when record exists", async () => {
     findUniqueMock.mockResolvedValue({
       id: "user-1",
+      firstName: "First",
+      lastName: "Last",
       email: "user@example.com",
-      password: "hashed",
+      password: "Hashed@123",
       role: "user",
       refreshToken: null,
       createdBy: null,
@@ -50,7 +52,7 @@ describe("UserRepositoryPrisma", () => {
     expect(result).toBeInstanceOf(User);
     expect(result?.id).toBe("user-1");
     expect(result?.email).toBe("user@example.com");
-    expect(result?.password).toBe("hashed");
+    expect(result?.password).toBe("Hashed@123");
     expect(result?.role).toBe("user");
   });
 });
