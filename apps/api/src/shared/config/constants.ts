@@ -29,6 +29,7 @@ export const VALIDATION_ERROR_MESSAGES = {
 } as const;
 
 export const ERROR_MESSAGES = {
+  DUPLICATE_EMAIL: "Email already exists",
   INVALID_CREDENTIALS: "Invalid credentials",
   MISSING_ACCESS_TOKEN: "Missing access token",
   INVALID_REFRESH_TOKEN: "Invalid refresh token",
