@@ -1,7 +1,7 @@
 import { REGEX, VALIDATION_ERROR_MESSAGES } from "@/shared/config/constants.js";
 
 export interface UserProps {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -43,7 +43,19 @@ export class User {
   }
 
   public get id(): string {
+    if (!this.props.id) {
+      throw new Error("User id is not set");
+    }
+
     return this.props.id;
+  }
+
+  public get firstName(): string {
+    return this.props.firstName;
+  }
+
+  public get lastName(): string {
+    return this.props.lastName;
   }
 
   public get email(): string {
