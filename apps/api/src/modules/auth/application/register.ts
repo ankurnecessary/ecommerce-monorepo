@@ -1,6 +1,8 @@
 import UserRepository from "@/modules/user/domain/UserRepository.js";
+import { User } from "@/modules/user/domain/User.js";
 import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
 import { HttpError } from "@/shared/errors/HttpError.js";
+import { PasswordHasher } from "./ports/PasswordHasher.js";
 
 export interface UserData {
   firstName: string;
@@ -12,6 +14,7 @@ export interface UserData {
 export const register = async (
   userData: UserData,
   userRepo: UserRepository,
+  hasher: Pick<PasswordHasher, "hash">,
 ) => {
   // Check for email duplication
   const user = await userRepo.findByEmail(userData.email);
@@ -23,5 +26,15 @@ export const register = async (
     );
   }
 
+  // Hash password
+  const password = await hasher.hash(userData.password);
+
+  const userToRegister = User.create({
+    ...userData,
+    password,
+    role: "store_user",
+  });
+
   // Save userData in User table of database
+  await userRepo.register(userToRegister);
 };
