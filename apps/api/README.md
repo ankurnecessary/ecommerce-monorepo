@@ -36,15 +36,25 @@ This project gives a boiler plate code for a node project with typescript. It ha
 
 ## Development
 
-Start development server and other utilities using command `pnpm dev:docker`. After that you can use following links to access respective utilities.
+Start development server and other utilities using command `pnpm dev`. After that you can use following links to access respective utilities.
 
 1. You can access APIs @ <http://localhost:5000/api/v1>.
 2. You can access swagger API documentation @ <http://localhost:8080/>
-3. You can access pgAdmin4 @ <http://localhost:8000/>.
+3. You can access pgAdmin4 @ <http://localhost:8000/>. Username: `admin@local.com`, password: `admin123`.
 
 ### How to generate auth or refresh token?
 
 `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
+
+### How to connect to dev DB in pgAdmin?
+
+This is a one time activity. You need to register dev DB with following details in pgAdmin.
+
+Host: db
+Port: 5432
+Username: postgres
+Password: postgres
+Database: ecommerce
 
 ## How to debug?
 
