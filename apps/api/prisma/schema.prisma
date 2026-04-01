@@ -15,16 +15,20 @@ datasource db {
 
 enum UserRole {
   dashboardUser
-  user
+  storeUser
 }
-// [ ]: Add refresh token field in DB
+
+
+/*
+1. If 'createdBy' and 'updatedBy' fields are  null that means it is a 'storeUser' whose data has never been updated by any dashboardUser.
+*/
 model User {
   id           String   @id @default(uuid())
   firstName    String   
   lastName     String   
   email        String   @unique
   password     String
-  role         UserRole @default(user)
+  role         UserRole @default(storeUser)
   refreshToken String?
   createdBy    String? // Actually not optional. Made optional because of seed.ts and for user registered via store
   creator      User?    @relation(name: "createdBy", fields: [createdBy], references: [id], onDelete: SetNull)
