@@ -14,7 +14,18 @@ import {
   MESSAGES,
 } from "@/shared/config/constants.js";
 import { HttpError } from "@/shared/errors/HttpError.js";
+import { register } from "./application/register.js";
 
+// curl -i
+// -X POST http://localhost:5000/api/v1/auth/register
+// -H "Content-Type: application/json"
+// -d '{"firstName": "Ankur", "lastName": "Gupta", "email": "admin1@ecommerce.com", "password": "Tes@t1234"}'
+export const registerController = async (req: Request, res: Response) => {
+  const userData = req.body;
+
+  await register(userData, UserRepositoryPrisma, PasswordHasherBcrypt);
+  res.status(200).json({ message: MESSAGES.SUCCESSFUL_USER_REGISTERED });
+};
 // curl -i
 //  -X POST http://localhost:5000/api/v1/auth/login
 //  -H "Content-Type: application/json"
