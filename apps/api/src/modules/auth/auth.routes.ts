@@ -3,10 +3,78 @@ import {
   loginController,
   logoutController,
   refreshController,
+  registerController,
 } from "./auth.controller.js";
-import { validateLoginBody } from "./auth.validation.js";
+import { validateLoginBody, validateRegisterBody } from "./auth.validation.js";
 
 const router = Router();
+
+/**
+ * @openapi
+ * /v1/auth/register:
+ *   post:
+ *     operationId: register
+ *     tags:
+ *       - Auth
+ *     summary: Register user
+ *     description: Creates a new user account.
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - email
+ *               - password
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 minLength: 1
+ *                 example: Ankur
+ *               lastName:
+ *                 type: string
+ *                 minLength: 1
+ *                 example: Gupta
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 minLength: 8
+ *                 example: YourP@ssword123
+ *                 description: Must include uppercase, lowercase, number, and special character.
+ *     responses:
+ *       200:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - message
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User registered successfully
+ *       400:
+ *         description: Invalid registration request body
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationErrorResponse'
+ *       409:
+ *         description: Email already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.post("/register", validateRegisterBody, registerController);
 
 /**
  * @openapi
