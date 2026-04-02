@@ -36,6 +36,9 @@ export class User {
         VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_SPECIAL_CHARACTER,
       );
     }
+    if (!props.role) {
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_ROLE_REQUIRED);
+    }
 
     return new User({
       ...props,

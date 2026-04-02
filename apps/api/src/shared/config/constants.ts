@@ -26,6 +26,7 @@ export const VALIDATION_ERROR_MESSAGES = {
   INVALID_PASSWORD_NUMBER: "Password must contain at least 1 number",
   INVALID_PASSWORD_SPECIAL_CHARACTER:
     "Password must contain at least 1 of !, @, #, $, %, ^, & or *",
+  INVALID_ROLE_REQUIRED: "Role is required",
 } as const;
 
 export const ERROR_MESSAGES = {
