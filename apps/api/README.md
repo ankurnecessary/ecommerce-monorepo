@@ -63,3 +63,18 @@ Database: ecommerce
 3. Select "Debug: Select and start debugging".
 4. Select "Attach to Docker: Node(9229)".
 5. Now start debugging as usual. You can put breakpoints now.
+
+## Prisma migration failure playbook
+
+Use this when `prisma migrate dev` fails and Prisma suggests a reset.
+
+1. Do not reset database. Because we can face the same issue while migrating to production.
+2. Understand why we are getting the error during migration.
+3. Undo failing migration. This is a 2 step process.
+   1. Delete last row in _prisma_migrations table.
+   2. Delete the last migration folder.
+4. Now run `prisma migrate dev --create-only`. This will not fire the migration on database and will create migration file only.
+5. Now sort the problem (found at step 2) by adding the custom SQL in the migration file created in step 4.
+6. Now run `prisma migrate dev` again to check and finalize the fix.
+
+Keep on repeating all the above steps till the time problem is not resolved. Most of the times issues are related to existing data and it needs modification in logical manner via custom SQL.
