@@ -4,15 +4,13 @@ import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
 import { HttpError } from "@/shared/errors/HttpError.js";
 import { PasswordHasher } from "./ports/PasswordHasher.js";
 
-export interface UserData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+export type UserRegistrationData = Pick<
+  User,
+  "firstName" | "lastName" | "email" | "password"
+>;
 
 export const register = async (
-  userData: UserData,
+  userData: UserRegistrationData,
   userRepo: UserRepository,
   hasher: Pick<PasswordHasher, "hash">,
 ) => {

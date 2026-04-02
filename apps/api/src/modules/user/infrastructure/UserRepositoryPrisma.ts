@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma.js";
+import { UserRegistrationData } from "@/modules/auth/application/register.js";
 import { User } from "@/modules/user/domain/User.js";
 import UserRepository from "@/modules/user/domain/UserRepository.js";
 
@@ -23,7 +24,7 @@ export const UserRepositoryPrisma: UserRepository = {
       role: record.role,
     });
   },
-  async register(userData: User) {
+  async register(userData: UserRegistrationData) {
     const record = await prisma.user.create({
       data: {
         firstName: userData.firstName,
