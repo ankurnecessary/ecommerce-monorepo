@@ -6,7 +6,7 @@ export interface UserProps {
   lastName: string;
   email: string;
   password: string;
-  role: string;
+  role?: string;
 }
 
 export class User {
@@ -35,9 +35,6 @@ export class User {
       throw new Error(
         VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_SPECIAL_CHARACTER,
       );
-    }
-    if (!props.role) {
-      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_ROLE_REQUIRED);
     }
 
     return new User({
@@ -70,6 +67,9 @@ export class User {
   }
 
   public get role(): string {
+    if (!this.props.role) {
+      throw new Error("Role is not set");
+    }
     return this.props.role;
   }
 }

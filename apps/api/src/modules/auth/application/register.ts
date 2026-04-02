@@ -32,7 +32,6 @@ export const register = async (
   const userToRegister = User.create({
     ...userData,
     password,
-    role: "store_user",
   });
 
   // Save userData in User table of database

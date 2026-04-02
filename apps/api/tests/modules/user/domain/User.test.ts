@@ -137,19 +137,6 @@ describe("User", () => {
     ).toThrow(VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_SPECIAL_CHARACTER);
   });
 
-  it("throws when role is missing", () => {
-    expect(() =>
-      User.create({
-        id: "user-1",
-        firstName: "First",
-        lastName: "Last",
-        email: "user@example.com",
-        password: "Secre@trrr123",
-        role: "",
-      }),
-    ).toThrow(VALIDATION_ERROR_MESSAGES.INVALID_ROLE_REQUIRED);
-  });
-
   it("returns firstName from getter", () => {
     const user = User.create({
       firstName: "First",
