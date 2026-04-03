@@ -142,4 +142,39 @@ describe("login", () => {
       refreshToken: "refresh-token",
     });
   });
+
+  it("rethrows when saving the refresh token fails", async () => {
+    const user = User.create({
+      id: "user-1",
+      firstName: "First",
+      lastName: "Last",
+      email: "user@example.com",
+      password: "Hashed@123",
+      role: "customer",
+    });
+    const userRepo = {
+      findByEmail: vi.fn().mockResolvedValue(user),
+    };
+    const authRepo = {
+      saveRefreshToken: vi.fn().mockRejectedValue(new Error("Save failed")),
+    };
+    const hasher = {
+      compare: vi.fn().mockResolvedValue(true),
+    };
+    const tokenService = {
+      generateAccessToken: vi.fn().mockReturnValue("access-token"),
+      generateRefreshToken: vi.fn().mockReturnValue("refresh-token"),
+    };
+
+    await expect(
+      login(
+        "user@example.com",
+        "password",
+        userRepo,
+        authRepo,
+        hasher,
+        tokenService,
+      ),
+    ).rejects.toThrow("Save failed");
+  });
 });
