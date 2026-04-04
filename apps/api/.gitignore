@@ -136,3 +136,7 @@ docs
 
 # Prisma generated files
 src/generated
+
+# Local database backup artifacts
+db-backup/*
+!db-backup/.gitkeep

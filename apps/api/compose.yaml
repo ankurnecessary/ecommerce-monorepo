@@ -79,6 +79,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin123
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+      - ./db-backup:/var/lib/pgadmin/storage
 
 volumes:
   pgdata:

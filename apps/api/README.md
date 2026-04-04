@@ -78,3 +78,27 @@ Use this when `prisma migrate dev` fails and Prisma suggests a reset.
 6. Now run `prisma migrate dev` again to check and finalize the fix.
 
 Keep on repeating all the above steps till the time problem is not resolved. Most of the times issues are related to existing data and it needs modification in logical manner via custom SQL.
+
+## pgAdmin backup storage
+
+pgAdmin runs inside Docker as the `pgadmin` user (UID/GID `5050`). This project mounts
+[`apps/api/db-backup`](turborepo/apps/api/db-backup) into the
+container so database backup files are available on the host machine.
+
+To avoid future permission issues, run this one-time setup after cloning the repo:
+
+1. `mkdir -p apps/api/db-backup`
+2. `sudo chown -R 5050:5050 apps/api/db-backup`
+3. `sudo chmod -R u+rwX,g+rwX apps/api/db-backup`
+4. `docker compose -f apps/api/compose.yaml up -d --force-recreate pgadmin`
+
+After that, pgAdmin backups will be written under a user-specific folder such as:
+
+1. `apps/api/db-backup/admin_local.com`
+
+If you need to inspect or restore a backup from the terminal, you may also want temporary
+read access for your host user:
+
+1. `sudo chown -R "$USER:$USER" apps/api/db-backup`
+
+If you do that, re-run the one-time setup above before using pgAdmin backup/restore again.
