@@ -47,7 +47,7 @@ const router = Router();
  *                 type: string
  *                 minLength: 8
  *                 example: YourP@ssword123
- *                 description: Must include uppercase, lowercase, number, and special character.
+ *                 description: Must include atleast 1 uppercase, 1 lowercase, 1 number, and 1 special character.
  *     responses:
  *       200:
  *         description: User registered successfully
