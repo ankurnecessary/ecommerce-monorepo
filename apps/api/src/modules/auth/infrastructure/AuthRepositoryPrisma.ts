@@ -17,6 +17,8 @@ export const AuthRepositoryPrisma: AuthRepository = {
 
     return User.create({
       id: record.id,
+      firstName: record.firstName,
+      lastName: record.lastName,
       email: record.email,
       password: record.password,
       role: record.role,

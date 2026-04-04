@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
+import { ERROR_CODES, ERROR_MESSAGES, MESSAGES } from "@/shared/config/constants.js";
 
 vi.mock("@/modules/auth/application/login.js", () => ({
   login: vi.fn(),
@@ -11,6 +11,10 @@ vi.mock("@/modules/auth/application/logout.js", () => ({
 
 vi.mock("@/modules/auth/application/refresh.js", () => ({
   refresh: vi.fn(),
+}));
+
+vi.mock("@/modules/auth/application/register.js", () => ({
+  register: vi.fn(),
 }));
 
 vi.mock("@/modules/auth/config/auth.config.js", () => ({
@@ -48,6 +52,8 @@ import type { Request, Response } from "express";
 let login: typeof import("@/modules/auth/application/login.js").login;
 let logout: typeof import("@/modules/auth/application/logout.js").logout;
 let refresh: typeof import("@/modules/auth/application/refresh.js").refresh;
+let register: typeof import("@/modules/auth/application/register.js").register;
+let registerController: typeof import("@/modules/auth/auth.controller.js").registerController;
 let loginController: typeof import("@/modules/auth/auth.controller.js").loginController;
 let logoutController: typeof import("@/modules/auth/auth.controller.js").logoutController;
 let refreshController: typeof import("@/modules/auth/auth.controller.js").refreshController;
@@ -67,14 +73,43 @@ describe("auth.controller", () => {
     const loginModule = await import("@/modules/auth/application/login.js");
     const logoutModule = await import("@/modules/auth/application/logout.js");
     const refreshModule = await import("@/modules/auth/application/refresh.js");
+    const registerModule = await import("@/modules/auth/application/register.js");
     const controllerModule = await import("@/modules/auth/auth.controller.js");
 
     login = loginModule.login;
     logout = logoutModule.logout;
     refresh = refreshModule.refresh;
+    register = registerModule.register;
+    registerController = controllerModule.registerController;
     loginController = controllerModule.loginController;
     logoutController = controllerModule.logoutController;
     refreshController = controllerModule.refreshController;
+  });
+
+  it("registers a user and returns success message", async () => {
+    const req = {
+      body: {
+        firstName: "First",
+        lastName: "Last",
+        email: "user@example.com",
+        password: "Password@123",
+      },
+    } as Request;
+    const res = createRes();
+    const registerMock = register as unknown as ReturnType<typeof vi.fn>;
+    registerMock.mockResolvedValue(undefined);
+
+    await registerController(req, res);
+
+    expect(register).toHaveBeenCalledWith(
+      req.body,
+      expect.any(Object),
+      expect.any(Object),
+    );
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      message: MESSAGES.SUCCESSFUL_USER_REGISTERED,
+    });
   });
 
   it("sets cookies and returns user on login", async () => {
@@ -111,6 +146,32 @@ describe("auth.controller", () => {
     expect(res.json).toHaveBeenCalledWith({
       id: "user-1",
       username: "user@example.com",
+    });
+  });
+
+  it("returns token payload directly for login json mode", async () => {
+    const req = {
+      body: { username: "user@example.com", password: "password" },
+      query: { mode: "json" },
+    } as unknown as Request;
+    const res = createRes();
+    const loginMock = login as unknown as ReturnType<typeof vi.fn>;
+    loginMock.mockResolvedValue({
+      id: "user-1",
+      username: "user@example.com",
+      accessToken: "access-token",
+      refreshToken: "refresh-token",
+    });
+
+    await loginController(req, res);
+
+    expect(res.cookie).not.toHaveBeenCalled();
+    expect(res.status).not.toHaveBeenCalled();
+    expect(res.json).toHaveBeenCalledWith({
+      id: "user-1",
+      username: "user@example.com",
+      accessToken: "access-token",
+      refreshToken: "refresh-token",
     });
   });
 
@@ -181,6 +242,29 @@ describe("auth.controller", () => {
     );
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({ message: "Tokens refreshed" });
+  });
+
+  it("returns refreshed token in JSON when header token mode is used", async () => {
+    const req = {
+      cookies: { refreshToken: "refresh-token" },
+      header: vi.fn((name: string) =>
+        name.toLowerCase() === "x-refresh-token" ? "refresh-token" : undefined,
+      ),
+    } as unknown as Request;
+    const res = createRes();
+    const refreshMock = refresh as unknown as ReturnType<typeof vi.fn>;
+    refreshMock.mockResolvedValue({
+      accessToken: "new-access-token",
+      refreshToken: "new-refresh-token",
+    });
+
+    await refreshController(req, res);
+
+    expect(res.cookie).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      refreshToken: "new-refresh-token",
+    });
   });
 
   it("returns 401 when refresh token is invalid", async () => {

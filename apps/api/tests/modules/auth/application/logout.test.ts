@@ -46,4 +46,22 @@ describe("logout", () => {
 
     expect(authRepo.clearRefreshTokenIfExists).toHaveBeenCalledWith("user-1");
   });
+
+  it("rethrows when clearing the refresh token fails", async () => {
+    const authRepo = {
+      clearRefreshTokenIfExists: vi
+        .fn()
+        .mockRejectedValue(new Error("Clear failed")),
+    };
+    const tokenService = {
+      verifyRefreshToken: vi.fn().mockReturnValue({
+        id: "user-1",
+        email: "user@example.com",
+      }),
+    };
+
+    await expect(logout("refresh-token", authRepo, tokenService)).rejects.toThrow(
+      "Clear failed",
+    );
+  });
 });

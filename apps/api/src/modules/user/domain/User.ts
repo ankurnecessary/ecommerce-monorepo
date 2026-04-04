@@ -1,18 +1,40 @@
-import { REGEX } from "@/shared/config/constants.js";
+import { REGEX, VALIDATION_ERROR_MESSAGES } from "@/shared/config/constants.js";
 
 export interface UserProps {
-  id: string;
+  id?: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  role: string;
+  role?: string;
 }
 
 export class User {
   private constructor(private readonly props: UserProps) {}
 
   static create(props: UserProps): User {
+    if (!props.firstName) {
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_FIRSTNAME_REQUIRED);
+    }
+    if (!props.lastName) {
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_LASTNAME_REQUIRED);
+    }
     if (!REGEX.EMAIL.test(props.email)) {
-      throw new Error("Invalid email address");
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_EMAIL);
+    }
+    if (!REGEX.PASSWORD.LOWERCASE.test(props.password)) {
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_LOWERCASE);
+    }
+    if (!REGEX.PASSWORD.UPPERCASE.test(props.password)) {
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_UPPERCASE);
+    }
+    if (!REGEX.PASSWORD.NUMBER.test(props.password)) {
+      throw new Error(VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_NUMBER);
+    }
+    if (!REGEX.PASSWORD.SPECIAL_CHARACTER.test(props.password)) {
+      throw new Error(
+        VALIDATION_ERROR_MESSAGES.INVALID_PASSWORD_SPECIAL_CHARACTER,
+      );
     }
 
     return new User({
@@ -21,7 +43,19 @@ export class User {
   }
 
   public get id(): string {
+    if (!this.props.id) {
+      throw new Error("User id is not set");
+    }
+
     return this.props.id;
+  }
+
+  public get firstName(): string {
+    return this.props.firstName;
+  }
+
+  public get lastName(): string {
+    return this.props.lastName;
   }
 
   public get email(): string {
@@ -33,6 +67,9 @@ export class User {
   }
 
   public get role(): string {
+    if (!this.props.role) {
+      throw new Error("Role is not set");
+    }
     return this.props.role;
   }
 }

@@ -36,15 +36,25 @@ This project gives a boiler plate code for a node project with typescript. It ha
 
 ## Development
 
-Start development server and other utilities using command `pnpm dev:docker`. After that you can use following links to access respective utilities.
+Start development server and other utilities using command `pnpm dev`. After that you can use following links to access respective utilities.
 
 1. You can access APIs @ <http://localhost:5000/api/v1>.
 2. You can access swagger API documentation @ <http://localhost:8080/>
-3. You can access pgAdmin4 @ <http://localhost:8000/>.
+3. You can access pgAdmin4 @ <http://localhost:8000/>. Username: `admin@local.com`, password: `admin123`.
 
 ### How to generate auth or refresh token?
 
 `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
+
+### How to connect to dev DB in pgAdmin?
+
+This is a one time activity. You need to register dev DB with following details in pgAdmin.
+
+Host: db
+Port: 5432
+Username: postgres
+Password: postgres
+Database: ecommerce
 
 ## How to debug?
 
@@ -53,3 +63,18 @@ Start development server and other utilities using command `pnpm dev:docker`. Af
 3. Select "Debug: Select and start debugging".
 4. Select "Attach to Docker: Node(9229)".
 5. Now start debugging as usual. You can put breakpoints now.
+
+## Prisma migration failure playbook
+
+Use this when `prisma migrate dev` fails and Prisma suggests a reset.
+
+1. Do not reset database. Because we can face the same issue while migrating to production.
+2. Understand why we are getting the error during migration.
+3. Undo failing migration. This is a 2 step process.
+   1. Delete last row in _prisma_migrations table.
+   2. Delete the last migration folder.
+4. Now run `prisma migrate dev --create-only`. This will not fire the migration on database and will create migration file only.
+5. Now sort the problem (found at step 2) by adding the custom SQL in the migration file created in step 4.
+6. Now run `prisma migrate dev` again to check and finalize the fix.
+
+Keep on repeating all the above steps till the time problem is not resolved. Most of the times issues are related to existing data and it needs modification in logical manner via custom SQL.

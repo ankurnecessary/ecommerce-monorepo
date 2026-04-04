@@ -48,7 +48,9 @@ describe("AuthRepositoryPrisma", () => {
     updateMock.mockResolvedValue({
       id: "user-1",
       email: "user@example.com",
-      password: "hashed",
+      firstName: "First",
+      lastName: "Last",
+      password: "Hashed@123",
       role: "customer",
       refreshToken: null,
       createdBy: null,

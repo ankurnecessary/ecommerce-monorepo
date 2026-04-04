@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 vi.mock("bcrypt", () => ({
   default: {
     compare: vi.fn(),
+    hash: vi.fn(),
   },
 }));
 
@@ -18,5 +19,15 @@ describe("PasswordHasherBcrypt", () => {
 
     expect(compareMock).toHaveBeenCalledWith("plain", "hashed");
     expect(result).toBe(true);
+  });
+
+  it("delegates to bcrypt.hash", async () => {
+    const hashMock = bcrypt.hash as unknown as ReturnType<typeof vi.fn>;
+    hashMock.mockResolvedValue("hashed-password");
+
+    const result = await PasswordHasherBcrypt.hash("plain-password");
+
+    expect(hashMock).toHaveBeenCalledWith("plain-password", 10);
+    expect(result).toBe("hashed-password");
   });
 });
