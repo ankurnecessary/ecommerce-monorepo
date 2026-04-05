@@ -103,7 +103,12 @@ jobs:
 
       - name: Read Node version
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
-      
+
+      - name: Write Aiven CA cert for Docker build
+        run: |
+          mkdir -p apps/api/prisma
+          echo "${{ secrets.AIVEN_CA_CERT }}" > apps/api/prisma/ca.pem
+
       - name: Building a new docker image using Dockerfile.prod
         run: |
           docker buildx build \
@@ -125,3 +130,7 @@ jobs:
 
       - name: Updating AWS Lambda function
         run: aws lambda update-function-code --function-name ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }} --image-uri ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.AWS_LAMBDA_FUNCTION_NAME }}:latest --publish
+      
+      - name: Remove generated CA cert
+        if: always()
+        run: rm -f apps/api/prisma/ca.pem

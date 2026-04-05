@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 # Define color codes
 GREEN='\033[0;32m'
