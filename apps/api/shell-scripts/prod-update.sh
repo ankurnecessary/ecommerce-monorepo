@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Define color codes
 GREEN='\033[0;32m'
@@ -25,6 +26,8 @@ if [ -f .env ]; then
 fi
 
 DATABASE_URL_VALUE="${DATABASE_URL_PROD:-$DATABASE_URL}"
+LAMBDA_TIMEOUT_VALUE="${AWS_LAMBDA_TIMEOUT:-15}"
+LAMBDA_MEMORY_SIZE_VALUE="${AWS_LAMBDA_MEMORY_SIZE:-512}"
 ENV_VARS_FILE=$(mktemp)
 trap 'rm -f "$ENV_VARS_FILE"' EXIT
 
@@ -70,9 +73,16 @@ aws lambda update-function-code \
 --publish
 echo -e "${GREEN}***AWS Lambda function updated sucessfully***${NC}"
 
+echo -e "${BLUE}***Waiting for AWS Lambda code update to finish***${NC}"
+aws lambda wait function-updated \
+--function-name $AWS_LAMBDA_FUNCTION_NAME
+echo -e "${GREEN}***AWS Lambda code update finished***${NC}"
+
 # Updating Lambda environment variables
 echo -e "${BLUE}***Updating AWS Lambda configuration***${NC}"
 aws lambda update-function-configuration \
 --function-name $AWS_LAMBDA_FUNCTION_NAME \
+--timeout $LAMBDA_TIMEOUT_VALUE \
+--memory-size $LAMBDA_MEMORY_SIZE_VALUE \
 --environment file://$ENV_VARS_FILE
 echo -e "${GREEN}***AWS Lambda configuration updated sucessfully***${NC}"

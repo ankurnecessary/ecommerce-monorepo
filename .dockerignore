@@ -8,3 +8,5 @@
 **/.env.*
 **/.pnpm-store
 **/.DS_Store
+apps/api/db-backup
+apps/api/db-backup/**

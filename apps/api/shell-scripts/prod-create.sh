@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Define color codes
 GREEN='\033[0;32m'
@@ -25,6 +26,8 @@ if [ -f .env ]; then
 fi
 
 DATABASE_URL_VALUE="${DATABASE_URL_PROD:-$DATABASE_URL}"
+LAMBDA_TIMEOUT_VALUE="${AWS_LAMBDA_TIMEOUT:-15}"
+LAMBDA_MEMORY_SIZE_VALUE="${AWS_LAMBDA_MEMORY_SIZE:-512}"
 ENV_VARS_FILE=$(mktemp)
 trap 'rm -f "$ENV_VARS_FILE"' EXIT
 
@@ -86,5 +89,7 @@ aws lambda create-function \
   --package-type Image \
   --code ImageUri=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_LAMBDA_FUNCTION_NAME:latest \
   --role arn:aws:iam::$AWS_ACCOUNT_ID:role/lambda-ex \
+  --timeout $LAMBDA_TIMEOUT_VALUE \
+  --memory-size $LAMBDA_MEMORY_SIZE_VALUE \
   --environment file://$ENV_VARS_FILE
 echo -e "${GREEN}***AWS Lamda function created sucessfully***${NC}"
