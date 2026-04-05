@@ -24,6 +24,24 @@ if [ -f .env ]; then
     export $(cat .env | sed 's/#.*//g' | xargs)
 fi
 
+DATABASE_URL_VALUE="${DATABASE_URL_PROD:-$DATABASE_URL}"
+ENV_VARS_FILE=$(mktemp)
+trap 'rm -f "$ENV_VARS_FILE"' EXIT
+
+cat > "$ENV_VARS_FILE" <<EOF
+{
+  "Variables": {
+    "NODE_ENV": "production",
+    "DATABASE_URL": "$DATABASE_URL_VALUE",
+    "CORS_ORIGINS": "$CORS_ORIGINS",
+    "AUTH_ACCESS_TOKEN_SECRET": "$AUTH_ACCESS_TOKEN_SECRET",
+    "AUTH_REFRESH_TOKEN_SECRET": "$AUTH_REFRESH_TOKEN_SECRET",
+    "AUTH_ACCESS_TOKEN_TTL": "$AUTH_ACCESS_TOKEN_TTL",
+    "AUTH_REFRESH_TOKEN_TTL": "$AUTH_REFRESH_TOKEN_TTL"
+  }
+}
+EOF
+
 # Building a new docker image using docker file `Dockerfile.prod`
 echo -e "${BLUE}***Building a new docker image using Dockerfile.prod***${NC}"
 docker buildx build --platform linux/amd64 --provenance=false -t ecommerce-api-prod:latest -f Dockerfile.prod ../..
@@ -67,5 +85,6 @@ aws lambda create-function \
   --function-name $AWS_LAMBDA_FUNCTION_NAME \
   --package-type Image \
   --code ImageUri=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_LAMBDA_FUNCTION_NAME:latest \
-  --role arn:aws:iam::$AWS_ACCOUNT_ID:role/lambda-ex
+  --role arn:aws:iam::$AWS_ACCOUNT_ID:role/lambda-ex \
+  --environment file://$ENV_VARS_FILE
 echo -e "${GREEN}***AWS Lamda function created sucessfully***${NC}"

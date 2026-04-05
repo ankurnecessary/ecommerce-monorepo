@@ -12,7 +12,7 @@ This project gives a boiler plate code for a node project with typescript. It ha
 
 ## Documentation
 
-1. [API Documentation](https://ankurnecessary.github.io/ecommerce-backend/)
+1. [API Documentation](https://ankurnecessary.github.io/ecommerce-monorepo/)
 
 ## PNPM Scripts
 
