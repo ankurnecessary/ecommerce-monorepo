@@ -34,6 +34,8 @@ export const registerController = async (req: Request, res: Response) => {
 export const loginController = async (req: Request, res: Response) => {
   const { username: email, password } = req.body;
 
+  console.log("Auth login started", { email });
+
   const result = await login(
     email,
     password,
@@ -42,6 +44,8 @@ export const loginController = async (req: Request, res: Response) => {
     PasswordHasherBcrypt,
     TokenServiceJWT,
   );
+
+  console.log("Auth login succeeded", { email, userId: result.id });
 
   // For swagger
   const mode = typeof req.query?.mode === "string" ? req.query.mode : undefined;

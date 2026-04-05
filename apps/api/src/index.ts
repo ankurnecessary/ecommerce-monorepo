@@ -21,6 +21,7 @@ type LambdaEventLike = {
 
 type LambdaContextLike = {
   awsRequestId?: string;
+  callbackWaitsForEmptyEventLoop?: boolean;
 };
 
 function getStatusCode(response: unknown): number | null {
@@ -41,6 +42,10 @@ export const handler = async (
   event: LambdaEventLike,
   context: LambdaContextLike,
 ) => {
+  // Prisma/Postgres keeps sockets open between invocations. In Lambda we want to
+  // reuse those connections without blocking the current response.
+  context.callbackWaitsForEmptyEventLoop = false;
+
   const requestContext = event?.requestContext;
 
   console.log("Lambda request received", {

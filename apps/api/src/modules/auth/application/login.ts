@@ -17,6 +17,7 @@ export const login = async (
   hasher: Pick<PasswordHasher, "compare">,
   tokenService: LogoutTokenService,
 ) => {
+  console.log("Auth login lookup user started", { email });
   const user = await userRepo.findByEmail(email);
   if (!user) {
     throw new HttpError(
@@ -26,6 +27,10 @@ export const login = async (
     );
   }
 
+  console.log("Auth login password verification started", {
+    email,
+    userId: user.id,
+  });
   const isPasswordValid = await hasher.compare(password, user.password);
   if (!isPasswordValid)
     throw new HttpError(
@@ -35,9 +40,18 @@ export const login = async (
     );
 
   const userId = user.id;
+  console.log("Auth login token generation started", { email, userId });
   const accessToken = tokenService.generateAccessToken(user.id, user.email);
   const refreshToken = tokenService.generateRefreshToken(user.id, user.email);
+  console.log("Auth login refresh token persistence started", {
+    email,
+    userId,
+  });
   await authRepo.saveRefreshToken(userId, refreshToken);
+  console.log("Auth login refresh token persistence finished", {
+    email,
+    userId,
+  });
 
   return {
     id: userId,
