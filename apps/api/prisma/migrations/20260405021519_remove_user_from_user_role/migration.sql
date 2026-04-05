@@ -14,6 +14,3 @@ ALTER TYPE "UserRole_new" RENAME TO "UserRole";
 DROP TYPE "public"."UserRole_old";
 ALTER TABLE "User" ALTER COLUMN "role" SET DEFAULT 'storeUser';
 COMMIT;
-
--- AlterTable
-ALTER TABLE "User" ALTER COLUMN "role" SET DEFAULT 'storeUser';
