@@ -14,7 +14,7 @@
     "validate-openapi": "pnpm exec redocly lint openapi.yaml",
     "validate-openapi:local": "pnpm exec redocly lint openapi.yaml --skip-rule no-server-example.com",
     "watch-openapi": "nodemon --watch src --ext ts,json --exec pnpm openapi",
-    "static-api-doc": "pnpm exec redocly build-docs openapi.yaml -o docs/index.html",
+    "static-api-doc": "pnpm exec redocly build-docs openapi.yaml -o docs/api-doc/index.html",
     "reset:db": "prisma migrate reset && pnpm prisma db seed",
     "build": "tsc && node scripts/rewrite-dist-aliases.mjs",
     "start": "node dist/server.js",
