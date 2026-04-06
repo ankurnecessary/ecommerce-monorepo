@@ -13,6 +13,10 @@ Chromatic library - [Click here to see the Chromatic library](https://www.chroma
 3. TailwindCSS
 4. Storybook
 
+## Font Icons
+
+You can search for the font icons that you want to use in the project at [lucid-react](https://lucide.dev/icons/)
+
 ## AWS
 
 Deployed this application on AWS Amplify with the help of CI. You can checkout the github workflow files @ <https://github.com/ankurnecessary/ecommerce/blob/main/.github/workflows/main.yml>
