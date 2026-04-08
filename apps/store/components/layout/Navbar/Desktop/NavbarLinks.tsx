@@ -34,12 +34,12 @@ const NavbarLinks = ({
 
   return (
     <div
-      className="flex-grow overflow-x-hidden whitespace-nowrap"
+      className="grow overflow-hidden whitespace-nowrap"
       ref={parentNavbarRef}
     >
       <div
         className={clsx(
-          "inline-flex translate-y-1 transition-transform duration-300",
+          "inline-flex transition-transform duration-300",
           {
             "pt-3": navLinks.length === 0,
           },
@@ -54,7 +54,7 @@ const NavbarLinks = ({
             <span
               id={link.id}
               className={clsx(
-                "relative top-[1px] inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
+                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
                 {
                   "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
                     selectedHorizontalNavLink === link.name,

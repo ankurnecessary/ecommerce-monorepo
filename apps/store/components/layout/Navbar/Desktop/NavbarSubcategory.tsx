@@ -31,7 +31,7 @@ const NavbarSubcategory = ({
           alt={subCategory.name}
           width={55}
           height={55}
-          className="rounded-full object-cover transition-transform duration-200 group-hover/subcat:scale-110 group-hover/subcat:[box-shadow:0_0_7px_1px_rgba(0,0,0,0.20)] group-hover/subcat:dark:[box-shadow:0_0_7px_1px_rgba(255,255,255,0.20)]"
+          className="rounded-full object-cover transition-transform duration-200 group-hover/subcat:scale-110 group-hover/subcat:[box-shadow:0_0_7px_1px_rgba(0,0,0,0.20)] dark:group-hover/subcat:[box-shadow:0_0_7px_1px_rgba(255,255,255,0.20)]"
           style={!imageLoaded ? { visibility: "hidden" } : {}}
           onLoad={() => setImageLoaded(true)}
         />

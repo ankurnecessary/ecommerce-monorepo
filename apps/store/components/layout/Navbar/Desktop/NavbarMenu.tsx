@@ -81,7 +81,7 @@ const NavbarMenu = () => {
       onMouseOver={menuMouseOverHandler}
       onMouseLeave={menuMouseOutHandler}
     >
-      <div className="w-64 flex-shrink-0">
+      <div className="w-64 shrink-0">
         <VerticalScrollContainer
           contentClassName="p-5 pl-10"
           scrollToElementId={verticalNavScrollToElementId}
@@ -108,8 +108,8 @@ const NavbarMenu = () => {
           ))}
         </VerticalScrollContainer>
       </div>
-      <div className="my-5 w-[1px] bg-gray-300 dark:bg-zinc-500"></div>
-      <div className="flex-grow px-5">
+      <div className="my-5 w-px bg-gray-300 dark:bg-zinc-500"></div>
+      <div className="grow px-5">
         {!!category && <NavbarSubcategories category={category} />}
       </div>
     </div>

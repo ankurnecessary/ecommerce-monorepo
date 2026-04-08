@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <HeaderContextProvider categories={links}>
-      <header className="relative z-[1] border-b border-black bg-white lg:h-[123px] lg:border-gray-300 dark:border-gray-500 dark:bg-zinc-700">
+      <header className="relative z-1 border-b border-black bg-white lg:h-[123px] lg:border-gray-300 dark:border-gray-500 dark:bg-zinc-700">
         <div className="relative flex items-center justify-between lg:container lg:mx-auto lg:py-5">
           {/* Logo container */}
           <div className="absolute left-1/2 -translate-x-1/2 lg:left-28">
@@ -46,7 +46,7 @@ const Header = () => {
               <input
                 type="search"
                 placeholder="Search..."
-                className="min-w-0 flex-grow border-r border-black px-2 text-sm placeholder-black outline-none"
+                className="min-w-0 grow border-r border-black px-2 text-sm placeholder-black outline-hidden"
               />
               <button
                 id="header-search-button"
