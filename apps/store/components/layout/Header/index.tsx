@@ -1,5 +1,4 @@
 import React from "react";
-import { Mulish } from "next/font/google";
 import Link from "next/link";
 import { Navbar } from "@/components/layout";
 import NavbarMenu from "@/components/layout/Navbar/Desktop/NavbarMenu";
@@ -14,9 +13,6 @@ import {
   InputGroupButton,
   InputGroup,
 } from "@repo/ui/components/input-group";
-const mulish = Mulish({
-  subsets: ["latin"],
-});
 
 const Header = () => {
   // [ ]: Replace "links" with <HeaderContextProvider/> with an API call to fetch the links
@@ -30,7 +26,7 @@ const Header = () => {
           {/* Logo container */}
           <div className="absolute left-1/2 -translate-x-1/2 lg:left-28">
             <h1
-              className={`${mulish.className} relative p-1 text-3xl font-bold uppercase`}
+              className={`relative p-1 text-3xl font-bold uppercase`}
             >
               <Link href={"/"}>Celeb</Link>
             </h1>
