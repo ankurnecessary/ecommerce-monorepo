@@ -8,7 +8,6 @@ import {
 import { ChevronLeft, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import { cn } from "@repo/ui/lib/utils";
-import { Button } from "@repo/ui/components/button";
 
 const NavbarMobileMenu = dynamic(
   () => import("@/components/layout/Navbar/Mobile/NavbarMobileMenu"),
@@ -45,31 +44,32 @@ const NavbarMobile = () => {
       {/* Mobile Navbar */}
       <div
         data-testid="mobile-menu"
-        className={`fixed left-0 top-0 z-1 h-full w-75 border-r border-gray-300 bg-white transition-transform duration-300 dark:border-gray-500 dark:bg-zinc-700 ${!isMenuVisible && "-translate-x-full"}`}
+        className={`fixed left-0 top-0 z-1 h-full w-75 border-r border-gray-300 transition-transform duration-300 dark:border-gray-500 bg-background ${!isMenuVisible && "-translate-x-96"}`}
+
       >
         {/* START: Button to collapse main mobile menu */}
-        <Button
-          className="absolute right-0 top-0 z-10 bg-slate-200 p-1 dark:bg-slate-600"
+        <button
+          className="absolute -right-10 top-0 z-10 p-1 border-pink-300 bg-pink-100 border dark:border-pink-300/10 dark:bg-pink-400/10 rounded-full mt-2 text-pink-700 dark:text-pink-500"
           onClick={mainMenuHandler}
           aria-label="Close Menu"
         >
           <X />
-        </Button>
+        </button>
         {/* END: Button to collapse main mobile menu */}
 
         {/* START: Button to collapse sub-menu */}
         {isSubMenuVisible && (
-          <Button
-            className="absolute left-0 top-0 z-10 bg-slate-200 p-1 dark:bg-slate-600"
+          <button
+            className="absolute left-2 top-2 z-10 bg-primary text-white p-1 pr-2 flex"
             onClick={() => setIsSubMenuVisible(false)}
           >
-            <ChevronLeft />
-          </Button>
+            <ChevronLeft /> Back
+          </button>
         )}
         {/* END: Button to collapse sub-menu */}
 
         {/* START: Main menu links */}
-        <div className="mt-9 h-full overflow-auto dark:bg-zinc-700">
+        <div className="mt-10 h-full overflow-aut">
           {isMenuVisible && (
             <NavbarMobileMenu
               links={navLinks}
@@ -84,7 +84,7 @@ const NavbarMobile = () => {
         <div
           data-testid="mobile-submenu"
           className={cn(
-            "absolute left-0 top-0 z-2 mt-9 h-full w-full overflow-auto bg-white transition-transform duration-300 dark:bg-zinc-700",
+            "absolute left-0 top-0 z-2 mt-12 h-full w-full overflow-auto transition-transform duration-300 bg-background",
             { "-translate-x-full": !isSubMenuVisible },
           )}
         >
@@ -98,7 +98,7 @@ const NavbarMobile = () => {
       {/* START: Translucent Backdrop */}
       {isMenuVisible && (
         <div
-          className="fixed inset-0 z-0 bg-black bg-opacity-50"
+          className="fixed inset-0 z-0 bg-black/50"
           onClick={mainMenuHandler}
           data-testid="backdrop"
         ></div>

@@ -38,12 +38,9 @@ const NavbarLinks = ({
       ref={parentNavbarRef}
     >
       <div
-        className={cn(
-          "inline-flex transition-transform duration-300",
-          {
-            "pt-3": navLinks.length === 0,
-          },
-        )}
+        className={cn("inline-flex transition-transform duration-300", {
+          "pt-3": navLinks.length === 0,
+        })}
         style={{ transform: `translateX(${childOffset || 0}px)` }}
         ref={childNavbarRef}
       >
@@ -54,9 +51,9 @@ const NavbarLinks = ({
             <span
               id={link.id}
               className={cn(
-                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
+                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] text-foreground dark:after:bg-white",
                 {
-                  "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
+                  "bg-accent after:scale-x-100":
                     selectedHorizontalNavLink === link.name,
                 },
               )}

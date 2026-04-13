@@ -72,7 +72,7 @@ const NavbarMenu = () => {
     <div
       data-testid="navbar-menu"
       className={cn(
-        "absolute z-0 flex h-96 w-full overflow-hidden bg-white transition-transform duration-300 dark:bg-zinc-700",
+        "absolute z-0 flex h-96 w-full overflow-hidden transition-transform duration-300",
         {
           "-translate-y-full": !isVisible,
           "shadow-2xl dark:shadow-zinc-500": isVisible,
@@ -94,7 +94,7 @@ const NavbarMenu = () => {
               className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
-                  "bg-gray-100 dark:bg-zinc-800":
+                  "bg-accent":
                     selectedVerticalNavLink === link.name,
                 },
               )}

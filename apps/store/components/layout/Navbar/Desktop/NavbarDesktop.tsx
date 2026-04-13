@@ -79,7 +79,7 @@ const NavbarDesktop = () => {
           className={cn(
             "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
             {
-              "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
+              "bg-accent after:scale-x-100":
                 selectedHorizontalNavLink === "Categories",
             },
           )}
