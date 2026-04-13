@@ -38,25 +38,22 @@ const NavbarLinks = ({
       ref={parentNavbarRef}
     >
       <div
-        className={clsx(
-          "inline-flex transition-transform duration-300",
-          {
-            "pt-3": navLinks.length === 0,
-          },
-        )}
+        className={clsx("inline-flex transition-transform duration-300", {
+          "pt-3": navLinks.length === 0,
+        })}
         style={{ transform: `translateX(${childOffset || 0}px)` }}
         ref={childNavbarRef}
       >
         {/* [ ]: Change this condition when API call is implemented */}
-        {navLinks.length === 0 && <Skeleton className="h-4 w-[550px]" />}
+        {navLinks.length === 0 && <Skeleton className="h-4 w-137.5" />}
         {navLinks.map((link) => (
           <Link key={link.id} href={`/category${link.url}`}>
             <span
               id={link.id}
               className={clsx(
-                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
+                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] text-foreground dark:after:bg-white",
                 {
-                  "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
+                  "bg-accent after:scale-x-100":
                     selectedHorizontalNavLink === link.name,
                 },
               )}

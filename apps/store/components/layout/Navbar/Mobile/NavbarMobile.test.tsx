@@ -15,7 +15,7 @@ describe("<NavbarMobile />", () => {
 
     render(<NavbarMobile />);
     expect(screen.queryByTestId("mobile-menu")).toHaveClass(
-      "-translate-x-full",
+      "-translate-x-96",
     );
   });
 

@@ -187,6 +187,6 @@ describe("NavbarMenu", () => {
     expect(setSelectedVerticalNavLinkMock).toHaveBeenCalledWith("Category2");
 
     // Assert that the hovered category has the 'bg-gray-100' class
-    expect(category).toHaveClass("bg-gray-100");
+    expect(category).toHaveClass("bg-accent");
   });
 });

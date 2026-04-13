@@ -22,7 +22,7 @@ const NavbarSubcategory = ({
           data-testid="skeleton"
           className="absolute m-1 flex justify-center"
         >
-          <Skeleton className="mx-2 h-[57px] w-[57px] rounded-full" />
+          <Skeleton className="mx-2 h-14.25 w-14.25 rounded-full" />
         </span>
       )}
       <span className="m-1 flex justify-center">
