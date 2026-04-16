@@ -72,10 +72,10 @@ const NavbarMenu = () => {
     <div
       data-testid="navbar-menu"
       className={cn(
-        "absolute z-0 flex h-96 w-full overflow-hidden transition-transform duration-300",
+        "absolute z-0 flex h-96 w-full overflow-hidden transition-transform duration-300 bg-background",
         {
           "-translate-y-full": !isVisible,
-          "shadow-2xl dark:shadow-zinc-500": isVisible,
+          "shadow-2xl": isVisible,
         },
       )}
       onMouseOver={menuMouseOverHandler}
@@ -94,7 +94,7 @@ const NavbarMenu = () => {
               className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
-                  "bg-accent":
+                  "bg-accent dark:text-background":
                     selectedVerticalNavLink === link.name,
                 },
               )}
@@ -108,7 +108,7 @@ const NavbarMenu = () => {
           ))}
         </VerticalScrollContainer>
       </div>
-      <div className="my-5 w-px bg-gray-300 dark:bg-zinc-500"></div>
+      <div className="my-5 w-px border"></div>
       <div className="grow px-5">
         {!!category && <NavbarSubcategories category={category} />}
       </div>

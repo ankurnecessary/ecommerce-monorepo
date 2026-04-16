@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className={`dark:text-white`}>
+      <body>
         <Providers>
           <Header />
           {children}

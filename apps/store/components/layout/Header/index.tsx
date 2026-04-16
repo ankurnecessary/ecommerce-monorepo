@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <HeaderContextProvider categories={links}>
-      <header className="relative z-1 border-b bg-white lg:h-30.75 dark:bg-background">
+      <header className="relative z-1 border-b bg-background lg:h-30.75" >
         <div className="relative flex items-center justify-between lg:container lg:mx-auto lg:py-5">
           {/* Logo container */}
           <div className="absolute left-1/2 -translate-x-1/2 lg:left-28">

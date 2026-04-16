@@ -32,7 +32,7 @@ const NavbarMobileMenu = ({
           {links.map((link) => (
             <li
               key={link.id}
-              className="border-b border-dotted border-slate-400 dark:border-gray-500"
+              className="border-b"
             >
               {/* START: When we have {subcategories: [...]} */}
               {!!link.subcategories?.length && (
