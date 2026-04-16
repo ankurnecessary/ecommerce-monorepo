@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <HeaderContextProvider categories={links}>
-      <header className="relative z-1 border-b bg-white lg:h-30.75 dark:bg-background">
+      <header className="relative z-1 border-b bg-background lg:h-30.75" >
         <div className="relative flex items-center justify-between lg:container lg:mx-auto lg:py-5">
           {/* Logo container */}
           <div className="absolute left-1/2 -translate-x-1/2 lg:left-28">
@@ -36,19 +36,19 @@ const Header = () => {
             {/* [Mobile only]: Center space for logo which is absolutely positioned */}
             <div
               role="search"
-              className="mx-auto my-1 hidden w-1/2 border border-black lg:invisible lg:flex"
+              className="mx-auto my-1 hidden w-1/2 border lg:flex lg:invisible"
             >
               {/* lg:invisible - Just remove this class from the <div> above to see the search text box */}
               <input
                 type="search"
                 placeholder="Search..."
-                className="min-w-0 grow border-r border-black px-2 text-sm placeholder-black outline-hidden"
+                className="min-w-0 grow border-r px-2 text-sm placeholder:text-muted-foreground outline-hidden"
               />
               <button
                 id="header-search-button"
                 type="button"
                 aria-label="search"
-                className="bg-black px-3 py-1.5 text-white"
+                className="bg-primary px-3 py-1.5 text-white"
               >
                 <Search />
               </button>

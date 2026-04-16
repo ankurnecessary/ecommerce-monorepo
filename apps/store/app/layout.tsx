@@ -26,7 +26,7 @@ export default function RootLayout({
       className={`${architectsDaughter.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className={`dark:text-white`}>
+      <body>
         <Providers>
           <Header />
           {children}

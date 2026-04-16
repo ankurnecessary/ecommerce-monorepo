@@ -51,9 +51,9 @@ const NavbarLinks = ({
             <span
               id={link.id}
               className={clsx(
-                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] text-foreground dark:after:bg-white",
+                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-[''] text-foreground",
                 {
-                  "bg-accent after:scale-x-100":
+                  "bg-primary/10 after:scale-x-100":
                     selectedHorizontalNavLink === link.name,
                 },
               )}

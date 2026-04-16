@@ -72,14 +72,14 @@ const NavbarDesktop = () => {
   };
 
   return (
-    <nav className="container mx-auto hidden w-[calc(100%-4rem)] translate-y-px px-6 text-sm text-black lg:flex">
+    <nav className="container mx-auto hidden w-[calc(100%-4rem)] translate-y-px px-6 text-sm lg:flex">
       {/* Category button */}
       <div className="whitespace-nowrap">
         <span
           className={clsx(
-            "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
+            "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
             {
-              "bg-accent after:scale-x-100":
+              "bg-primary/10 after:scale-x-100":
                 selectedHorizontalNavLink === "Categories",
             },
           )}

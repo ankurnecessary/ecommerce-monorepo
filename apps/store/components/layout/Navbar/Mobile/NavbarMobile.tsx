@@ -44,7 +44,7 @@ const NavbarMobile = () => {
       {/* Mobile Navbar */}
       <div
         data-testid="mobile-menu"
-        className={`fixed left-0 top-0 z-1 h-full w-75 border-r border-gray-300 transition-transform duration-300 dark:border-gray-500 bg-background ${!isMenuVisible && "-translate-x-96"}`}
+        className={`fixed left-0 top-0 z-1 h-full w-75 border-r transition-transform duration-300 bg-background ${!isMenuVisible && "-translate-x-96"}`}
 
       >
         {/* START: Button to collapse main mobile menu */}
@@ -69,7 +69,7 @@ const NavbarMobile = () => {
         {/* END: Button to collapse sub-menu */}
 
         {/* START: Main menu links */}
-        <div className="mt-10 h-full overflow-aut">
+        <div className="mt-10 h-full overflow-auto">
           {isMenuVisible && (
             <NavbarMobileMenu
               links={navLinks}
