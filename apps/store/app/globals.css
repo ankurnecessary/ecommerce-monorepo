@@ -1,57 +1,11 @@
 @import "tailwindcss";
-/*
-  ---break---
-*/
-@custom-variant dark (&:is(.dark *));
+@import "@repo/tailwind-config";
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-architects-daughter;
   }
 }
-
-@utility shadow-left {
-  @apply shadow-none;
-  box-shadow:
-    -9px 0 4px -3px rgba(0, 0, 0, 0.05),
-    -4px 0 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-@utility scrollbar-none {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-@layer utilities {
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-/*
-  ---break---
-*/
 
 @theme inline {
   --font-heading: var(--font-architects-daughter);
@@ -95,10 +49,6 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
-
-/*
-  ---break---
-*/
 
 :root {
   --background: oklch(0.9821 0 0);
@@ -159,10 +109,6 @@
   --tracking-normal: 0.5px;
   --spacing: 0.25rem;
 }
-
-/*
-  ---break---
-*/
 
 .dark {
   --background: oklch(0.2891 0 0);

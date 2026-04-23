@@ -9,8 +9,10 @@ This monorepo includes the following packages/apps:
 ### Apps and Packages
 
 - `api`: Ecommerce APIs
+- `store`: Ecommerce Store
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@repo/tailwind-config` - Common tailwind CSS code which can be used across the apps.
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 

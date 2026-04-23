@@ -37,6 +37,7 @@
     "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
+    "@repo/tailwind-config": "workspace:*",
     "@chromatic-com/storybook": "^4.1.1",
     "@eslint/eslintrc": "^3",
     "@lhci/cli": "^0.13.0",
