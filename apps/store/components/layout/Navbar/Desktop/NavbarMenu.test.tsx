@@ -186,7 +186,7 @@ describe("NavbarMenu", () => {
     // Assert that the mock function was called with 'Category2'
     expect(setSelectedVerticalNavLinkMock).toHaveBeenCalledWith("Category2");
 
-    // Assert that the hovered category has the 'bg-gray-100' class
-    expect(category).toHaveClass("bg-accent");
+    // Assert that the hovered category has the 'bg-primary' class
+    expect(category).toHaveClass("bg-primary/10");
   });
 });
