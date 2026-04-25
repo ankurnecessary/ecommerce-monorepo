@@ -1,21 +1,22 @@
 import type { NextConfig } from "next";
-import withBundleAnalyzer from '@next/bundle-analyzer';
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  transpilePackages: ["@repo/ui"],
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        pathname: '/**', // match all images
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/**", // match all images
       },
     ],
   },
 };
 
 const analyzeBundle = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-})
+  enabled: process.env.ANALYZE === "true",
+});
 
 export default analyzeBundle(nextConfig);

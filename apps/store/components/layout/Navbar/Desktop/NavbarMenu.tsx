@@ -9,7 +9,7 @@ import {
 import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContainer";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { MEDIA_QUERIES } from "@/constants";
 import { cn } from "@repo/ui/lib/utils";
 

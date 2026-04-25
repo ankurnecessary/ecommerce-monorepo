@@ -10,7 +10,7 @@ import {
 import NavbarLinks from "@/components/layout/Navbar/Desktop/NavbarLinks";
 import NavbarScroller from "@/components/layout/Navbar/Desktop/NavbarScroller";
 import { ChevronDown } from "lucide-react";
-import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { MEDIA_QUERIES } from "@/constants";
 import { cn } from "@repo/ui/lib/utils";
 // [x] Check how horizontal menu nav items are getting highlighted on hover on shien.com.
