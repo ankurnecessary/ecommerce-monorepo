@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import { CategoryMouseEventHandler } from "@/components/layout/Header/types";
 import clsx from "clsx";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@repo/ui/components/skeleton";
 
 type NavbarLinksProps = {
   mouseOverHandler: CategoryMouseEventHandler;

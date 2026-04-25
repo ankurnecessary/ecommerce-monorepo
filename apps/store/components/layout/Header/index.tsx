@@ -7,6 +7,7 @@ import { HeaderContextProvider } from "@/components/layout/Header/Header.context
 import { Search } from "lucide-react";
 import { links } from "@/components/layout/Navbar/XnavbarLinkObj";
 import MobileHamburgerButton from "@/components/layout/Header/MobileHamburgerButton";
+import { Button } from "@repo/ui/components/button";
 const mulish = Mulish({
   subsets: ["latin"],
 });
@@ -40,7 +41,7 @@ const Header = () => {
             {/* [Mobile only]: Center space for logo which is absolutely positioned */}
             <div
               role="search"
-              className="mx-auto my-1 hidden w-1/2 border border-black lg:invisible lg:flex"
+              className="mx-auto my-1 hidden w-1/2 border border-black lg:flex"
             >
               {/* lg:invisible - Just remove this class from the <div> above to see the search text box */}
               <input
@@ -48,14 +49,14 @@ const Header = () => {
                 placeholder="Search..."
                 className="min-w-0 flex-grow border-r border-black px-2 text-sm placeholder-black outline-none"
               />
-              <button
+              <Button
                 id="header-search-button"
                 type="button"
                 aria-label="search"
                 className="bg-black px-3 py-1.5 text-white"
               >
                 <Search />
-              </button>
+              </Button>
             </div>
           </div>
 
