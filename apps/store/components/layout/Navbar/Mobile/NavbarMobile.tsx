@@ -6,8 +6,8 @@ import {
   MenuSubCategory,
 } from "@/components/layout/Header/types";
 import { ChevronLeft, X } from "lucide-react";
-import clsx from "clsx";
 import dynamic from "next/dynamic";
+import { cn } from "@repo/ui/lib/utils";
 
 const NavbarMobileMenu = dynamic(
   () => import("@/components/layout/Navbar/Mobile/NavbarMobileMenu"),
@@ -82,7 +82,7 @@ const NavbarMobile = () => {
         {/* START: Sub-menu links */}
         <div
           data-testid="mobile-submenu"
-          className={clsx(
+          className={cn(
             "absolute left-0 top-0 z-[2] mt-9 h-full w-full overflow-auto bg-white transition-transform duration-300 dark:bg-zinc-700",
             { "-translate-x-full": !isSubMenuVisible },
           )}

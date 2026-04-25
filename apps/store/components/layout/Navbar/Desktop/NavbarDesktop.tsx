@@ -9,10 +9,10 @@ import {
 } from "@/components/layout/Header/types";
 import NavbarLinks from "@/components/layout/Navbar/Desktop/NavbarLinks";
 import NavbarScroller from "@/components/layout/Navbar/Desktop/NavbarScroller";
-import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { MEDIA_QUERIES } from "@/constants";
+import { cn } from "@repo/ui/lib/utils";
 // [x] Check how horizontal menu nav items are getting highlighted on hover on shien.com.
 // [x]: test-case: Check how horizontal menu nav items are getting highlighted on hover on shien.com.
 // [x]: test-case: Add test cases for the navbar menu flap's category section.
@@ -76,7 +76,7 @@ const NavbarDesktop = () => {
       {/* Category button */}
       <div className="whitespace-nowrap">
         <span
-          className={clsx(
+          className={cn(
             "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
             {
               "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
@@ -88,7 +88,7 @@ const NavbarDesktop = () => {
         >
           Categories
           <ChevronDown
-            className={clsx(
+            className={cn(
               "mb-[1px] ml-1 inline-block w-4 text-xs transition-transform duration-300",
               {
                 "rotate-180": selectedHorizontalNavLink === "Categories",

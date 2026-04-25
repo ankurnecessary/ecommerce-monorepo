@@ -1,11 +1,11 @@
 "use client";
-import clsx from "clsx";
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import {
   ScrollWheelHandler,
   ThumbMouseDownHandler,
 } from "@/components/custom-ui/VerticalScrollContainer/types";
 import { syncThumbPosition, updateThumbHeight } from "./utils";
+import { cn } from "@repo/ui/lib/utils";
 
 type VerticalScrollContainerProps = {
   children: React.ReactNode;
@@ -161,7 +161,7 @@ const VerticalScrollContainer = ({
     <div
       role="group"
       aria-label="Vertical Scroll Container"
-      className={clsx(
+      className={cn(
         "group relative h-full overflow-hidden",
         containerClassName,
       )}
@@ -169,7 +169,7 @@ const VerticalScrollContainer = ({
     >
       {/* content */}
       <div
-        className={clsx(
+        className={cn(
           "h-full overflow-y-auto overflow-x-hidden scrollbar-none",
           contentClassName,
         )}
@@ -184,7 +184,7 @@ const VerticalScrollContainer = ({
       {isOverflowing && (
         <div
           data-testid="scrollbar"
-          className={clsx(
+          className={cn(
             "absolute right-0 top-0 h-full w-2 bg-transparent",
             scrollbarClassName,
           )}
@@ -192,7 +192,7 @@ const VerticalScrollContainer = ({
         >
           {/* thumb */}
           <div
-            className={clsx(
+            className={cn(
               "absolute top-0 min-h-5 w-full rounded-md bg-transparent group-hover:bg-gray-400 group-active:bg-gray-400",
               thumbClassName,
             )}

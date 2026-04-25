@@ -7,11 +7,11 @@ import {
   MenuCategory,
 } from "@/components/layout/Header/types";
 import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContainer";
-import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { MEDIA_QUERIES } from "@/constants";
+import { cn } from "@repo/ui/lib/utils";
 
 const NavbarSubcategories = dynamic(
   () => import("@/components/layout/Navbar/Desktop/NavbarSubcategories"),
@@ -71,7 +71,7 @@ const NavbarMenu = () => {
   return (
     <div
       data-testid="navbar-menu"
-      className={clsx(
+      className={cn(
         "absolute z-0 flex h-96 w-full overflow-hidden bg-white transition-transform duration-300 dark:bg-zinc-700",
         {
           "-translate-y-full": !isVisible,
@@ -91,7 +91,7 @@ const NavbarMenu = () => {
             <span
               key={link.id}
               id={`vertical-${link.id}`}
-              className={clsx(
+              className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
                   "bg-gray-100 dark:bg-zinc-800":
