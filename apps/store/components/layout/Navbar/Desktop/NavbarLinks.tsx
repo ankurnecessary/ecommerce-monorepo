@@ -34,7 +34,7 @@ const NavbarLinks = ({
 
   return (
     <div
-      className="grow overflow-x-hidden whitespace-nowrap"
+      className="grow translate-y-px overflow-x-hidden whitespace-nowrap"
       ref={parentNavbarRef}
     >
       <div
@@ -51,7 +51,7 @@ const NavbarLinks = ({
             <span
               id={link.id}
               className={cn(
-                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-[''] text-foreground",
+                "relative inline-block p-2 pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
                 {
                   "bg-primary/10 after:scale-x-100":
                     selectedHorizontalNavLink === link.name,
