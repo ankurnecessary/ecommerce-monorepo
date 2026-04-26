@@ -34,7 +34,7 @@ const NavbarLinks = ({
 
   return (
     <div
-      className="flex-grow overflow-x-hidden whitespace-nowrap"
+      className="grow overflow-x-hidden whitespace-nowrap"
       ref={parentNavbarRef}
     >
       <div
@@ -48,13 +48,13 @@ const NavbarLinks = ({
         ref={childNavbarRef}
       >
         {/* [ ]: Change this condition when API call is implemented */}
-        {navLinks.length === 0 && <Skeleton className="h-4 w-[550px]" />}
+        {navLinks.length === 0 && <Skeleton className="h-4 w-137.5" />}
         {navLinks.map((link) => (
           <Link key={link.id} href={`/category${link.url}`}>
             <span
               id={link.id}
               className={cn(
-                "relative top-[1px] inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
+                "relative top-px inline-block p-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
                 {
                   "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
                     selectedHorizontalNavLink === link.name,

@@ -72,12 +72,12 @@ const NavbarDesktop = () => {
   };
 
   return (
-    <nav className="container mx-auto hidden w-[calc(100%-4rem)] translate-y-[1px] px-6 text-sm text-black lg:flex">
+    <nav className="container mx-auto hidden w-[calc(100%-4rem)] translate-y-px px-6 text-sm text-black lg:flex">
       {/* Category button */}
       <div className="whitespace-nowrap">
         <span
           className={cn(
-            "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
+            "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-black after:transition-transform after:content-[''] dark:text-zinc-300 dark:after:bg-white",
             {
               "bg-gray-100 after:scale-x-100 dark:bg-zinc-800":
                 selectedHorizontalNavLink === "Categories",
@@ -89,7 +89,7 @@ const NavbarDesktop = () => {
           Categories
           <ChevronDown
             className={cn(
-              "mb-[1px] ml-1 inline-block w-4 text-xs transition-transform duration-300",
+              "mb-px ml-1 inline-block w-4 text-xs transition-transform duration-300",
               {
                 "rotate-180": selectedHorizontalNavLink === "Categories",
               },
