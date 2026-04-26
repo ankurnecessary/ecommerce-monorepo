@@ -7,6 +7,24 @@
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+@layer utilities {
+  .shadow-left {
+    @apply shadow-none;
+    box-shadow:
+      -9px 0 4px -3px rgba(0, 0, 0, 0.05),
+      -4px 0 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @theme inline {
     --font-heading: var(--font-sans);
     --color-sidebar-ring: var(--sidebar-ring);

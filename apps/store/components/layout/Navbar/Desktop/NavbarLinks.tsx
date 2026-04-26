@@ -39,7 +39,7 @@ const NavbarLinks = ({
     >
       <div
         className={cn(
-          "inline-flex translate-y-1 transition-transform duration-300",
+          "inline-flex transition-transform duration-300",
           {
             "pt-3": navLinks.length === 0,
           },
