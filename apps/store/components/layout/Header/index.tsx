@@ -8,6 +8,12 @@ import { Search } from "lucide-react";
 import { links } from "@/components/layout/Navbar/XnavbarLinkObj";
 import MobileHamburgerButton from "@/components/layout/Header/MobileHamburgerButton";
 import { Button } from "@repo/ui/components/button";
+import {
+  InputGroupInput,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroup,
+} from "@repo/ui/components/input-group";
 const mulish = Mulish({
   subsets: ["latin"],
 });
@@ -41,22 +47,17 @@ const Header = () => {
             {/* [Mobile only]: Center space for logo which is absolutely positioned */}
             <div
               role="search"
-              className="mx-auto my-1 hidden w-1/2 border border-black lg:flex"
+              className="mx-auto my-1 hidden w-1/2 lg:invisible lg:flex"
             >
               {/* lg:invisible - Just remove this class from the <div> above to see the search text box */}
-              <input
-                type="search"
-                placeholder="Search..."
-                className="min-w-0 flex-grow border-r border-black px-2 text-sm placeholder-black outline-none"
-              />
-              <Button
-                id="header-search-button"
-                type="button"
-                aria-label="search"
-                className="bg-black px-3 py-1.5 text-white"
-              >
-                <Search />
-              </Button>
+              <InputGroup className="border border-primary rounded-none has-[>[data-align=inline-end]]:[&>input]:pe-0 overflow-hidden">
+                <InputGroupInput className="px-0 py-0 pl-1" placeholder="Search..." />
+                <InputGroupAddon className="p-0 has-[>button]:me-0" align="inline-end">
+                  <InputGroupButton className="h-8 w-8 rounded-none bg-primary text-white border-0 hover:border-0 hover:bg-primary/80" aria-label="search" variant="secondary">
+                    <Search />
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
             </div>
           </div>
 
