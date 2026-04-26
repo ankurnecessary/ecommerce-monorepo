@@ -8,6 +8,7 @@ import {
 import { ChevronLeft, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import { cn } from "@repo/ui/lib/utils";
+import { Button } from "@repo/ui/components/button";
 
 const NavbarMobileMenu = dynamic(
   () => import("@/components/layout/Navbar/Mobile/NavbarMobileMenu"),
@@ -47,23 +48,23 @@ const NavbarMobile = () => {
         className={`fixed left-0 top-0 z-[1] h-full w-[300px] border-r border-gray-300 bg-white transition-transform duration-300 dark:border-gray-500 dark:bg-zinc-700 ${!isMenuVisible && "-translate-x-full"}`}
       >
         {/* START: Button to collapse main mobile menu */}
-        <button
+        <Button
           className="absolute right-0 top-0 z-10 bg-slate-200 p-1 dark:bg-slate-600"
           onClick={mainMenuHandler}
           aria-label="Close Menu"
         >
           <X />
-        </button>
+        </Button>
         {/* END: Button to collapse main mobile menu */}
 
         {/* START: Button to collapse sub-menu */}
         {isSubMenuVisible && (
-          <button
+          <Button
             className="absolute left-0 top-0 z-10 bg-slate-200 p-1 dark:bg-slate-600"
             onClick={() => setIsSubMenuVisible(false)}
           >
             <ChevronLeft />
-          </button>
+          </Button>
         )}
         {/* END: Button to collapse sub-menu */}
 

@@ -5,6 +5,7 @@ import {
   MenuCategory,
   MenuSubCategory,
 } from "@/components/layout/Header/types";
+import { Button } from "@repo/ui/components/button";
 
 type navbarMobileMenu = {
   links: MenuCategory[];
@@ -40,9 +41,9 @@ const NavbarMobileMenu = ({
                   onClick={() => categoryClickHandler(link.subcategories || [])}
                 >
                   <span>{link.name}</span>
-                  <button className="bg-slate-200 p-1 dark:bg-slate-600">
+                  <Button className="bg-slate-200 p-1 dark:bg-slate-600">
                     <ChevronRight className="h-5 w-5" />
-                  </button>
+                  </Button>
                 </span>
               )}
               {/* END: When we have {subcategories: [...]} */}

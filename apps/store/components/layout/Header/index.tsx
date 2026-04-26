@@ -65,12 +65,12 @@ const Header = () => {
             {/* Start: [Mobile only]: <div> */}
             <div className="lg:hidden">
               {/* [Mobile only]: Search button */}
-              <button
+              <Button
                 className="border-l border-black px-4 py-3 dark:border-gray-500"
                 aria-label="Open search bar"
               >
                 <Search />
-              </button>
+              </Button>
             </div>
             {/* End: [Mobile only]: <div> */}
 
