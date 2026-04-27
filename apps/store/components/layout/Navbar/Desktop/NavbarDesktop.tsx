@@ -77,7 +77,7 @@ const NavbarDesktop = () => {
       <div className="whitespace-nowrap">
         <span
           className={cn(
-            "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
+            "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-[''] translate-y-px",
             {
               "bg-primary/10 after:scale-x-100":
                 selectedHorizontalNavLink === "Categories",
