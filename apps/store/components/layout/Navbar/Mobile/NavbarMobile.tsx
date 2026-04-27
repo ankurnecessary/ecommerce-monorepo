@@ -44,12 +44,12 @@ const NavbarMobile = () => {
       {/* Mobile Navbar */}
       <div
         data-testid="mobile-menu"
-        className={`fixed left-0 top-0 z-1 h-full w-75 border-r transition-transform duration-300 bg-background ${!isMenuVisible && "-translate-x-96"}`}
+        className={`fixed left-0 top-0 z-1 h-full w-68 border-r transition-transform duration-300 bg-background ${!isMenuVisible && "-translate-x-96"}`}
 
       >
         {/* START: Button to collapse main mobile menu */}
         <button
-          className="absolute -right-10 top-0 z-10 p-1 border-pink-300 bg-pink-100 border dark:border-pink-300/10 dark:bg-pink-400/10 rounded-full mt-2 text-pink-700 dark:text-pink-500"
+          className="absolute -right-10 top-0 z-10 p-1 border-pink-300 bg-pink-100 border rounded-full mt-2 text-pink-700 dark:text-pink-500"
           onClick={mainMenuHandler}
           aria-label="Close Menu"
         >
@@ -60,10 +60,10 @@ const NavbarMobile = () => {
         {/* START: Button to collapse sub-menu */}
         {isSubMenuVisible && (
           <button
-            className="absolute left-2 top-2 z-10 bg-primary text-white p-1 pr-2 flex"
+            className="absolute left-2 top-2 z-10 bg-primary/15 p-1 pr-2 flex items-center"
             onClick={() => setIsSubMenuVisible(false)}
           >
-            <ChevronLeft /> Back
+            <ChevronLeft size={20} height={20} width={20}/> Back
           </button>
         )}
         {/* END: Button to collapse sub-menu */}

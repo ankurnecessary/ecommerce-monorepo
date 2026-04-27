@@ -41,9 +41,9 @@ const NavbarMobileMenu = ({
                   onClick={() => categoryClickHandler(link.subcategories || [])}
                 >
                   <span>{link.name}</span>
-                  <Button className="bg-slate-200 p-1 dark:bg-slate-600">
+                  <button className="bg-primary/15 p-1">
                     <ChevronRight className="h-5 w-5" />
-                  </Button>
+                  </button>
                 </span>
               )}
               {/* END: When we have {subcategories: [...]} */}
