@@ -6,7 +6,6 @@ import { HeaderContextProvider } from "@/components/layout/Header/Header.context
 import { Search } from "lucide-react";
 import { links } from "@/components/layout/Navbar/XnavbarLinkObj";
 import MobileHamburgerButton from "@/components/layout/Header/MobileHamburgerButton";
-import { Button } from "@repo/ui/components/button";
 import {
   InputGroupInput,
   InputGroupAddon,

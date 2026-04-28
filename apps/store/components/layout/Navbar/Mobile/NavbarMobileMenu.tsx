@@ -5,7 +5,6 @@ import {
   MenuCategory,
   MenuSubCategory,
 } from "@/components/layout/Header/types";
-import { Button } from "@repo/ui/components/button";
 
 type navbarMobileMenu = {
   links: MenuCategory[];

@@ -7,8 +7,6 @@ import {
   coverageConfigDefaults,
 } from 'vitest/config';
 
-type VitePluginOption = { name: string; [key: string]: unknown };
-
 const optimizeDepsInclude = [
   '@testing-library/jest-dom/matchers',
   'vitest-matchmedia-mock',
