@@ -1,6 +1,6 @@
 # Ecommerce
 
-Project link - [Click to see the project.](https://main.d26n91xt1o9he3.amplifyapp.com/)
+Project link - [Click to see the project.](https://main.d7nwpvnublww4.amplifyapp.com/)
 
 ## Stack
 
