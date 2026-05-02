@@ -8,6 +8,7 @@ on:
       - "apps/store/**"
       - "packages/eslint-config/**"
       - "packages/typescript-config/**"
+      - "packages/ui/**"
       - "package.json"
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
