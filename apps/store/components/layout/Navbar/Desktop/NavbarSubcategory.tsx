@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MenuSubCategory } from "@/components/layout/Header/types";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@repo/ui/components/skeleton";
 
 const NavbarSubcategory = ({
   subCategory,
@@ -20,9 +20,9 @@ const NavbarSubcategory = ({
       {!imageLoaded && (
         <span
           data-testid="skeleton"
-          className="absolute m-1 flex justify-center"
+          className="m-1 flex justify-center"
         >
-          <Skeleton className="mx-2 h-[57px] w-[57px] rounded-full" />
+          <Skeleton className="mx-2 h-14.25 w-14.25 rounded-full bg-primary/10" />
         </span>
       )}
       <span className="m-1 flex justify-center">

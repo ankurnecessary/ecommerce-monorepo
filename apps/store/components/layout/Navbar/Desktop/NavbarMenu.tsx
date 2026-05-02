@@ -7,11 +7,11 @@ import {
   MenuCategory,
 } from "@/components/layout/Header/types";
 import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContainer";
-import clsx from "clsx";
 import { ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { MEDIA_QUERIES } from "@/constants";
+import { cn } from "@repo/ui/lib/utils";
 
 const NavbarSubcategories = dynamic(
   () => import("@/components/layout/Navbar/Desktop/NavbarSubcategories"),
@@ -71,17 +71,17 @@ const NavbarMenu = () => {
   return (
     <div
       data-testid="navbar-menu"
-      className={clsx(
-        "absolute z-0 flex h-96 w-full overflow-hidden bg-white transition-transform duration-300 dark:bg-zinc-700",
+      className={cn(
+        "absolute z-0 flex h-96 w-full overflow-hidden transition-transform duration-300 bg-background",
         {
           "-translate-y-full": !isVisible,
-          "shadow-2xl dark:shadow-zinc-500": isVisible,
+          "shadow-2xl": isVisible,
         },
       )}
       onMouseOver={menuMouseOverHandler}
       onMouseLeave={menuMouseOutHandler}
     >
-      <div className="w-64 flex-shrink-0">
+      <div className="w-64 shrink-0">
         <VerticalScrollContainer
           contentClassName="p-5 pl-10"
           scrollToElementId={verticalNavScrollToElementId}
@@ -91,10 +91,10 @@ const NavbarMenu = () => {
             <span
               key={link.id}
               id={`vertical-${link.id}`}
-              className={clsx(
+              className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
-                  "bg-gray-100 dark:bg-zinc-800":
+                  "bg-primary/10 dark:bg-primary/20":
                     selectedVerticalNavLink === link.name,
                 },
               )}
@@ -108,8 +108,8 @@ const NavbarMenu = () => {
           ))}
         </VerticalScrollContainer>
       </div>
-      <div className="my-5 w-[1px] bg-gray-300 dark:bg-zinc-500"></div>
-      <div className="flex-grow px-5">
+      <div className="my-5 w-px border"></div>
+      <div className="grow px-5">
         {!!category && <NavbarSubcategories category={category} />}
       </div>
     </div>

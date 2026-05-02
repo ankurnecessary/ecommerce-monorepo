@@ -3,7 +3,7 @@ import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContai
 import React from "react";
 import { MenuCategory } from "@/components/layout/Header/types";
 import NavbarSubcategory from "@/components/layout/Navbar/Desktop/NavbarSubcategory";
-import clsx from "clsx";
+import { cn } from "@repo/ui/lib/utils";
 
 type NavbarSubcategoriesProps = {
   category: MenuCategory | null;
@@ -16,7 +16,7 @@ const NavbarSubcategories = ({ category }: NavbarSubcategoriesProps) => {
   return (
     <VerticalScrollContainer>
       <div
-        className={clsx("flex flex-wrap gap-6 py-5", {
+        className={cn("flex flex-wrap gap-6 py-5", {
           "justify-center": subCategories.length === 0,
         })}
         data-testid="navbar-subcategories"

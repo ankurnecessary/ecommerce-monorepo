@@ -7,10 +7,6 @@ import {
   coverageConfigDefaults,
 } from 'vitest/config';
 
-import storybookTest from '@storybook/addon-vitest/vitest-plugin';
-
-type VitePluginOption = { name: string; [key: string]: unknown };
-
 const optimizeDepsInclude = [
   '@testing-library/jest-dom/matchers',
   'vitest-matchmedia-mock',
@@ -23,10 +19,7 @@ export default defineConfig({
       provider: 'istanbul',
       exclude: [
         '**/*.config.{?(c|m)js,ts}',
-        '**/*.stories*.{ts,tsx}',
         '**/types.ts',
-        'storybook-static/**/*.*',
-        'stories/**/*.*',
         'lighthouserc.js',
         'setupTests.ts',
         ...coverageConfigDefaults.exclude,
@@ -83,24 +76,6 @@ export default defineConfig({
           alias: {
             '@': path.resolve(__dirname, './'),
           },
-        },
-      },
-      {
-        extends: true,
-        plugins: [
-          // The plugin will run tests for the stories defined in your Storybook config
-          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-          storybookTest() as unknown as VitePluginOption,
-        ],
-        test: {
-          name: 'storybook',
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: 'playwright',
-            instances: [{ browser: 'chromium' }],
-          },
-          setupFiles: ['.storybook/vitest.setup.ts'],
         },
       },
     ],

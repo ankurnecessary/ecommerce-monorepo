@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import { CalculateOffset } from "@/components/layout/Header/types";
-import clsx from "clsx";
 import { ChevronRight, ChevronLeft } from "lucide-react";
+import { cn } from "@repo/ui/lib/utils";
 
 const calculateOffset: CalculateOffset =
   (direction) => (parentWidth, childWidth) => (offset) => {
@@ -83,7 +83,7 @@ const NavbarScroller = () => {
 
   return (
     <div
-      className={clsx("shadow-left flex whitespace-nowrap dark:text-zinc-300", {
+      className={cn("shadow-left flex whitespace-nowrap", {
         hidden: childWidth <= parentWidth,
       })}
     >

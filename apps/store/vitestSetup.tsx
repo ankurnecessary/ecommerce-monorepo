@@ -22,13 +22,6 @@ beforeAll(() => {
   globalThis.matchMediaMock = new MatchMediaMock();
 });
 
-vi.mock('next/font/google', () => ({
-  Mulish: () => ({
-    className: 'mock-mulish',
-    variable: '--mock-mulish',
-  }),
-}));
-
 vi.mock('next/link', () => {
   return {
     __esModule: true,

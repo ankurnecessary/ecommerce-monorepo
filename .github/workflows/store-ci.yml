@@ -8,6 +8,7 @@ on:
       - "apps/store/**"
       - "packages/eslint-config/**"
       - "packages/typescript-config/**"
+      - "packages/ui/**"
       - "package.json"
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
@@ -84,27 +85,3 @@ jobs:
           pnpm --filter store lighthouse
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-
-  chromatic:
-    runs-on: ubuntu-latest
-    needs: 
-      - validate-html
-      - test
-      - build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup node and pnpm
-        uses: ./.github/actions/setup-node-pnpm
-
-      - name: Run Chromatic
-        uses: chromaui/action@latest
-        with:
-          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: apps/store
-          exitZeroOnChanges: false # 👈 Fail workflow if changes are found
