@@ -6,9 +6,6 @@ This project gives a boiler plate code for a node project with typescript. It ha
 2. Using Prisma ORM to handle database.
 3. Development using Docker container for postgresql DB.
 4. API Documentation via Swagger.
-5. There are 2 main branches i.e. main and main-rest
-   1. `main` - GraphQL specific
-   2. `main-rest` - REST specific
 
 ## Documentation
 
@@ -32,7 +29,7 @@ This project gives a boiler plate code for a node project with typescript. It ha
 14. `pnpm validate-openapi` - This command will validate the generated openapi.yaml.
 15. `pnpm watch-openapi` - This command will watch for changes in files to determine new content of opneapi.yaml.
 16. `pnpm static-api-doc` - This command will generate static API documentation using redocly at './docs' but this is used in CI / github workflow only.
-17. `pnpm db:reset` - This command will help in resetting database. This means all data will be deleted. IMPORTANT: Use it mindfully and only in dev environment.
+17. `pnpm reset:db` - This command will help in resetting database. This means all data will be deleted. IMPORTANT: Use it mindfully and only in dev environment.
 
 ## Development
 
