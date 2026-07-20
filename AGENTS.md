@@ -86,10 +86,10 @@ API runtime, Prisma, seed, and OpenAPI commands require the applicable environme
 ### Shared packages
 
 - UI lint: `pnpm --filter @repo/ui lint`
-- UI type-check: `pnpm --filter @repo/ui typecheck`
+- UI type-check: `pnpm --filter @repo/ui check-types`
 - UI format: `pnpm --filter @repo/ui format`
 
-`@repo/ui` has `typecheck`, not `check-types`, so root `pnpm check-types` does not replace the explicit UI type-check. The config-only packages have no build, lint, or type-check scripts; validate consumers after changing them.
+All TypeScript-bearing runtime workspaces use `check-types`, so root `pnpm check-types` includes `store`, `api`, and `@repo/ui`. The config-only packages have no build, lint, or type-check scripts; validate consumers after changing them.
 
 ## Files not to edit manually
 
@@ -128,9 +128,9 @@ Run the narrowest relevant checks, expanding when shared code or configuration c
 - Store change: lint, type-check, and the affected unit/integration tests; build for routing/config/build-sensitive work. Run HTML validation or Lighthouse when markup, accessibility, or performance behavior changes.
 - API change: lint, type-check, affected tests (normally `test:run` or coverage), and build. Regenerate and validate OpenAPI when routes, payloads, responses, auth, or annotations change.
 - Prisma change: generate the client, review/create the migration, run relevant repository/use-case tests, and build/type-check the API. Database-backed verification requires a confirmed disposable database.
-- `packages/ui` change: UI lint and `typecheck`, affected store tests, and store build/type-check.
+- `packages/ui` change: UI lint and `check-types`, affected store tests, and store build/type-check.
 - ESLint/TypeScript config change: validate every consuming workspace explicitly.
-- Cross-workspace change: run the applicable root checks plus workspace checks omitted by Turbo, especially `pnpm --filter @repo/ui typecheck`.
+- Cross-workspace change: run the applicable root checks; add targeted workspace checks when they provide coverage beyond Turbo.
 
 Do not consider a task complete with failing checks. Report every command run, its result, and any check not run with the reason. Do not “fix” unrelated pre-existing failures without authorization.
 
