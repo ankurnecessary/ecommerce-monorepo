@@ -46,3 +46,6 @@ next-env.d.ts
 temp
 *storybook.log
 storybook-static
+
+# clerk configuration (can include secrets)
+/.clerk/
