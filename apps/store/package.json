@@ -24,6 +24,7 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.6.4",
     "@next/bundle-analyzer": "^16.2.1",
     "@repo/ui": "workspace:*",
     "lucide-react": "^1.9.0",
