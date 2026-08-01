@@ -27,7 +27,7 @@ const UserAvatarDropdown = () => {
 
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={"/signup"} className="inline-flex w-full cursor-pointer">
+          <Link href={"/sign-up"} className="inline-flex w-full cursor-pointer">
             <UserPlus size={16} className="ml-1 mr-2" />
             Sign up
           </Link>
