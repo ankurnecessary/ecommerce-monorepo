@@ -27,33 +27,33 @@ const UserAvatarDropdown = () => {
 
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link href={"/signup"} className="inline-flex w-full" >
+          <Link href={"/signup"} className="inline-flex w-full cursor-pointer">
             <UserPlus size={16} className="ml-1 mr-2" />
             Sign up
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={"#"} className="inline-flex w-full">
+          <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <LogInIcon size={16} className="ml-1 mr-2" />
             Sign in
           </Link>
         </DropdownMenuItem>
 
         {/* <DropdownMenuItem>
-          <Link href={"#"} className="inline-flex w-full">
+          <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <UserIcon size={16} className="ml-1 mr-2" />
             Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={"#"} className="inline-flex w-full">
+          <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <SettingsIcon size={16} className="ml-1 mr-2" />
             Settings
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href={"#"} className="inline-flex w-full">
+          <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <LogOutIcon size={16} className="ml-1 mr-2" />
             Sign out
           </Link>
