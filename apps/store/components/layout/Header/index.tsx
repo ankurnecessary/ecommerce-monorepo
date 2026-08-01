@@ -12,6 +12,7 @@ import {
   InputGroupButton,
   InputGroup,
 } from "@repo/ui/components/input-group";
+import UserAvatarDropdown from "./UserAvatarDropdown";
 
 const Header = () => {
   // [ ]: Replace "links" with <HeaderContextProvider/> with an API call to fetch the links
@@ -20,13 +21,11 @@ const Header = () => {
 
   return (
     <HeaderContextProvider categories={links}>
-      <header className="relative z-1 border-b bg-background lg:h-29.25" >
+      <header className="relative z-1 border-b bg-background lg:h-29.25">
         <div className="relative flex items-center justify-between lg:container lg:mx-auto lg:py-5">
           {/* Logo container */}
           <div className="absolute left-1/2 -translate-x-1/2 lg:left-28">
-            <h1
-              className={`relative p-1 text-3xl font-bold uppercase`}
-            >
+            <h1 className={`relative p-1 text-3xl font-bold uppercase`}>
               <Link href={"/"}>Celeb</Link>
             </h1>
           </div>
@@ -46,9 +45,19 @@ const Header = () => {
             >
               {/* lg:invisible - Just remove this class from the <div> above to see the search text box */}
               <InputGroup className="border border-primary rounded-none has-[>[data-align=inline-end]]:[&>input]:pe-0 overflow-hidden">
-                <InputGroupInput className="px-0 py-0 pl-1" placeholder="Search..." />
-                <InputGroupAddon className="p-0 has-[>button]:me-0" align="inline-end">
-                  <InputGroupButton className="h-8 w-8 rounded-none bg-primary text-white border-0 hover:border-0 hover:bg-primary/80" aria-label="search" variant="secondary">
+                <InputGroupInput
+                  className="px-0 py-0 pl-1"
+                  placeholder="Search..."
+                />
+                <InputGroupAddon
+                  className="p-0 has-[>button]:me-0"
+                  align="inline-end"
+                >
+                  <InputGroupButton
+                    className="h-8 w-8 rounded-none bg-primary text-white border-0 hover:border-0 hover:bg-primary/80"
+                    aria-label="search"
+                    variant="secondary"
+                  >
                     <Search />
                   </InputGroupButton>
                 </InputGroupAddon>
@@ -73,6 +82,7 @@ const Header = () => {
             {/* Start: [Desktop only]: <div> */}
             <div className="hidden pr-16 lg:block">
               {/* You can add those items which are only visible on desktop version */}
+              <UserAvatarDropdown />
             </div>
             {/* End: [Desktop only]: <div> */}
           </div>
