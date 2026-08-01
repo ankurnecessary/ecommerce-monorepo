@@ -26,33 +26,33 @@ const UserAvatarDropdown = () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={"/signup"} className="inline-flex w-full cursor-pointer">
             <UserPlus size={16} className="ml-1 mr-2" />
             Sign up
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <LogInIcon size={16} className="ml-1 mr-2" />
             Sign in
           </Link>
         </DropdownMenuItem>
 
-        {/* <DropdownMenuItem>
+        {/* <DropdownMenuItem asChild>
           <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <UserIcon size={16} className="ml-1 mr-2" />
             Profile
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <SettingsIcon size={16} className="ml-1 mr-2" />
             Settings
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={"#"} className="inline-flex w-full cursor-pointer">
             <LogOutIcon size={16} className="ml-1 mr-2" />
             Sign out
