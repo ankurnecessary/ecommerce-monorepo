@@ -40,7 +40,7 @@ describe("Header", () => {
     // Wait for the class to be applied
     await waitFor(() => {
       expect(navbarMenu).toHaveClass(
-        "absolute z-0 h-96 w-full  transition-transform duration-300 flex",
+        "absolute z-11 h-96 w-full  transition-transform duration-300 flex",
       );
     });
 
@@ -50,7 +50,7 @@ describe("Header", () => {
     // Wait for the class to be applied
     await waitFor(() => {
       expect(navbarMenu).toHaveClass(
-        "absolute z-0 h-96 w-full -translate-y-full transition-transform duration-300 flex",
+        "absolute z-11 h-96 w-full -translate-y-full transition-transform duration-300 flex",
       );
     });
   });
