@@ -4,11 +4,12 @@ import "@repo/ui/globals.css";
 import "./globals.css";
 import { Header } from "@/components/layout";
 import { Providers } from "@/components/theme/Providers";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const fontSans = Poppins({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ['400']
+  weight: ["400"],
 });
 
 const fontSerif = Merriweather({
@@ -32,14 +33,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
-      <body className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}
+      >
         <Providers>
-          <Header />
-          {children}
+          <ClerkProvider>
+            <Header />
+            {children}
+          </ClerkProvider>
         </Providers>
       </body>
     </html>
