@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -15,9 +16,10 @@ import {
   UserPlus,
 } from "lucide-react";
 import Link from "next/link";
-import { Show } from "@clerk/nextjs";
+import { Show, useClerk } from "@clerk/nextjs";
 
 const UserAvatarDropdown = () => {
+  const { signOut } = useClerk();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -62,11 +64,12 @@ const UserAvatarDropdown = () => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>
-            <Link href={"#"} className="inline-flex w-full cursor-pointer">
-              <LogOutIcon size={16} className="ml-1 mr-2" />
-              Sign out
-            </Link>
+          <DropdownMenuItem
+            onSelect={() => void signOut({ redirectUrl: "/" })}
+            className="cursor-pointer"
+          >
+            <LogOutIcon size={16} className="ml-1 mr-2" />
+            Sign out
           </DropdownMenuItem>
         </Show>
       </DropdownMenuContent>
