@@ -44,6 +44,20 @@ vi.mock('next/image', () => ({
   },
 }));
 
+vi.mock("@clerk/nextjs", () => ({
+  Show: ({
+    when,
+    children,
+  }: {
+    when: "signed-in" | "signed-out";
+    children: React.ReactNode;
+  }) => (when === "signed-out" ? <>{children}</> : null),
+
+  useClerk: () => ({
+    signOut: vi.fn(),
+  }),
+}));
+
 // Automatically clean up the DOM after each test
 afterEach(() => {
   cleanup();
