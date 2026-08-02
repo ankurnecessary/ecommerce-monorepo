@@ -44,7 +44,7 @@ const UserAvatarDropdown = () => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={"#"} className="inline-flex w-full cursor-pointer">
+            <Link href={"/sign-in"} className="inline-flex w-full cursor-pointer">
               <LogInIcon size={16} className="ml-1 mr-2" />
               Sign in
             </Link>
