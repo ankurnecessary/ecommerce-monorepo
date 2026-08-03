@@ -56,6 +56,12 @@ vi.mock("@clerk/nextjs", () => ({
   useClerk: () => ({
     signOut: vi.fn(),
   }),
+
+  useUser: () => ({
+    isLoaded: true,
+    isSignedIn: false,
+    user: null,
+  }),
 }));
 
 // Automatically clean up the DOM after each test
