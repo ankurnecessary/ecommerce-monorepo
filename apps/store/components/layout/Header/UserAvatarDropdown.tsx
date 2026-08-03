@@ -16,10 +16,17 @@ import {
   UserPlus,
 } from "lucide-react";
 import Link from "next/link";
-import { Show, useClerk } from "@clerk/nextjs";
+import { Show, useClerk, useUser } from "@clerk/nextjs";
 
 const UserAvatarDropdown = () => {
   const { signOut } = useClerk();
+  const { user, isLoaded, isSignedIn } = useUser();
+  const avatarImageUrl =
+    isLoaded && isSignedIn && user?.hasImage ? user.imageUrl : undefined;
+
+  const avatarName = isSignedIn
+    ? (user?.fullName ?? user?.username ?? "User")
+    : "Guest";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,7 +35,11 @@ const UserAvatarDropdown = () => {
           aria-label="Open user menu"
           className="cursor-pointer rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <UserAvatar />
+          <UserAvatar
+            key={!isLoaded ? "loading" : isSignedIn ? user?.id : "signed-out"}
+            name={avatarName}
+            imageUrl={avatarImageUrl}
+          />
         </button>
       </DropdownMenuTrigger>
 
