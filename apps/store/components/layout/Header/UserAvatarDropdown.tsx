@@ -8,15 +8,9 @@ import {
 } from "@repo/ui/components/dropdown-menu";
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import {
-  LogInIcon,
-  LogOutIcon,
-  SettingsIcon,
-  UserIcon,
-  UserPlus,
-} from "lucide-react";
+import { LogInIcon, LogOutIcon, UserIcon, UserPlus } from "lucide-react";
 import Link from "next/link";
-import { Show, useClerk, useUser } from "@clerk/nextjs";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 const UserAvatarDropdown = () => {
   const { signOut } = useClerk();
@@ -42,47 +36,45 @@ const UserAvatarDropdown = () => {
           />
         </button>
       </DropdownMenuTrigger>
-
       <DropdownMenuContent align="end">
-        <Show when="signed-out">
-          <DropdownMenuItem asChild>
-            <Link
-              href={"/sign-up"}
-              className="inline-flex w-full cursor-pointer"
+        {!isLoaded ? (
+          <DropdownMenuItem disabled>Loading…</DropdownMenuItem>
+        ) : !isSignedIn ? (
+          <>
+            <DropdownMenuItem asChild>
+              <Link href="/sign-up" className="w-full cursor-pointer">
+                <UserPlus className="mr-2 size-4" aria-hidden="true" />
+                Sign up
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem asChild>
+              <Link href="/sign-in" className="w-full cursor-pointer">
+                <LogInIcon className="mr-2 size-4" aria-hidden="true" />
+                Sign in
+              </Link>
+            </DropdownMenuItem>
+          </>
+        ) : (
+          <>
+            <DropdownMenuItem disabled asChild>
+              <Link href="/profile" className="w-full cursor-pointer">
+                <UserIcon className="mr-2 size-4" aria-hidden="true" />
+                Profile
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onSelect={() => void signOut({ redirectUrl: "/" })}
             >
-              <UserPlus size={16} className="ml-1 mr-2" />
-              Sign up
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href={"/sign-in"} className="inline-flex w-full cursor-pointer">
-              <LogInIcon size={16} className="ml-1 mr-2" />
-              Sign in
-            </Link>
-          </DropdownMenuItem>
-        </Show>
-        <Show when="signed-in">
-          <DropdownMenuItem asChild>
-            <Link href={"#"} className="inline-flex w-full cursor-pointer">
-              <UserIcon size={16} className="ml-1 mr-2" />
-              Profile
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild>
-            <Link href={"#"} className="inline-flex w-full cursor-pointer">
-              <SettingsIcon size={16} className="ml-1 mr-2" />
-              Settings
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onSelect={() => void signOut({ redirectUrl: "/" })}
-            className="cursor-pointer"
-          >
-            <LogOutIcon size={16} className="ml-1 mr-2" />
-            Sign out
-          </DropdownMenuItem>
-        </Show>
+              <LogOutIcon className="mr-2 size-4" aria-hidden="true" />
+              Sign out
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
