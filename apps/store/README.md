@@ -31,6 +31,12 @@ pnpm run build
 This command will prepare a build of the project.
 
 ```bash
+pnpm run build:analyze
+```
+
+This command will build the project and analyze its bundle.
+
+```bash
 pnpm run start
 ```
 
@@ -64,13 +70,25 @@ This command will format the code.
 pnpm run test
 ```
 
-This command will run the unit test cases in watch mode.
+This command will run both the unit and integration test projects.
 
 ```bash
-pnpm run coverage
+pnpm run test:unit
 ```
 
-This command will run the unit test cases once and generate a coverage report in the end. Good for CI.
+This command will run the main unit test project.
+
+```bash
+pnpm run test:integration
+```
+
+This command will run the integration test project.
+
+```bash
+pnpm run test:coverage
+```
+
+This command will run the main unit test project once and generate a coverage report.
 
 ```bash
 pnpm run lighthouse
@@ -79,13 +97,31 @@ pnpm run lighthouse
 This command will generate the lighthouse report in CI.
 
 ```bash
-pnpm run lighthouse:local
+pnpm run lighthouse:windows
 ```
 
-This command will generate the lighthouse report. A developer can run it locally at any time.
+This command will run the local Lighthouse workflow for Windows.
+
+```bash
+pnpm run lighthouse:wsl
+```
+
+This command will run the local Lighthouse workflow for WSL.
 
 ```bash
 pnpm run validate-html
 ```
 
 This command will validate the HTML.
+
+```bash
+pnpm run chromatic
+```
+
+This command will publish the Storybook build to Chromatic without failing when visual changes are detected.
+
+```bash
+pnpm run check-types
+```
+
+This command will generate Next.js route types and run TypeScript without emitting files.
