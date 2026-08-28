@@ -202,9 +202,6 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^3.2.3
         version: 3.2.4(@vitest/browser@3.2.4)(vitest@3.2.4)
-      chromatic:
-        specifier: ^13.0.1
-        version: 13.3.5
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -3921,18 +3918,6 @@ packages:
   chokidar@4.0.3:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
-
-  chromatic@13.3.5:
-    resolution: {integrity: sha512-MzPhxpl838qJUo0A55osCF2ifwPbjcIPeElr1d4SHcjnHoIcg7l1syJDrAYK/a+PcCBrOGi06jPNpQAln5hWgw==}
-    hasBin: true
-    peerDependencies:
-      '@chromatic-com/cypress': ^0.*.* || ^1.0.0
-      '@chromatic-com/playwright': ^0.*.* || ^1.0.0
-    peerDependenciesMeta:
-      '@chromatic-com/cypress':
-        optional: true
-      '@chromatic-com/playwright':
-        optional: true
 
   chrome-launcher@0.13.4:
     resolution: {integrity: sha512-nnzXiDbGKjDSK6t2I+35OAPBy5Pw/39bgkb/ZAFwMhwJbdYBp6aH+vW28ZgtjdU890Q7D+3wN/tB8N66q5Gi2A==}
@@ -12177,8 +12162,6 @@ snapshots:
   chokidar@4.0.3:
     dependencies:
       readdirp: 4.1.2
-
-  chromatic@13.3.5: {}
 
   chrome-launcher@0.13.4:
     dependencies:

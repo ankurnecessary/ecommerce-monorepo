@@ -12,7 +12,6 @@ const optimizeDepsInclude = [
   'vitest-matchmedia-mock',
 ];
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   test: {
     coverage: {

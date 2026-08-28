@@ -115,12 +115,6 @@ pnpm run validate-html
 This command will validate the HTML.
 
 ```bash
-pnpm run chromatic
-```
-
-This command will publish the Storybook build to Chromatic without failing when visual changes are detected.
-
-```bash
 pnpm run check-types
 ```
 
