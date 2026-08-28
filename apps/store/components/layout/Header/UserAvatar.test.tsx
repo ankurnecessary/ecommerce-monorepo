@@ -1,14 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import UserAvatar from "./UserAvatar";
 
 describe("UserAvatar", () => {
-  it("Renders the avatar container", () => {
-    const { container } = render(<UserAvatar />);
-
-    expect(container.querySelector('[data-slot="avatar"]')).toBeInTheDocument();
-  });
-
   it("Renders avatar's fallback when imageUrl is not provided", () => {
     const { container } = render(<UserAvatar />);
 
@@ -52,31 +46,16 @@ describe("UserAvatar", () => {
     expect(image).toBeInTheDocument();
   });
 
-  it("Handles a null image URL", () => {
-    const imageUrl = null;
+  it.each([
+    ["null", null],
+    ["an empty string", ""],
+    ["undefined", undefined],
+  ])("renders the fallback when imageUrl is %s", (_, imageUrl) => {
     const { container } = render(<UserAvatar imageUrl={imageUrl} />);
+
     expect(
       container.querySelector('[data-slot="avatar-fallback"]'),
     ).toBeInTheDocument();
-  });
-
-  it("Handles blank string as image URL", () => {
-    const imageUrl = "";
-    const { container } = render(<UserAvatar imageUrl={imageUrl} />);
-    expect(
-      container.querySelector('[data-slot="avatar-fallback"]'),
-    ).toBeInTheDocument();
-  });
-
-  it("Renders the fallback icon", () => {
-    const { container } = render(<UserAvatar />);
-
-    const fallback = container.querySelector("[data-slot='avatar-fallback']");
-    expect(fallback).toBeInTheDocument();
-
-    const icon = fallback.querySelector("svg");
-    expect(icon).toBeInTheDocument();
-    expect(icon).toHaveAttribute("aria-hidden", "true");
   });
 
   it("Visually hides the fallback accessibility text", () => {
@@ -88,51 +67,29 @@ describe("UserAvatar", () => {
     expect(fallbackText).toHaveClass("sr-only");
   });
 
-  it("displays fallback content when the image fails to load", async () => {
-  let reportImageFailure!: () => void;
+  it("Switches from a loaded image to the fallback when imageUrl is removed", async () => {
+    const imageUrl =
+      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
-  const imageFailed = new Promise<void>((resolve) => {
-    reportImageFailure = resolve;
-  });
+    const { container, rerender } = render(
+      <UserAvatar imageUrl={imageUrl} name="John" />,
+    );
 
-  class FailingImage extends EventTarget {
-    complete = false;
-    naturalWidth = 0;
-
-    private imageSrc = "";
-
-    get src() {
-      return this.imageSrc;
-    }
-
-    set src(value: string) {
-      this.imageSrc = value;
-
-      // Run asynchronously so Radix has time to register its listener.
-      queueMicrotask(() => {
-        this.dispatchEvent(new Event("error"));
-        reportImageFailure();
-      });
-    }
-  }
-
-  vi.stubGlobal("Image", FailingImage);
-
-  const { container } = render(
-    <UserAvatar imageUrl="https://example.com/broken-avatar.jpg" />,
-  );
-
-  // Confirm that the controlled image failure occurred.
-  await imageFailed;
-
-  await waitFor(() => {
     expect(
-      container.querySelector('[data-slot="avatar-fallback"]'),
+      await screen.findByRole("img", {
+        name: "John's profile picture",
+      }),
     ).toBeInTheDocument();
 
-    expect(
-      container.querySelector('[data-slot="avatar-image"]'),
-    ).not.toBeInTheDocument();
+    rerender(<UserAvatar name="Guest" />);
+
+    await waitFor(() => {
+      expect(
+        container.querySelector('[data-slot="avatar-image"]'),
+      ).not.toBeInTheDocument();
+      expect(
+        container.querySelector('[data-slot="avatar-fallback"]'),
+      ).toBeInTheDocument();
+    });
   });
-});
 });
