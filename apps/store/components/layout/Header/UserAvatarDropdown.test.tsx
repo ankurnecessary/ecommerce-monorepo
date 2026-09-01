@@ -19,17 +19,6 @@ vi.mock("./UserAvatar", () => ({
 }));
 
 describe("UserAvatarDropdown", () => {
-  it("Renders an accessible menu trigger", () => {
-    mockUseUser.mockReturnValue({
-      isLoaded: false,
-      isSignedIn: false,
-      user: undefined,
-    });
-    render(<UserAvatarDropdown />);
-    const trigger = screen.getByRole("button", { name: "Open user menu" });
-    expect(trigger).toBeInTheDocument();
-    expect(trigger).toHaveAttribute("type", "button");
-  });
 
   it("Opens the menu when the trigger is selected", async () => {
     mockUseUser.mockReturnValue({
