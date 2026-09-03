@@ -49,3 +49,10 @@ storybook-static
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# playwright
+test-results/
+
+# Vitest browser test artifacts
+.vitest-attachments/
+**/__screenshots__/
