@@ -1,11 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import Navbar from "@/components/layout/Navbar";
-import { MEDIA_QUERIES } from "@/constants";
+
+vi.mock("@/hooks/useMediaQuery", () => ({
+  useMediaQuery: () => true,
+}));
 
 describe("Navbar", () => {
   it("renders the text inside the component", () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     render(<Navbar />);
     expect(screen.getByText("Categories")).toBeInTheDocument();
   });
