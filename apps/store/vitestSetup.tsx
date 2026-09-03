@@ -1,39 +1,19 @@
-import * as matchers from '@testing-library/jest-dom/matchers';
-import { afterAll, afterEach, beforeAll, expect, vi } from 'vitest';
-import React from 'react';
-import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
-import { cleanup } from '@testing-library/react';
-import MatchMediaMock from 'vitest-matchmedia-mock';
+import * as matchers from "@testing-library/jest-dom/matchers";
+import { afterEach, beforeAll, expect, vi } from "vitest";
+import React from "react";
+import { mockUseHeaderContext } from "@/components/layout/Header/Header.context.test.mock";
+import { cleanup } from "@testing-library/react";
 
 expect.extend(matchers);
 
-declare global {
-   
-  var matchMediaMock: MatchMediaMock;
-}
-
 beforeAll(() => {
-  globalThis.ResizeObserver = vi.fn(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }));
+  class ResizeObserverMock {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
 
-  globalThis.matchMediaMock = new MatchMediaMock();
-});
-
-vi.mock('next/link', () => {
-  return {
-    __esModule: true,
-    default: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-      const { href, children, ...rest } = props;
-      return (
-        <a href={href} {...rest}>
-          {children}
-        </a>
-      );
-    },
-  };
+  globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
 });
 
 vi.mock('@/components/layout/Header/Header.context', () => ({
@@ -42,14 +22,6 @@ vi.mock('@/components/layout/Header/Header.context', () => ({
   HeaderContextProvider: ({ children }: { children: React.ReactNode }) => (
     <>{children}</>
   ),
-}));
-
-vi.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />;
-  },
 }));
 
 vi.mock("@clerk/nextjs", () => ({
@@ -76,9 +48,4 @@ vi.mock("@clerk/nextjs", () => ({
 afterEach(() => {
   cleanup();
   vi.resetAllMocks();
-  globalThis.matchMediaMock.clear();
-});
-
-afterAll(() => {
-  globalThis.matchMediaMock.destroy();
 });
