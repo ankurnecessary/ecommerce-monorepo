@@ -1,6 +1,7 @@
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import Header from "@/components/layout/Header";
+import { userEvent } from "vitest/browser";
 
 vi.mock("@/hooks/useMediaQuery", () => ({
   useMediaQuery: () => true,
@@ -40,5 +41,18 @@ describe("<Header />", () => {
       expect(verticalCategoryLink).toHaveClass("bg-gray-100");
       expect(verticalCategoryLink).toHaveClass("dark:bg-zinc-800");
     });
+  });
+
+  it('has user avatar dropdown with "Sign up" and "Sign in"', async () => {
+    const user = userEvent.setup();
+    render(<Header />);
+    const dropdownTrigger = screen.getByRole("button", {
+      name: "Open user menu",
+      hidden: true
+    });
+    expect(dropdownTrigger).toBeInTheDocument();
+    await user.click(dropdownTrigger);
+    expect(screen.getByText("Sign up")).toBeInTheDocument();
+    expect(screen.getByText("Sign in")).toBeInTheDocument();
   });
 });
