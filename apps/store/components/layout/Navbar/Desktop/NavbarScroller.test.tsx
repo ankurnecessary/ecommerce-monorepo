@@ -245,9 +245,4 @@ describe("NavbarScroller", () => {
     const parentDiv = container.querySelector("div.shadow-left");
     expect(parentDiv).toHaveClass("hidden");
   });
-
-  afterEach(() => {
-    cleanup();
-    vi.resetAllMocks();
-  });
 });
