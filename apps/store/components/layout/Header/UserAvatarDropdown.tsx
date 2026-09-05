@@ -21,6 +21,44 @@ const UserAvatarDropdown = () => {
   const avatarName = isSignedIn
     ? (user?.fullName ?? user?.username ?? "User")
     : "Guest";
+
+  const menuItems = !isSignedIn ? (
+    <>
+      <DropdownMenuItem asChild>
+        <Link href="/sign-up" className="w-full cursor-pointer">
+          <UserPlus className="mr-2 size-4" aria-hidden="true" />
+          Sign up
+        </Link>
+      </DropdownMenuItem>
+
+      <DropdownMenuItem asChild>
+        <Link href="/sign-in" className="w-full cursor-pointer">
+          <LogInIcon className="mr-2 size-4" aria-hidden="true" />
+          Sign in
+        </Link>
+      </DropdownMenuItem>
+    </>
+  ) : (
+    <>
+      <DropdownMenuItem disabled asChild>
+        <Link href="/profile" className="w-full cursor-pointer">
+          <UserIcon className="mr-2 size-4" aria-hidden="true" />
+          Profile
+        </Link>
+      </DropdownMenuItem>
+
+      <DropdownMenuSeparator />
+
+      <DropdownMenuItem
+        className="cursor-pointer"
+        onSelect={() => void signOut({ redirectUrl: "/" })}
+      >
+        <LogOutIcon className="mr-2 size-4" aria-hidden="true" />
+        Sign out
+      </DropdownMenuItem>
+    </>
+  );
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -39,41 +77,8 @@ const UserAvatarDropdown = () => {
       <DropdownMenuContent align="end">
         {!isLoaded ? (
           <DropdownMenuItem disabled>Loading…</DropdownMenuItem>
-        ) : !isSignedIn ? (
-          <>
-            <DropdownMenuItem asChild>
-              <Link href="/sign-up" className="w-full cursor-pointer">
-                <UserPlus className="mr-2 size-4" aria-hidden="true" />
-                Sign up
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem asChild>
-              <Link href="/sign-in" className="w-full cursor-pointer">
-                <LogInIcon className="mr-2 size-4" aria-hidden="true" />
-                Sign in
-              </Link>
-            </DropdownMenuItem>
-          </>
         ) : (
-          <>
-            <DropdownMenuItem disabled asChild>
-              <Link href="/profile" className="w-full cursor-pointer">
-                <UserIcon className="mr-2 size-4" aria-hidden="true" />
-                Profile
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onSelect={() => void signOut({ redirectUrl: "/" })}
-            >
-              <LogOutIcon className="mr-2 size-4" aria-hidden="true" />
-              Sign out
-            </DropdownMenuItem>
-          </>
+          menuItems
         )}
       </DropdownMenuContent>
     </DropdownMenu>
