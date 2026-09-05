@@ -39,5 +39,5 @@ vi.mock("@clerk/nextjs", () => ({
 // Automatically clean up the DOM after each test
 afterEach(() => {
   cleanup();
-  vi.resetAllMocks();
+  vi.clearAllMocks();
 });

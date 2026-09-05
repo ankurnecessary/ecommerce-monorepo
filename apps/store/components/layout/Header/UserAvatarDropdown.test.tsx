@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import UserAvatarDropdown from "./UserAvatarDropdown";
-import { userEvent } from "@testing-library/user-event";
+import { userEvent } from "vitest/browser";
 
 const mockSignOut = vi.fn();
 const mockUseUser = vi.fn();
@@ -26,10 +26,9 @@ describe("UserAvatarDropdown", () => {
       isSignedIn: undefined,
       user: undefined,
     });
-    const user = userEvent.setup();
     render(<UserAvatarDropdown />);
     const trigger = screen.getByRole("button", { name: "Open user menu" });
-    await user.click(trigger);
+    await userEvent.click(trigger);
     expect(
       screen.getByRole("menuitem", { name: "Sign in" }),
     ).toBeInTheDocument();
@@ -42,15 +41,13 @@ describe("UserAvatarDropdown", () => {
       user: undefined,
     });
 
-    const user = userEvent.setup();
-
     render(<UserAvatarDropdown />);
 
     const trigger = screen.getByRole("button", {
       name: "Open user menu",
     });
 
-    await user.click(trigger);
+    await userEvent.click(trigger);
 
     expect(screen.getByText("Loading…")).toBeInTheDocument();
   });
@@ -61,12 +58,11 @@ describe("UserAvatarDropdown", () => {
       isSignedIn: false,
       user: null,
     });
-    const user = userEvent.setup();
     render(<UserAvatarDropdown />);
     const trigger = screen.getByRole("button", {
       name: "Open user menu",
     });
-    await user.click(trigger);
+    await userEvent.click(trigger);
     expect(
       screen.getByRole("menuitem", { name: /sign up/i }),
     ).toBeInTheDocument();
@@ -91,12 +87,11 @@ describe("UserAvatarDropdown", () => {
       isSignedIn: false,
       user: undefined,
     });
-    const user = userEvent.setup();
     render(<UserAvatarDropdown />);
     const trigger = screen.getByRole("button", {
       name: "Open user menu",
     });
-    await user.click(trigger);
+    await userEvent.click(trigger);
     expect(
       screen.getByRole("menuitem", {
         name: /sign up/i,
@@ -120,10 +115,9 @@ describe("UserAvatarDropdown", () => {
         hasImage: false,
       },
     });
-    const user = userEvent.setup();
     render(<UserAvatarDropdown />);
     const trigger = screen.getByRole("button", { name: "Open user menu" });
-    await user.click(trigger);
+    await userEvent.click(trigger);
     expect(
       screen.getByRole("menuitem", {
         name: /profile/i,
@@ -161,16 +155,15 @@ describe("UserAvatarDropdown", () => {
         hasImage: false,
       },
     });
-    const user = userEvent.setup();
     render(<UserAvatarDropdown />);
     const trigger = screen.getByRole("button", {
       name: "Open user menu",
     });
-    await user.click(trigger);
+    await userEvent.click(trigger);
     const signOutMenuItem = screen.getByRole("menuitem", {
       name: /sign out/i,
     });
-    await user.click(signOutMenuItem);
+    await userEvent.click(signOutMenuItem);
     expect(mockSignOut).toHaveBeenCalledOnce();
     expect(mockSignOut).toHaveBeenCalledWith({
       redirectUrl: "/",
