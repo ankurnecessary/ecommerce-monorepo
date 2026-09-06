@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Sign into CELEB Store account.",
 };
 
-export default function SignupPage() {
+export default function SignPage() {
   return (
     <main className="mx-auto w-full max-w-md px-4 py-12">
       <SignIn />
