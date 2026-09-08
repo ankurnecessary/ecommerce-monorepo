@@ -50,6 +50,9 @@ jobs:
 
       - name: Validate HTML
         run: pnpm --filter store validate-html
+      
+      - name: Stop Next.js server
+        cancel: store-server
 
   test:
     runs-on: ubuntu-latest
