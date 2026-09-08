@@ -72,7 +72,7 @@ const NavbarMenu = () => {
     <div
       data-testid="navbar-menu"
       className={cn(
-        "absolute z-0 flex h-96 w-full overflow-hidden transition-transform duration-300 bg-background",
+        "absolute z-11 flex h-96 w-full overflow-hidden transition-transform duration-300 bg-background",
         {
           "-translate-y-full": !isVisible,
           "shadow-2xl": isVisible,

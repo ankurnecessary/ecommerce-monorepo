@@ -4,17 +4,18 @@ import { fireEvent, render } from "@testing-library/react";
 import * as HeaderContextModule from "@/components/layout/Header/Header.context";
 import { mockUseHeaderContext } from "@/components/layout/Header/Header.context.test.mock";
 import { MenuCategory } from "@/components/layout/Header/types";
-import { MEDIA_QUERIES } from "@/constants";
+
+vi.mock("@/hooks/useMediaQuery", () => ({
+  useMediaQuery: () => true,
+}));
 
 describe("NavbarMenu", () => {
   it("renders in the DOM.", () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     const { getByTestId } = render(<NavbarMenu />);
     expect(getByTestId("navbar-menu")).toBeInTheDocument();
   });
 
   it("applies the correct class based on visibility", () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     const { getByTestId, rerender } = render(<NavbarMenu />);
     const menu = getByTestId("navbar-menu");
 
@@ -36,7 +37,6 @@ describe("NavbarMenu", () => {
   });
 
   it("calls menuMouseOverHandler on mouse over", () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     const toggleMenuMock = vi.fn();
     const setSelectedHorizontalNavLinkMock = vi.fn();
     const setSelectedVerticalNavLinkMock = vi.fn();
@@ -62,7 +62,6 @@ describe("NavbarMenu", () => {
   });
 
   it("calls categoryMouseOverHandler on category hover", async () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     const setSelectedHorizontalNavLinkMock = vi.fn();
     const toggleMenuMock = vi.fn();
     const setSelectedVerticalNavLinkMock = vi.fn();
@@ -102,7 +101,6 @@ describe("NavbarMenu", () => {
   });
 
   it("should have a link with id `scrollToElementId` when `scrollToElementId` is passed", () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
         navLinks: [{ id: "1", name: "Category", url: "/category" }],
@@ -126,7 +124,6 @@ describe("NavbarMenu", () => {
   });
 
   it("should highlight the hovered category", () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     const setSelectedVerticalNavLinkMock = vi.fn();
 
     // Initial mock setup

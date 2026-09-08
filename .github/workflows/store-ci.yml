@@ -16,10 +16,17 @@ on:
       - ".nvmrc"
       - ".github/actions/setup-node-pnpm/**"
       - ".github/workflows/store-ci.yml"
+env:
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+  CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+  NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+  NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+  NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: /
+  NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: /signup-success
 jobs:
   validate-html:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -34,20 +41,23 @@ jobs:
         run: pnpm --filter store build
 
       - name: Start Next.js Server
-        run: pnpm --filter store start &
-        env:
-          NODE_ENV: development
+        id: store-server
+        run: pnpm --filter store start
+        background: true
 
       - name: Wait for Server to Start
-        run: pnpm --filter store exec wait-on http://localhost:3000
+        run: pnpm --filter store exec wait-on http-get://localhost:3000 --timeout 120000
 
       - name: Validate HTML
         run: pnpm --filter store validate-html
+      
+      - name: Stop Next.js server
+        cancel: store-server
 
   test:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.58.2-noble
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
 
     steps:
       - name: Checkout code
@@ -61,12 +71,11 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - validate-html
       - test
 
     steps:
-      
       - name: Checkout code
         uses: actions/checkout@v6
 

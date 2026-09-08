@@ -1,7 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import Header from "@/components/layout/Header";
-import { MEDIA_QUERIES } from "@/constants";
+
+vi.mock("@/hooks/useMediaQuery", () => ({
+  useMediaQuery: () => true,
+}));
 
 describe("Header", () => {
   it("renders the component with text", () => {
@@ -26,7 +29,6 @@ describe("Header", () => {
   });
 
   it('has a "Categories" link. On it\'s "mouseOver" and "mouseOut" events "<NavbarMenu />" will toggle', async () => {
-    globalThis.matchMediaMock.useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
     const { getByText, getByTestId } = render(<Header />);
     const categoriesLink = getByText("Categories");
     expect(categoriesLink).toBeInTheDocument();
@@ -40,7 +42,7 @@ describe("Header", () => {
     // Wait for the class to be applied
     await waitFor(() => {
       expect(navbarMenu).toHaveClass(
-        "absolute z-0 h-96 w-full  transition-transform duration-300 flex",
+        "absolute z-11 h-96 w-full  transition-transform duration-300 flex",
       );
     });
 
@@ -50,7 +52,7 @@ describe("Header", () => {
     // Wait for the class to be applied
     await waitFor(() => {
       expect(navbarMenu).toHaveClass(
-        "absolute z-0 h-96 w-full -translate-y-full transition-transform duration-300 flex",
+        "absolute z-11 h-96 w-full -translate-y-full transition-transform duration-300 flex",
       );
     });
   });
