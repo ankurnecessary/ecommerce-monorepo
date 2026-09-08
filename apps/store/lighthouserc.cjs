@@ -8,7 +8,6 @@ module.exports = {
       startServerCommand: 'pnpm start',
       numberOfRuns: 3,
       settings: {
-        throttlingMethod: 'devtools', // Use real-world throttling like DevTools
         // preset: 'desktop',
         emulatedFormFactor: 'mobile', // Aligns screen size and interaction model
         chromeFlags:
