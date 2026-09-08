@@ -12,7 +12,6 @@ module.exports = {
         emulatedFormFactor: 'mobile', // Aligns screen size and interaction model
         chromeFlags:
           LIGHTHOUSE_CHROME_FLAGS || '--headless --disable-gpu --no-sandbox',
-        port: 9222,
         disableStorageReset: true
       },
     },
