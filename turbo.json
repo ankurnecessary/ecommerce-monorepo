@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
-  "globalEnv": ["ANALYZE", "LIGHTHOUSE_CHROME_FLAGS"],
+  "globalEnv": ["ANALYZE", "CI", "LIGHTHOUSE_CHROME_FLAGS"],
   "ui": "tui",
   "tasks": {
     "build": {
