@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@repo/ui/globals.css";
 
 :root {
   --primary: oklch(0.685 0.169 237.323);

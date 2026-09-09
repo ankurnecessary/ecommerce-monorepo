@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins, Merriweather, JetBrains_Mono } from "next/font/google";
-import "@repo/ui/globals.css";
 import "./globals.css";
 import { Header } from "@/components/layout";
 import { Providers } from "@/components/theme/Providers";
