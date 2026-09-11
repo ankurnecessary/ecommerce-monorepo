@@ -53,7 +53,7 @@ const NavbarLinks = ({
               className={cn(
                 "relative inline-block p-2 pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
                 {
-                  "bg-primary/10 after:scale-x-100":
+                  "bg-accent after:scale-x-100":
                     selectedHorizontalNavLink === link.name,
                 },
               )}

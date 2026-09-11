@@ -1,5 +1,6 @@
-import path from 'node:path';
-import react from '@vitejs/plugin-react';
+import path from "node:path";
+import react from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
 
 import {
   defineConfig,
@@ -7,12 +8,8 @@ import {
   coverageConfigDefaults,
 } from 'vitest/config';
 
-const optimizeDepsInclude = [
-  '@testing-library/jest-dom/matchers',
-  'vitest-matchmedia-mock',
-];
+const optimizeDepsInclude = ["@testing-library/jest-dom/matchers"];
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   test: {
     coverage: {
@@ -36,8 +33,8 @@ export default defineConfig({
           include: ['__integration__/**/*.{test,spec}.{js,ts,jsx,tsx}'],
           browser: {
             enabled: true,
-            provider: 'playwright',
-            instances: [{ browser: 'chromium' }],
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
           },
           exclude: [
             ...configDefaults.exclude,
@@ -48,7 +45,15 @@ export default defineConfig({
         },
         resolve: {
           alias: {
-            '@': path.resolve(__dirname, './'),
+            "@": path.resolve(import.meta.dirname, "./"),
+            "next/link": path.resolve(
+              import.meta.dirname,
+              "./test/mocks/next-link.tsx",
+            ),
+            "next/image": path.resolve(
+              import.meta.dirname,
+              "test/mocks/next-image.tsx",
+            ),
           },
         },
       },
@@ -58,11 +63,12 @@ export default defineConfig({
           include: optimizeDepsInclude,
         },
         test: {
-          name: 'main',
+          name: "main",
+          include: ["components/**/*.{test,spec}.{js,ts,jsx,tsx}"],
           browser: {
             enabled: true,
-            provider: 'playwright',
-            instances: [{ browser: 'chromium' }],
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
           },
           exclude: [
             ...configDefaults.exclude,
@@ -74,7 +80,15 @@ export default defineConfig({
         },
         resolve: {
           alias: {
-            '@': path.resolve(__dirname, './'),
+            "@": path.resolve(import.meta.dirname, "./"),
+            "next/link": path.resolve(
+              import.meta.dirname,
+              "./test/mocks/next-link.tsx",
+            ),
+            "next/image": path.resolve(
+              import.meta.dirname,
+              "test/mocks/next-image.tsx",
+            ),
           },
         },
       },

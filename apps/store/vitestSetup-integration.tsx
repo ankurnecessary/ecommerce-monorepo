@@ -1,56 +1,43 @@
 import * as matchers from '@testing-library/jest-dom/matchers';
-import { afterAll, afterEach, beforeAll, expect, vi } from 'vitest';
+import { afterEach, beforeAll, expect, vi } from 'vitest';
 import React from 'react';
 // import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
-import { cleanup } from '@testing-library/react';
-import MatchMediaMock from 'vitest-matchmedia-mock';
+import { cleanup } from "@testing-library/react";
 
 expect.extend(matchers);
 
-declare global {
-   
-  var matchMediaMock: MatchMediaMock;
-}
-
 beforeAll(() => {
-  globalThis.ResizeObserver = vi.fn(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-  }));
+  class ResizeObserverMock {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
 
-  globalThis.matchMediaMock = new MatchMediaMock();
+  globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
 });
 
-vi.mock('next/link', () => {
-  return {
-    __esModule: true,
-    default: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-      const { href, children, ...rest } = props;
-      return (
-        <a href={href} {...rest}>
-          {children}
-        </a>
-      );
-    },
-  };
-});
+vi.mock("@clerk/nextjs", () => ({
+  Show: ({
+    when,
+    children,
+  }: {
+    when: "signed-in" | "signed-out";
+    children: React.ReactNode;
+  }) => (when === "signed-out" ? <>{children}</> : null),
 
-vi.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />;
-  },
+  useClerk: () => ({
+    signOut: vi.fn(),
+  }),
+
+  useUser: () => ({
+    isLoaded: true,
+    isSignedIn: false,
+    user: null,
+  }),
 }));
 
 // Automatically clean up the DOM after each test
 afterEach(() => {
   cleanup();
-  vi.resetAllMocks();
-  globalThis.matchMediaMock.clear();
-});
-
-afterAll(() => {
-  globalThis.matchMediaMock.destroy();
+  vi.clearAllMocks();
 });

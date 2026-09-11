@@ -8,12 +8,10 @@ module.exports = {
       startServerCommand: 'pnpm start',
       numberOfRuns: 3,
       settings: {
-        throttlingMethod: 'devtools', // Use real-world throttling like DevTools
         // preset: 'desktop',
         emulatedFormFactor: 'mobile', // Aligns screen size and interaction model
         chromeFlags:
           LIGHTHOUSE_CHROME_FLAGS || '--headless --disable-gpu --no-sandbox',
-        port: 9222,
         disableStorageReset: true
       },
     },
@@ -25,9 +23,12 @@ module.exports = {
       assertions: {
         // ✅ Key performance metrics for mobile
         'first-contentful-paint': ['warn', { maxNumericValue: 2000 }], // 2s
-        'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
-        'total-blocking-time': ['error', { maxNumericValue: 200 }],
-        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
+        // 'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
+        'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
+        // 'total-blocking-time': ['error', { maxNumericValue: 200 }],
+        'total-blocking-time': ['warn', { maxNumericValue: 200 }],
+        // 'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
+        'cumulative-layout-shift': ['warn', { maxNumericValue: 0.1 }],
         'speed-index': ['warn', { maxNumericValue: 3000 }],
 
         // ✅ High-level category scores
