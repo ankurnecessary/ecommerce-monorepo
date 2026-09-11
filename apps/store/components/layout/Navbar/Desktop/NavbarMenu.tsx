@@ -94,7 +94,7 @@ const NavbarMenu = () => {
               className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
-                  "bg-primary/10 dark:bg-primary/20":
+                  "bg-accent":
                     selectedVerticalNavLink === link.name,
                 },
               )}
