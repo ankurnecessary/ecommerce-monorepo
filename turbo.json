@@ -1,5 +1,5 @@
 {
-  "$schema": "https://turborepo.dev/schema.json",
+  "$schema": "https://v2-10-12.turborepo.dev/schema.json",
   "globalEnv": ["ANALYZE", "CI", "LIGHTHOUSE_CHROME_FLAGS"],
   "ui": "tui",
   "tasks": {
