@@ -7,6 +7,7 @@ import pluginReact from "eslint-plugin-react";
 import globals from "globals";
 import pluginNext from "@next/eslint-plugin-next";
 import { config as baseConfig } from "./base.js";
+import jsxA11y from "eslint-plugin-jsx-a11y";
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -33,6 +34,10 @@ export const nextJsConfig = [
         ...globals.serviceworker,
       },
     },
+  },
+  {
+    ...jsxA11y.flatConfigs.recommended,
+    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
   },
   {
     plugins: {
