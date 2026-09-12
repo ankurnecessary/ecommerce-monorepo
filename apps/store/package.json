@@ -17,7 +17,7 @@
     "test:unit": "vitest --project main --browser.headless",
     "test:integration:headed": "vitest --project integration-only",
     "test:integration": "vitest --project integration-only --browser.headless",
-    "test:coverage": "vitest run --coverage --project main --browser.headless",
+    "test:coverage": "vitest run --coverage --project main --project integration-only --browser.headless",
     "test:ct": "playwright test --project=components",
     "test:ct:headed": "playwright test --project=components --headed",
     "test:ct:debug": "playwright test --project=components --debug",
