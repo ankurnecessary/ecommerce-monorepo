@@ -8,6 +8,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "check-types": "turbo run check-types",
     "test:coverage": "turbo run test:coverage",
+    "test:ct": "turbo run test:ct",
     "prepare": "node scripts/setup-git-hooks.mjs",
     "precommit:check": "sh scripts/precommit-check.sh"
   },

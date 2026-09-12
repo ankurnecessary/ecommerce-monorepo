@@ -38,6 +38,6 @@ if [ "$run_api" = true ]; then
 fi
 
 if [ "$run_store" = true ]; then
-  echo "> pnpm turbo run lint check-types test:coverage --filter=store"
-  pnpm turbo run lint check-types test:coverage --filter=store
+  echo "> pnpm turbo run lint check-types test:coverage test:ct --filter=store"
+  pnpm turbo run lint check-types test:coverage test:ct --filter=store
 fi

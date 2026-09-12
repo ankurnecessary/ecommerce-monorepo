@@ -21,6 +21,9 @@
     "test:coverage": {
       "dependsOn": ["^test:coverage"],
       "outputs": ["coverage/**"]
+    },
+    "test:ct": {
+      "outputs": ["playwright-report/**", "test-results/**"]
     }
   }
 }
