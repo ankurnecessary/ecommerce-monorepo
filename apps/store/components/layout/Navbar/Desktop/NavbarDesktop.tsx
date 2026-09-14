@@ -58,13 +58,13 @@ const NavbarDesktop = () => {
       showCategoryMenu(category, category.name);
     };
 
-  const categoryMouseOverHandler: NavbarMouseEvent = (e) => {
+  const showCategoryMenuHandler = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    const link = e.target as HTMLAnchorElement;
+    const link = e.target as HTMLButtonElement;
     showCategoryMenu(navLinks[0], link.textContent);
   };
 
-  const mouseOutHandler: CategoryMouseEventHandler =
+  const mouseOutHandler =
     (category: MenuCategory) => () => {
       toggleMenu(false, category);
       setSelectedHorizontalNavLink("");
@@ -74,7 +74,7 @@ const NavbarDesktop = () => {
     <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
       {/* Category button */}
       <div className="whitespace-nowrap">
-        <span
+        <button
           className={cn(
             "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-[''] translate-y-px",
             {
@@ -82,7 +82,10 @@ const NavbarDesktop = () => {
                 selectedHorizontalNavLink === "Categories",
             },
           )}
-          onMouseOver={categoryMouseOverHandler}
+          type="button"
+          onFocus={showCategoryMenuHandler}
+          onBlur={mouseOutHandler(navLinks[0])}
+          onMouseOver={showCategoryMenuHandler}
           onMouseOut={mouseOutHandler(navLinks[0])}
         >
           Categories
@@ -94,7 +97,7 @@ const NavbarDesktop = () => {
               },
             )}
           />
-        </span>
+        </button>
       </div>
 
       {/* horizontal links scroller */}
