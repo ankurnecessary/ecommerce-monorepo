@@ -70,6 +70,7 @@ const NavbarMenu = () => {
 
   return (
     <div
+      id="navbar-menu"
       data-testid="navbar-menu"
       className={cn(
         "absolute z-11 flex h-96 w-full overflow-hidden transition-transform duration-300 bg-background",

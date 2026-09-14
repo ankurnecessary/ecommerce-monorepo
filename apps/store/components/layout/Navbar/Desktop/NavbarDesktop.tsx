@@ -36,6 +36,7 @@ const NavbarDesktop = () => {
       setSelectedHorizontalNavLink,
       setSelectedVerticalNavLink,
       setVerticalNavScrollToElementId,
+      isMenuVisible
     },
   }: HeaderContext = useHeaderContext();
 
@@ -85,6 +86,8 @@ const NavbarDesktop = () => {
             },
           )}
           type="button"
+          aria-expanded={isMenuVisible[0]}
+          aria-controls="navbar-menu"
           onFocus={showCategoryMenuHandler}
           onBlur={mouseOutHandler(navLinks[0])}
           onMouseOver={showCategoryMenuHandler}
