@@ -11,6 +11,27 @@
       "remoteRoot": "/usr/src/app/apps/api",
       "restart": true,
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Store: Next.js server",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm --filter store dev"
+    },
+    {
+      "name": "Store: Client",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Store: Full Stack",
+      "configurations": [
+        "Store: Next.js server",
+        "Store: Client"
+      ]
     }
   ]
 }
