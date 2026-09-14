@@ -42,13 +42,14 @@ const NavbarDesktop = () => {
   // Rendering this component only on desktop devices
   const isDesktop = useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
   if (!isDesktop) return null;
-  const showCategoryMenu = (category:MenuCategory, categoryName: string) => {
-      toggleMenu(true, category);
-      setSelectedHorizontalNavLink(categoryName || "");
-      setSelectedVerticalNavLink(category.name || "");
-      setVerticalNavScrollToElementId(
-        category.id ? `vertical-${category.id}` : "",
-      );
+
+  const showCategoryMenu = (category: MenuCategory, categoryName: string) => {
+    toggleMenu(true, category);
+    setSelectedHorizontalNavLink(categoryName || "");
+    setSelectedVerticalNavLink(category.name || "");
+    setVerticalNavScrollToElementId(
+      category.id ? `vertical-${category.id}` : "",
+    );
   };
 
   const mouseOverHandler: CategoryMouseEventHandler =
@@ -58,17 +59,18 @@ const NavbarDesktop = () => {
       showCategoryMenu(category, category.name);
     };
 
-  const showCategoryMenuHandler = (e: React.SyntheticEvent<HTMLButtonElement>) => {
+  const showCategoryMenuHandler = (
+    e: React.SyntheticEvent<HTMLButtonElement>,
+  ) => {
     e.stopPropagation();
     const link = e.target as HTMLButtonElement;
     showCategoryMenu(navLinks[0], link.textContent);
   };
 
-  const mouseOutHandler =
-    (category: MenuCategory) => () => {
-      toggleMenu(false, category);
-      setSelectedHorizontalNavLink("");
-    };
+  const mouseOutHandler = (category: MenuCategory) => () => {
+    toggleMenu(false, category);
+    setSelectedHorizontalNavLink("");
+  };
 
   return (
     <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
