@@ -42,33 +42,33 @@ const NavbarDesktop = () => {
   // Rendering this component only on desktop devices
   const isDesktop = useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
   if (!isDesktop) return null;
+  const showCategoryMenu = (category:MenuCategory, categoryName: string) => {
+      toggleMenu(true, category);
+      setSelectedHorizontalNavLink(categoryName || "");
+      setSelectedVerticalNavLink(category.name || "");
+      setVerticalNavScrollToElementId(
+        category.id ? `vertical-${category.id}` : "",
+      );
+  };
 
   const mouseOverHandler: CategoryMouseEventHandler =
     (category: MenuCategory): NavbarMouseEvent =>
     (e) => {
       e.stopPropagation();
-      toggleMenu(true, category);
-      setSelectedHorizontalNavLink(category.name || "");
-      setSelectedVerticalNavLink(category.name || "");
-      setVerticalNavScrollToElementId(
-        category.id ? `vertical-${category.id}` : "",
-      );
+      showCategoryMenu(category, category.name);
     };
+
+  const categoryMouseOverHandler: NavbarMouseEvent = (e) => {
+    e.stopPropagation();
+    const link = e.target as HTMLAnchorElement;
+    showCategoryMenu(navLinks[0], link.textContent);
+  };
 
   const mouseOutHandler: CategoryMouseEventHandler =
     (category: MenuCategory) => () => {
       toggleMenu(false, category);
       setSelectedHorizontalNavLink("");
     };
-
-  const categoryMouseOverHandler: NavbarMouseEvent = (e) => {
-    e.stopPropagation();
-    const link = e.target as HTMLAnchorElement;
-    toggleMenu(true, navLinks[0]);
-    setSelectedHorizontalNavLink(link.textContent || "");
-    setSelectedVerticalNavLink(navLinks[0].name || "");
-    setVerticalNavScrollToElementId(`vertical-${navLinks[0].id}`);
-  };
 
   return (
     <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
