@@ -159,6 +159,10 @@ export type HeaderContext = {
    */
   desktop: {
     /**
+     * a11y - Carries the reference of the navbar item that triggered / opened the navbar menu
+     */
+    menuReturnFocusRef: React.RefObject<HTMLButtonElement | HTMLAnchorElement>;
+    /**
      * a11y - Carries the reference of first button in navbar menu to get focus
      */
     menuFirstCategoryButtonRef: React.RefObject<HTMLButtonElement>;
