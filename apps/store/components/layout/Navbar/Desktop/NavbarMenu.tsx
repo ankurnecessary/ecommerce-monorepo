@@ -33,6 +33,7 @@ const NavbarMenu = () => {
       setSelectedVerticalNavLink,
       verticalNavScrollToElementId,
       setVerticalNavScrollToElementId,
+      menuFirstCategoryButtonRef
     },
   }: HeaderContext = useHeaderContext();
 
@@ -90,25 +91,24 @@ const NavbarMenu = () => {
           contentClassName="p-5 pl-10"
           scrollToElementId={verticalNavScrollToElementId}
         >
-          {navLinks.map((link) => (
+          {navLinks.map((link, index) => (
             // [ ]: Change `key={link.id}` when actual API is made with unique key. Probably id.
-            <span
+            <button
+              ref={index === 0 ? menuFirstCategoryButtonRef : undefined}
+              type="button"
               key={link.id}
               id={`vertical-${link.id}`}
               className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
-                  "bg-accent":
-                    selectedVerticalNavLink === link.name,
+                  "bg-accent": selectedVerticalNavLink === link.name,
                 },
               )}
               onMouseOver={categoryMouseOverHandler(link)}
             >
               <span>{link.name}</span>
-              <span>
-                <ChevronRight className="h-4 w-4 opacity-25" />
-              </span>
-            </span>
+              <ChevronRight className="h-4 w-4 opacity-25" />
+            </button>
           ))}
         </VerticalScrollContainer>
       </div>
