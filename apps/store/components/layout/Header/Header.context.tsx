@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useRef } from "react";
 import {
   HeaderContext,
   ToggleMenu,
@@ -17,6 +17,7 @@ export const headerContext = createContext<HeaderContext>({
   navLinks: [],
   setNavLinks() {},
   desktop: {
+    menuFirstCategoryButtonRef: null,
     isMenuVisible: [false, {} as MenuCategory],
     selectedHorizontalNavLink: "",
     setSelectedHorizontalNavLink() {},
@@ -161,6 +162,7 @@ export const HeaderContextProvider = ({
     navLinks: categories || header.navLinks,
     setNavLinks,
     desktop: {
+      menuFirstCategoryButtonRef: useRef<HTMLButtonElement>(null),
       isMenuVisible: header.isMenuVisibleDsktp,
       selectedHorizontalNavLink: header.selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,
