@@ -1,3 +1,4 @@
+import React from "react";
 import { PartialDeep } from "type-fest";
 
 /**
@@ -158,6 +159,10 @@ export type HeaderContext = {
    */
   desktop: {
     /**
+     * a11y - Carries the reference of first button in navbar menu to get focus
+     */
+    menuFirstCategoryButtonRef: React.RefObject<HTMLButtonElement>;
+    /**
      * Indicates whether the desktop menu is visible and the current menu category.
      * The first element is a boolean for visibility, and the second is the menu category.
      */
@@ -261,7 +266,10 @@ export type CalculateOffset = (
  * @param e - The mouse event.
  */
 export type NavbarMouseEvent = (
-  e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>,
+  e: React.MouseEvent<
+    HTMLDivElement | HTMLAnchorElement | HTMLButtonElement,
+    MouseEvent
+  >,
 ) => void;
 
 export type CategoryMouseEventHandler = (
