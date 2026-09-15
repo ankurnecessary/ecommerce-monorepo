@@ -79,8 +79,11 @@ const NavbarMenu = () => {
           "shadow-2xl": isVisible,
         },
       )}
+      onFocus={menuMouseOverHandler}
+      onBlur={menuMouseOutHandler}
       onMouseOver={menuMouseOverHandler}
-      onMouseLeave={menuMouseOutHandler}
+      // onMouseLeave={menuMouseOutHandler}
+      onMouseOut={menuMouseOutHandler}
     >
       <div className="w-64 shrink-0">
         <VerticalScrollContainer
