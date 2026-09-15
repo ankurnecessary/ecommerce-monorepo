@@ -32,11 +32,12 @@ const NavbarDesktop = () => {
     navLinks,
     desktop: {
       toggleMenu,
+      menuFirstCategoryButtonRef,
       selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,
       setSelectedVerticalNavLink,
       setVerticalNavScrollToElementId,
-      isMenuVisible
+      isMenuVisible,
     },
   }: HeaderContext = useHeaderContext();
 
@@ -73,6 +74,10 @@ const NavbarDesktop = () => {
     setSelectedHorizontalNavLink("");
   };
 
+  const shiftFocusToMenu = () => {
+    menuFirstCategoryButtonRef.current.focus();
+  };
+
   return (
     <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
       {/* Category button */}
@@ -92,6 +97,7 @@ const NavbarDesktop = () => {
           onBlur={mouseOutHandler(navLinks[0])}
           onMouseOver={showCategoryMenuHandler}
           onMouseOut={mouseOutHandler(navLinks[0])}
+          onClick={shiftFocusToMenu}
         >
           Categories
           <ChevronDown
