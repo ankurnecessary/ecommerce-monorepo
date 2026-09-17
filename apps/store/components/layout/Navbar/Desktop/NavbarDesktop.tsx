@@ -32,6 +32,8 @@ const NavbarDesktop = () => {
     navLinks,
     desktop: {
       toggleMenu,
+      isRestoringMenuFocusRef,
+      menuReturnFocusRef,
       menuFirstCategoryButtonRef,
       selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,
@@ -65,8 +67,17 @@ const NavbarDesktop = () => {
     e: React.SyntheticEvent<HTMLButtonElement>,
   ) => {
     e.stopPropagation();
-    const link = e.target as HTMLButtonElement;
+    const link = e.currentTarget;
     showCategoryMenu(navLinks[0], link.textContent);
+    menuReturnFocusRef.current = link;
+  };
+
+  const focusHandler = (e: React.FocusEvent<HTMLButtonElement>) => {
+    if (isRestoringMenuFocusRef.current) {
+      isRestoringMenuFocusRef.current = false;
+      return;
+    }
+    showCategoryMenuHandler(e);
   };
 
   const mouseOutHandler = (category: MenuCategory) => () => {
@@ -74,8 +85,11 @@ const NavbarDesktop = () => {
     setSelectedHorizontalNavLink("");
   };
 
-  const shiftFocusToMenu = () => {
-    menuFirstCategoryButtonRef.current.focus();
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    showCategoryMenuHandler(e);
+    requestAnimationFrame(() => {
+      menuFirstCategoryButtonRef.current.focus();
+    });
   };
 
   return (
@@ -93,11 +107,11 @@ const NavbarDesktop = () => {
           type="button"
           aria-expanded={isMenuVisible[0]}
           aria-controls="navbar-menu"
-          onFocus={showCategoryMenuHandler}
+          onFocus={focusHandler}
           onBlur={mouseOutHandler(navLinks[0])}
           onMouseOver={showCategoryMenuHandler}
           onMouseOut={mouseOutHandler(navLinks[0])}
-          onClick={shiftFocusToMenu}
+          onClick={clickHandler}
         >
           Categories
           <ChevronDown

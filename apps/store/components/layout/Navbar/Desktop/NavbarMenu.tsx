@@ -33,7 +33,9 @@ const NavbarMenu = () => {
       setSelectedVerticalNavLink,
       verticalNavScrollToElementId,
       setVerticalNavScrollToElementId,
-      menuFirstCategoryButtonRef
+      menuFirstCategoryButtonRef,
+      menuReturnFocusRef,
+      isRestoringMenuFocusRef,
     },
   }: HeaderContext = useHeaderContext();
 
@@ -52,7 +54,7 @@ const NavbarMenu = () => {
 
   // Can be done by FP
   const menuMouseOutHandler = () => {
-    toggleMenu(false, {} as MenuCategory);
+    toggleMenu(false, null);
     setSelectedHorizontalNavLink("");
   };
 
@@ -68,6 +70,31 @@ const NavbarMenu = () => {
       toggleMenu(true, category);
       setVerticalNavScrollToElementId("");
     };
+
+  const categoryKeyDownCaptureHandler = (e: React.KeyboardEvent) => {
+    if (e.key !== "Escape") return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    isRestoringMenuFocusRef.current = true;
+
+    toggleMenu(false, null);
+    setSelectedHorizontalNavLink("");
+    setSelectedVerticalNavLink("");
+    setVerticalNavScrollToElementId("");
+
+    requestAnimationFrame(() => {
+      const trigger = menuReturnFocusRef.current;
+
+      if (!trigger) {
+        isRestoringMenuFocusRef.current = false;
+        return;
+      }
+
+      trigger.focus();
+    });
+  };
 
   return (
     <div
@@ -86,7 +113,7 @@ const NavbarMenu = () => {
       // onMouseLeave={menuMouseOutHandler}
       onMouseOut={menuMouseOutHandler}
     >
-      <div className="w-64 shrink-0">
+      <div className="w-64 shrink-0" onKeyDownCapture={categoryKeyDownCaptureHandler}>
         <VerticalScrollContainer
           contentClassName="p-5 pl-10"
           scrollToElementId={verticalNavScrollToElementId}
