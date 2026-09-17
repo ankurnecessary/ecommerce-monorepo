@@ -158,6 +158,7 @@ export type HeaderContext = {
    * Desktop-specific properties and methods.
    */
   desktop: {
+    isRestoringMenuFocusRef: React.RefObject<boolean>;
     /**
      * a11y - Carries the reference of the navbar item that triggered / opened the navbar menu
      */
