@@ -13,8 +13,9 @@ export const mockUseHeaderContext = (
     navLinks: [{ id: "fkjffh1", url: "/newIn", name: "New In" }],
     setNavLinks: vi.fn(),
     desktop: {
-      menuReturnFocusRef: null,
-      menuFirstCategoryButtonRef: null,
+      isRestoringMenuFocusRef: { current: false },
+      menuReturnFocusRef: { current: null },
+      menuFirstCategoryButtonRef: { current: null },
       isMenuVisible: [false, {} as MenuCategory],
       toggleMenu: vi.fn(),
       selectedHorizontalNavLink: "",
