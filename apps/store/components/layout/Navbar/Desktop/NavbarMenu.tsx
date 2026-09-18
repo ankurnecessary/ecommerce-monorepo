@@ -39,6 +39,8 @@ const NavbarMenu = () => {
     },
   }: HeaderContext = useHeaderContext();
 
+  const categoryButtonRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
+
   // Rendering this component only on desktop devices
   const isDesktop = useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
   if (!isDesktop) return null;
@@ -112,6 +114,38 @@ const NavbarMenu = () => {
     });
   };
 
+  const categoryKeyDownHandler = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) => {
+    let nextIndex: number | undefined;
+
+    switch (event.key) {
+      case "ArrowDown":
+        nextIndex = (currentIndex + 1) % navLinks.length;
+        break;
+
+      case "ArrowUp":
+        nextIndex = (currentIndex - 1 + navLinks.length) % navLinks.length;
+        break;
+
+      case "Home":
+        nextIndex = 0;
+        break;
+
+      case "End":
+        nextIndex = navLinks.length - 1;
+        break;
+
+      default:
+        return;
+    }
+
+    // Prevent ArrowUp and ArrowDown from scrolling the page.
+    event.preventDefault();
+
+    categoryButtonRefs.current[nextIndex]?.focus();
+  };
   return (
     <div
       id="navbar-menu"
@@ -140,7 +174,13 @@ const NavbarMenu = () => {
           {navLinks.map((link, index) => (
             // [ ]: Change `key={link.id}` when actual API is made with unique key. Probably id.
             <button
-              ref={index === 0 ? menuFirstCategoryButtonRef : undefined}
+              ref={(element) => {
+                categoryButtonRefs.current[index] = element;
+
+                if (index === 0) {
+                  menuFirstCategoryButtonRef.current = element;
+                }
+              }}
               type="button"
               key={link.id}
               id={`vertical-${link.id}`}
@@ -156,6 +196,7 @@ const NavbarMenu = () => {
               )}
               onMouseOver={categoryMouseOverHandler(link)}
               onFocus={categoryMouseOverHandler(link)}
+              onKeyDown={(event) => categoryKeyDownHandler(event, index)}
             >
               <span>{link.name}</span>
               <ChevronRight className="h-4 w-4 opacity-25" />
