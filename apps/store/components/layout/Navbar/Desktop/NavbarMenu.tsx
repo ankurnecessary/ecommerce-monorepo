@@ -2,7 +2,7 @@
 import React from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
-  CategoryMouseEventHandler,
+  CategoryEventHandler,
   HeaderContext,
   MenuCategory,
 } from "@/components/layout/Header/types";
@@ -58,12 +58,28 @@ const NavbarMenu = () => {
     setSelectedHorizontalNavLink("");
   };
 
-  const categoryMouseOverHandler: CategoryMouseEventHandler =
+  const menuBlurHandler = (event: React.FocusEvent<HTMLDivElement>) => {
+    const nextElement = event.relatedTarget;
+
+    if (
+      nextElement instanceof Node &&
+      event.currentTarget.contains(nextElement)
+    ) {
+      // Focus is still somewhere inside the navbar menu.
+      return;
+    }
+
+    toggleMenu(false, null);
+    setSelectedHorizontalNavLink("");
+    setSelectedVerticalNavLink("");
+  };
+
+  const categoryMouseOverHandler: CategoryEventHandler =
     (category: MenuCategory) => (e) => {
       e.stopPropagation();
 
       // Fetching link text from the link
-      const link = e.currentTarget as HTMLAnchorElement;
+      const link = e.currentTarget;
       const linkText = link.textContent?.trim() || "";
 
       setSelectedVerticalNavLink(linkText);
@@ -108,12 +124,13 @@ const NavbarMenu = () => {
         },
       )}
       onFocus={menuMouseOverHandler}
-      onBlur={menuMouseOutHandler}
+      onBlur={menuBlurHandler}
       onMouseOver={menuMouseOverHandler}
       // onMouseLeave={menuMouseOutHandler}
       onMouseOut={menuMouseOutHandler}
+      onKeyDownCapture={categoryKeyDownCaptureHandler}
     >
-      <div className="w-64 shrink-0" onKeyDownCapture={categoryKeyDownCaptureHandler}>
+      <div role="tablist" aria-orientation="vertical" className="w-64 shrink-0">
         <VerticalScrollContainer
           contentClassName="p-5 pl-10"
           scrollToElementId={verticalNavScrollToElementId}
@@ -125,6 +142,10 @@ const NavbarMenu = () => {
               type="button"
               key={link.id}
               id={`vertical-${link.id}`}
+              role="tab"
+              tabIndex={selectedVerticalNavLink === link.name ? 0 : -1}
+              aria-selected={selectedVerticalNavLink === link.name}
+              aria-controls="category-panel"
               className={cn(
                 "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
                 {
@@ -132,6 +153,7 @@ const NavbarMenu = () => {
                 },
               )}
               onMouseOver={categoryMouseOverHandler(link)}
+              onFocus={categoryMouseOverHandler(link)}
             >
               <span>{link.name}</span>
               <ChevronRight className="h-4 w-4 opacity-25" />
@@ -140,7 +162,7 @@ const NavbarMenu = () => {
         </VerticalScrollContainer>
       </div>
       <div className="my-5 w-px border"></div>
-      <div className="grow px-5">
+      <div role="tabpanel" id="category-panel" className="grow px-5">
         {!!category && <NavbarSubcategories category={category} />}
       </div>
     </div>
