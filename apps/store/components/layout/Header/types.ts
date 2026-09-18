@@ -277,9 +277,9 @@ export type NavbarMouseEvent = (
   >,
 ) => void;
 
-export type CategoryMouseEventHandler = (
+export type CategoryEventHandler = (
   category: MenuCategory,
-) => NavbarMouseEvent;
+) => (e: React.SyntheticEvent<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>) => void;
 
 /**
  * A type that will help in using object in partial way.

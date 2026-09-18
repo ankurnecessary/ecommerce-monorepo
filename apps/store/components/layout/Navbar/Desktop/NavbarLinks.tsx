@@ -2,13 +2,13 @@
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
-import { CategoryMouseEventHandler } from "@/components/layout/Header/types";
+import { CategoryEventHandler } from "@/components/layout/Header/types";
 import { Skeleton } from "@repo/ui/components/skeleton";
 import { cn } from "@repo/ui/lib/utils";
 
 type NavbarLinksProps = {
-  mouseOverHandler: CategoryMouseEventHandler;
-  mouseOutHandler: CategoryMouseEventHandler;
+  mouseOverHandler: CategoryEventHandler;
+  mouseOutHandler: CategoryEventHandler;
 };
 const NavbarLinks = ({
   mouseOverHandler,
