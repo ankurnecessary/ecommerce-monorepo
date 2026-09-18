@@ -31,7 +31,7 @@ describe("<Header />", () => {
     });
     render(<Header />);
     const categoryLinks = screen.getAllByRole("link", { hidden: true });
-    const categoryTrigger = categoryLinks[1].querySelector("span");
+    const categoryTrigger = categoryLinks[1];
     const navbarMenu = screen.getByTestId("navbar-menu");
     expect(navbarMenu).toHaveClass("-translate-y-full");
     fireEvent.mouseOver(categoryTrigger);
@@ -55,7 +55,7 @@ describe("<Header />", () => {
       hidden: true,
       name: /curve/i,
     });
-    const categoryLinkTrigger = categoryLink.querySelector("span");
+    const categoryLinkTrigger = categoryLink;
     fireEvent.mouseOver(categoryLinkTrigger);
     const verticalCategoryLinksContainer = screen.getByTestId(
       "vertical-scrollable-content",

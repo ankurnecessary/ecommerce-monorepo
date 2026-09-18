@@ -47,21 +47,20 @@ const NavbarLinks = ({
         {/* [ ]: Change this condition when API call is implemented */}
         {navLinks.length === 0 && <Skeleton className="h-4 w-137.5" />}
         {navLinks.map((link) => (
-          <Link key={link.id} href={`/category${link.url}`} className="translate-y-px">
-            <span
-              id={link.id}
-              className={cn(
-                "relative inline-block p-2 pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
-                {
-                  "bg-accent after:scale-x-100":
-                    selectedHorizontalNavLink === link.name,
-                },
-              )}
-              onMouseOver={mouseOverHandler(link)}
-              onMouseOut={mouseOutHandler(link)}
-            >
-              {link.name}
-            </span>
+          <Link
+            key={link.id}
+            href={`/category${link.url}`}
+            className={cn(
+              "translate-y-px relative inline-block p-2 pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
+              {
+                "bg-accent after:scale-x-100":
+                  selectedHorizontalNavLink === link.name,
+              },
+            )}
+            onMouseOver={mouseOverHandler(link)}
+            onMouseOut={mouseOutHandler(link)}
+          >
+            {link.name}
           </Link>
         ))}
       </div>
