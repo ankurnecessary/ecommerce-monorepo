@@ -2,7 +2,7 @@
 import React from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
-  CategoryMouseEventHandler,
+  CategoryEventHandler,
   HeaderContext,
   MenuCategory,
   NavbarMouseEvent,
@@ -56,7 +56,7 @@ const NavbarDesktop = () => {
     );
   };
 
-  const mouseOverHandler: CategoryMouseEventHandler =
+  const mouseOverHandler: CategoryEventHandler =
     (category: MenuCategory): NavbarMouseEvent =>
     (e) => {
       e.stopPropagation();
