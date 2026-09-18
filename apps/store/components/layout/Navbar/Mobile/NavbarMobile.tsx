@@ -44,8 +44,16 @@ const NavbarMobile = () => {
       {/* Mobile Navbar */}
       <div
         data-testid="mobile-menu"
-        className={`fixed left-0 top-0 z-1 h-full w-68 border-r transition-transform duration-300 bg-background ${!isMenuVisible && "-translate-x-96"}`}
-
+        className={cn(
+          "fixed left-0 top-0 z-1 h-full w-68 border-r",
+          "bg-background transition-transform duration-300",
+          "lg:hidden",
+          {
+            "-translate-x-96": !isMenuVisible,
+          },
+        )}
+        inert={isMenuVisible ? undefined : true}
+        aria-hidden={!isMenuVisible}
       >
         {/* START: Button to collapse main mobile menu */}
         <button
@@ -63,7 +71,7 @@ const NavbarMobile = () => {
             className="absolute left-2 top-2 z-10 bg-primary/15 p-1 pr-2 flex items-center"
             onClick={() => setIsSubMenuVisible(false)}
           >
-            <ChevronLeft size={20} height={20} width={20}/> Back
+            <ChevronLeft size={20} height={20} width={20} /> Back
           </button>
         )}
         {/* END: Button to collapse sub-menu */}
