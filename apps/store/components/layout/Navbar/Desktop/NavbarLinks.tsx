@@ -14,7 +14,7 @@ type NavbarLinksProps = {
   mouseOutHandler: CategoryEventHandler;
   keyDownHandler: (
     navLink: MenuCategory,
-    index: number
+    index: number,
   ) => (e: React.KeyboardEvent<HTMLAnchorElement>) => void;
 };
 const NavbarLinks = ({
@@ -29,6 +29,7 @@ const NavbarLinks = ({
     navLinks,
     desktop: {
       selectedHorizontalNavLink,
+      isMenuVisible,
       navbar: { setNavbarElementsDsktp, childOffset },
     },
   } = useHeaderContext();
@@ -65,6 +66,9 @@ const NavbarLinks = ({
                   selectedHorizontalNavLink === link.name,
               },
             )}
+            aria-describedby="navbar-link-instructions"
+            aria-controls="navbar-menu"
+            aria-expanded={isMenuVisible[0]}
             onMouseOver={mouseOverHandler(link)}
             onFocus={mouseOverHandler(link)}
             onMouseOut={mouseOutHandler(link)}
@@ -74,6 +78,10 @@ const NavbarLinks = ({
             {link.name}
           </Link>
         ))}
+        <p id="navbar-link-instructions" className="sr-only">
+          Press Enter to visit this category, or Down Arrow to browse its
+          subcategories.
+        </p>
       </div>
     </div>
   );
