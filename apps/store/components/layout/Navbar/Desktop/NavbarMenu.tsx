@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
   CategoryEventHandler,
@@ -183,7 +183,7 @@ const NavbarMenu = () => {
               aria-selected={selectedVerticalNavLink === link.name}
               aria-controls="category-panel"
               className={cn(
-                "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
+                "flex w-full cursor-pointer justify-between px-2 py-3 text-xs text-left",
                 {
                   "bg-accent": selectedVerticalNavLink === link.name,
                 },
