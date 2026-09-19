@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef } from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
   CategoryEventHandler,
@@ -33,13 +33,11 @@ const NavbarMenu = () => {
       setSelectedVerticalNavLink,
       verticalNavScrollToElementId,
       setVerticalNavScrollToElementId,
-      menuFirstCategoryButtonRef,
+      categoryButtonRefs,
       menuReturnFocusRef,
       isRestoringMenuFocusRef,
     },
   }: HeaderContext = useHeaderContext();
-
-  const categoryButtonRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
   // Rendering this component only on desktop devices
   const isDesktop = useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
@@ -176,10 +174,6 @@ const NavbarMenu = () => {
             <button
               ref={(element) => {
                 categoryButtonRefs.current[index] = element;
-
-                if (index === 0) {
-                  menuFirstCategoryButtonRef.current = element;
-                }
               }}
               type="button"
               key={link.id}

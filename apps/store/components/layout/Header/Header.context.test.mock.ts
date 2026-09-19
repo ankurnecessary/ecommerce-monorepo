@@ -15,7 +15,7 @@ export const mockUseHeaderContext = (
     desktop: {
       isRestoringMenuFocusRef: { current: false },
       menuReturnFocusRef: { current: null },
-      menuFirstCategoryButtonRef: { current: null },
+      categoryButtonRefs: { current: [] },
       isMenuVisible: [false, {} as MenuCategory],
       toggleMenu: vi.fn(),
       selectedHorizontalNavLink: "",

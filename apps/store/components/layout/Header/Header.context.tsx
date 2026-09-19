@@ -19,7 +19,7 @@ export const headerContext = createContext<HeaderContext>({
   desktop: {
     isRestoringMenuFocusRef: null,
     menuReturnFocusRef: null,
-    menuFirstCategoryButtonRef: null,
+    categoryButtonRefs: null,
     isMenuVisible: [false, {} as MenuCategory],
     selectedHorizontalNavLink: "",
     setSelectedHorizontalNavLink() {},
@@ -166,7 +166,7 @@ export const HeaderContextProvider = ({
     desktop: {
       isRestoringMenuFocusRef: useRef<boolean>(false),
       menuReturnFocusRef: useRef<HTMLButtonElement | HTMLAnchorElement>(null),
-      menuFirstCategoryButtonRef: useRef<HTMLButtonElement>(null),
+      categoryButtonRefs: useRef<Array<HTMLButtonElement | null>>([]),
       isMenuVisible: header.isMenuVisibleDsktp,
       selectedHorizontalNavLink: header.selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,

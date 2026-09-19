@@ -34,7 +34,7 @@ const NavbarDesktop = () => {
       toggleMenu,
       isRestoringMenuFocusRef,
       menuReturnFocusRef,
-      menuFirstCategoryButtonRef,
+      categoryButtonRefs,
       selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,
       setSelectedVerticalNavLink,
@@ -63,21 +63,21 @@ const NavbarDesktop = () => {
       showCategoryMenu(category, category.name);
     };
 
-  const showCategoryMenuHandler = (
-    e: React.SyntheticEvent<HTMLButtonElement>,
-  ) => {
-    e.stopPropagation();
-    const link = e.currentTarget;
-    showCategoryMenu(navLinks[0], link.textContent);
-    menuReturnFocusRef.current = link;
-  };
+  const showCategoryMenuHandler =
+    (navLink: MenuCategory) =>
+    (e: React.SyntheticEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+      e.stopPropagation();
+      const link = e.currentTarget;
+      showCategoryMenu(navLink, link.textContent);
+      menuReturnFocusRef.current = link;
+    };
 
   const focusHandler = (e: React.FocusEvent<HTMLButtonElement>) => {
     if (isRestoringMenuFocusRef.current) {
       isRestoringMenuFocusRef.current = false;
       return;
     }
-    showCategoryMenuHandler(e);
+    showCategoryMenuHandler(navLinks[0])(e);
   };
 
   const mouseOutHandler = (category: MenuCategory) => () => {
@@ -86,9 +86,9 @@ const NavbarDesktop = () => {
   };
 
   const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    showCategoryMenuHandler(e);
+    showCategoryMenuHandler(navLinks[0])(e);
     requestAnimationFrame(() => {
-      menuFirstCategoryButtonRef.current.focus();
+      categoryButtonRefs.current[0].focus();
     });
   };
 
@@ -110,7 +110,7 @@ const NavbarDesktop = () => {
           aria-describedby="category-menu-instructions"
           onFocus={focusHandler}
           onBlur={mouseOutHandler(navLinks[0])}
-          onMouseOver={showCategoryMenuHandler}
+          onMouseOver={showCategoryMenuHandler(navLinks[0])}
           onMouseOut={mouseOutHandler(navLinks[0])}
           onClick={clickHandler}
         >
@@ -125,9 +125,9 @@ const NavbarDesktop = () => {
           />
         </button>
         <p id="category-menu-instructions" className="sr-only">
-          Press Enter or Space to open the category menu. Use the Up and Down
-          Arrow keys to browse categories, Tab to browse subcategory links, and
-          Escape to close the menu.
+          Press Enter or Space or Down Arrow key to open the category menu. Use
+          the Up and Down Arrow keys to browse categories, Tab to browse
+          subcategory links, and Escape to close the menu.
         </p>
       </div>
 

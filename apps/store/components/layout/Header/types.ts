@@ -164,9 +164,9 @@ export type HeaderContext = {
      */
     menuReturnFocusRef: React.RefObject<HTMLButtonElement | HTMLAnchorElement>;
     /**
-     * a11y - Carries the reference of first button in navbar menu to get focus
+     * a11y - Carries references of all the buttons in the navbar menu left panel
      */
-    menuFirstCategoryButtonRef: React.RefObject<HTMLButtonElement>;
+    categoryButtonRefs: React.RefObject<Array<HTMLButtonElement | null>>;
     /**
      * Indicates whether the desktop menu is visible and the current menu category.
      * The first element is a boolean for visibility, and the second is the menu category.
@@ -279,7 +279,11 @@ export type NavbarMouseEvent = (
 
 export type CategoryEventHandler = (
   category: MenuCategory,
-) => (e: React.SyntheticEvent<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>) => void;
+) => (
+  e: React.SyntheticEvent<
+    HTMLButtonElement | HTMLAnchorElement | HTMLDivElement
+  >,
+) => void;
 
 /**
  * A type that will help in using object in partial way.
