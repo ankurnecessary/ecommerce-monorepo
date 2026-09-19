@@ -16,7 +16,11 @@ describe("NavbarLinks", () => {
     );
 
     const { getAllByRole } = render(
-      <NavbarLinks mouseOverHandler={vi.fn()} mouseOutHandler={vi.fn()} />,
+      <NavbarLinks
+        mouseOverHandler={vi.fn()}
+        mouseOutHandler={vi.fn()}
+        keyDownHandler={vi.fn()}
+      />,
     );
     const categoryLinks = getAllByRole("link");
     expect(categoryLinks.length).toBeGreaterThan(0);
@@ -33,7 +37,11 @@ describe("NavbarLinks", () => {
     );
 
     const { getByText } = render(
-      <NavbarLinks mouseOverHandler={vi.fn()} mouseOutHandler={vi.fn()} />,
+      <NavbarLinks
+        mouseOverHandler={vi.fn()}
+        mouseOutHandler={vi.fn()}
+        keyDownHandler={vi.fn()}
+      />,
     );
     expect(getByText("New In")).toBeInTheDocument();
     expect(getByText("Sale")).toBeInTheDocument();
@@ -51,6 +59,7 @@ describe("NavbarLinks", () => {
       <NavbarLinks
         mouseOverHandler={mouseOverHandler}
         mouseOutHandler={vi.fn()}
+        keyDownHandler={vi.fn()}
       />,
     );
     getByText("New In").dispatchEvent(
@@ -71,6 +80,7 @@ describe("NavbarLinks", () => {
       <NavbarLinks
         mouseOverHandler={vi.fn()}
         mouseOutHandler={mouseOutHandler}
+        keyDownHandler={vi.fn()}
       />,
     );
     getByText("New In").dispatchEvent(

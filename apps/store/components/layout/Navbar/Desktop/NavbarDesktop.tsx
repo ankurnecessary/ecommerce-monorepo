@@ -92,6 +92,16 @@ const NavbarDesktop = () => {
     });
   };
 
+  const keyDownHandler =
+    (navLink: MenuCategory, index: number) =>
+    (e: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+      if (e.key !== "ArrowDown") return;
+      showCategoryMenuHandler(navLink)(e);
+      requestAnimationFrame(() => {
+        categoryButtonRefs.current[index].focus();
+      });
+    };
+
   return (
     <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
       {/* Category button */}
@@ -113,6 +123,7 @@ const NavbarDesktop = () => {
           onMouseOver={showCategoryMenuHandler(navLinks[0])}
           onMouseOut={mouseOutHandler(navLinks[0])}
           onClick={clickHandler}
+          onKeyDown={keyDownHandler(navLinks[0], 0)}
         >
           Categories
           <ChevronDown
@@ -125,9 +136,7 @@ const NavbarDesktop = () => {
           />
         </button>
         <p id="category-menu-instructions" className="sr-only">
-          Press Enter or Space or Down Arrow key to open the category menu. Use
-          the Up and Down Arrow keys to browse categories, Tab to browse
-          subcategory links, and Escape to close the menu.
+          Press Down Arrow key to open the category menu. Use the Up and Down Arrow keys to browse categories, Tab to browse subcategory links, and Escape to close the menu.
         </p>
       </div>
 
@@ -135,6 +144,7 @@ const NavbarDesktop = () => {
       <NavbarLinks
         mouseOverHandler={mouseOverHandler}
         mouseOutHandler={mouseOutHandler}
+        keyDownHandler={keyDownHandler}
       />
 
       {/* Buttons to scroll links horizontally */}
