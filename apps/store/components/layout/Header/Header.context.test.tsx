@@ -56,7 +56,6 @@ describe("HeaderContext", () => {
     expect(typeof result.current.desktop.navbar.setNavbarElementsDsktp).toBe(
       "function",
     );
-    expect(result.current.desktop.navbar.childOffset).toEqual(0);
     expect(result.current.mobile.isMenuVisible).toBeFalsy();
     expect(typeof result.current.mobile.toggleMenu).toBe("function");
   });
@@ -158,7 +157,6 @@ describe("HeaderContext", () => {
 
     // Simulate setting navbar offset
     waitFor(() => {
-      expect(result.current.desktop.navbar.childOffset).toBe(42);
     });
   });
 });

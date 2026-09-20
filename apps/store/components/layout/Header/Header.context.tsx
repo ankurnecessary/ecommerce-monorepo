@@ -30,7 +30,6 @@ export const headerContext = createContext<HeaderContext>({
     navbar: {
       parent: null,
       child: null,
-      childOffset: 0,
       setNavbarElementsDsktp() {},
     },
   },
@@ -162,7 +161,6 @@ export const HeaderContextProvider = ({
       navbar: {
         parent: header.navbarParentDsktp,
         child: header.navbarChildDsktp,
-        childOffset: header.navbarChildOffsetDsktp,
         setNavbarElementsDsktp,
       },
     },

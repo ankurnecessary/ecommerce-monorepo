@@ -34,10 +34,6 @@ export type HeaderInitialState = {
    */
   selectedVerticalNavLink: string;
   /**
-   * The offset of the child element in the horizontal navbar which is scrollable.
-   */
-  navbarChildOffsetDsktp: number;
-  /**
    * The navigation links displayed in the header. Either vertical or horizontal.
    * The links are common for both desktop and mobile.
    */
@@ -210,10 +206,6 @@ export type HeaderContext = {
        * The child element of the navbar.
        */
       child: HTMLDivElement | null;
-      /**
-       * The offset of the child element in the navbar.
-       */
-      childOffset: number;
       /**
        * Sets the parent and child elements of the navbar.
        * @param navbarParentDsktp - The parent element of the navbar.

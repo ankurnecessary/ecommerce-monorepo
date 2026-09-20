@@ -10,7 +10,6 @@ const headerInitialState: HeaderInitialState = {
   isMenuVisibleDsktp: [false, null],
   selectedHorizontalNavLink: "",
   selectedVerticalNavLink: "",
-  navbarChildOffsetDsktp: 0,
   navLinks: [],
   verticalNavScrollToElementId: "",
   isMenuVisibleMobile: false,
