@@ -30,9 +30,26 @@ const NavbarLinks = ({
     desktop: {
       selectedHorizontalNavLink,
       isMenuVisible,
-      navbar: { setNavbarElementsDsktp, childOffset },
+      navbar: { setNavbarElementsDsktp },
     },
   } = useHeaderContext();
+
+  const focusHandler =
+    (link: MenuCategory) => (event: React.FocusEvent<HTMLAnchorElement>) => {
+      mouseOverHandler(link)(event); // Keep the existing category preview.
+
+      const viewport = parentNavbarRef.current;
+      if (!viewport) return;
+
+      const viewportRect = viewport.getBoundingClientRect();
+      const linkRect = event.currentTarget.getBoundingClientRect();
+
+      if (linkRect.left < viewportRect.left) {
+        viewport.scrollLeft += linkRect.left - viewportRect.left;
+      } else if (linkRect.right > viewportRect.right) {
+        viewport.scrollLeft += linkRect.right - viewportRect.right;
+      }
+    };
 
   useEffect(() => {
     if (parentNavbarRef.current && childNavbarRef.current) {
@@ -50,7 +67,6 @@ const NavbarLinks = ({
         className={cn("inline-flex transition-transform duration-300", {
           "pt-3": navLinks.length === 0,
         })}
-        style={{ transform: `translateX(${childOffset || 0}px)` }}
         ref={childNavbarRef}
       >
         {/* [ ]: Change this condition when API call is implemented */}
@@ -70,7 +86,7 @@ const NavbarLinks = ({
             aria-controls="navbar-menu"
             aria-expanded={isMenuVisible[0]}
             onMouseOver={mouseOverHandler(link)}
-            onFocus={mouseOverHandler(link)}
+            onFocus={focusHandler(link)}
             onMouseOut={mouseOutHandler(link)}
             onBlur={mouseOutHandler(link)}
             onKeyDown={keyDownHandler(link, index)}
