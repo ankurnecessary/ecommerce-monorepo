@@ -4,7 +4,6 @@ import {
   HeaderContext,
   ToggleMenu,
   SetNavbarElementsDsktp,
-  SetNavbarOffsetDsktp,
   MenuCategory,
 } from "@/components/layout/Header/types";
 import {
@@ -33,7 +32,6 @@ export const headerContext = createContext<HeaderContext>({
       child: null,
       childOffset: 0,
       setNavbarElementsDsktp() {},
-      setNavbarOffsetDsktp() {},
     },
   },
   mobile: {
@@ -88,20 +86,6 @@ export const HeaderContextProvider = ({
       type: "UPDATE_NAVBAR_ELEMENTS_DSKTP",
       navbarParentDsktp,
       navbarChildDsktp,
-    });
-  };
-
-  /**
-   * To set navbar offset when scroll buttons are used.
-   *
-   * @param navbarChildOffsetDsktp - The offset of the child element.
-   */
-  const setNavbarOffsetDsktp: SetNavbarOffsetDsktp = (
-    navbarChildOffsetDsktp,
-  ) => {
-    dispatchHeaderActions({
-      type: "UPDATE_NAVBAR_OFFSET_DSKTP",
-      navbarChildOffsetDsktp,
     });
   };
 
@@ -180,7 +164,6 @@ export const HeaderContextProvider = ({
         child: header.navbarChildDsktp,
         childOffset: header.navbarChildOffsetDsktp,
         setNavbarElementsDsktp,
-        setNavbarOffsetDsktp,
       },
     },
     mobile: {

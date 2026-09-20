@@ -63,12 +63,6 @@ export type SetNavbarElementsDsktp = (
 ) => void;
 
 /**
- * Sets the offset of the child element in the navbar.
- * @param navbarChildOffsetDsktp - The offset of the child element.
- */
-export type SetNavbarOffsetDsktp = (navbarChildOffsetDsktp: number) => void;
-
-/**
  * A reducer function for managing the header state.
  * @param state - The current state of the header.
  * @param action - The action to be performed on the state.
@@ -80,7 +74,6 @@ export type HeaderReducer = (
     type:
       | "UPDATE_NAVBAR_ELEMENTS_DSKTP"
       | "TOGGLE_MENU_DSKTP"
-      | "UPDATE_NAVBAR_OFFSET_DSKTP"
       | `SET_NAV_LINKS`
       | "SET_SELECTED_HORIZONTAL_NAV_LINK"
       | "SET_SELECTED_VERTICAL_NAV_LINK"
@@ -227,11 +220,6 @@ export type HeaderContext = {
        * @param navbarChildDsktp - The child element of the navbar.
        */
       setNavbarElementsDsktp: SetNavbarElementsDsktp;
-      /**
-       * Sets the offset of the child element in the navbar.
-       * @param navbarChildOffsetDsktp - The offset of the child element.
-       */
-      setNavbarOffsetDsktp: SetNavbarOffsetDsktp;
     };
   };
   /**

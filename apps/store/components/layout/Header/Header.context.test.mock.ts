@@ -29,7 +29,6 @@ export const mockUseHeaderContext = (
         child: null,
         setNavbarElementsDsktp: vi.fn(),
         childOffset: 0,
-        setNavbarOffsetDsktp: vi.fn(),
       },
     },
     mobile: {

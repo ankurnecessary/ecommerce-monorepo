@@ -24,11 +24,6 @@ const headerInitialState: HeaderInitialState = {
  */
 const headerReducer: HeaderReducer = (state, action) => {
   switch (action.type) {
-    case "UPDATE_NAVBAR_OFFSET_DSKTP":
-      return {
-        ...state,
-        navbarChildOffsetDsktp: action.navbarChildOffsetDsktp,
-      };
     case "UPDATE_NAVBAR_ELEMENTS_DSKTP":
       return {
         ...state,
