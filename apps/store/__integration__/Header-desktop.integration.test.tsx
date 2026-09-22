@@ -67,10 +67,7 @@ describe("<Header />", () => {
     }).parentElement;
     await waitFor(() => {
       expect(verticalCategoryLink).toBeInTheDocument();
-      expect(verticalCategoryLink).toHaveClass(
-        "bg-primary/10",
-        "dark:bg-primary/20",
-      );
+      expect(verticalCategoryLink).toHaveClass("bg-accent");
     });
   });
 

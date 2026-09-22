@@ -66,8 +66,11 @@ jobs:
       - name: Setup node and pnpm
         uses: ./.github/actions/setup-node-pnpm
 
-      - name: Run tests
+      - name: Run unit tests with coverage
         run: pnpm --filter store test:coverage
+
+      - name: Run Playwright component tests
+        run: pnpm --filter store test:ct
 
   build:
     runs-on: ubuntu-latest
