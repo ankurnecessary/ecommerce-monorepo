@@ -39,6 +39,9 @@ fi
 
 if [ "$run_store" = true ]; then
   echo "> pnpm turbo run lint check-types --filter=store"
+  pnpm --filter store prettier
+ 
+  echo "> pnpm turbo run lint check-types --filter=store"
   pnpm turbo run lint check-types --filter=store
  
   echo "> pnpm turbo run test:coverage --filter=store"
