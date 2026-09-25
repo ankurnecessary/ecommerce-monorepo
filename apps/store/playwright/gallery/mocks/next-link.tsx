@@ -4,10 +4,7 @@ import React, {
   type ReactNode,
 } from "react";
 
-type MockLinkProps = Omit<
-  AnchorHTMLAttributes<HTMLAnchorElement>,
-  "href"
-> & {
+type MockLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
   href: string | { pathname?: string };
   children?: ReactNode;
 };
@@ -15,9 +12,7 @@ type MockLinkProps = Omit<
 const Link = forwardRef<HTMLAnchorElement, MockLinkProps>(
   ({ href, children, ...props }, ref) => {
     const resolvedHref =
-      typeof href === "string"
-        ? href
-        : href.pathname ?? "#";
+      typeof href === "string" ? href : (href.pathname ?? "#");
 
     return (
       <a ref={ref} href={resolvedHref} {...props}>

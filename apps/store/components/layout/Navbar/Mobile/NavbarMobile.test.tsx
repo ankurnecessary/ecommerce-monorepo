@@ -14,9 +14,7 @@ describe("<NavbarMobile />", () => {
     );
 
     render(<NavbarMobile />);
-    expect(screen.queryByTestId("mobile-menu")).toHaveClass(
-      "-translate-x-96",
-    );
+    expect(screen.queryByTestId("mobile-menu")).toHaveClass("-translate-x-96");
   });
 
   it("should render menu when isMenuVisible is true", () => {
