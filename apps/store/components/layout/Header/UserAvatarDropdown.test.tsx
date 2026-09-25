@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import UserAvatarDropdown from "./UserAvatarDropdown";
 import { userEvent } from "vitest/browser";
+import { expectNoAccessibilityViolations } from "@/test/accessibility";
 
 const mockSignOut = vi.fn();
 const mockUseUser = vi.fn();
@@ -19,7 +20,6 @@ vi.mock("./UserAvatar", () => ({
 }));
 
 describe("UserAvatarDropdown", () => {
-
   it("Opens the menu when the trigger is selected", async () => {
     mockUseUser.mockReturnValue({
       isLoaded: true,
@@ -299,5 +299,31 @@ describe("UserAvatarDropdown", () => {
     expect(guestAvatar).toHaveAttribute("data-name", "Guest");
 
     expect(guestAvatar).not.toHaveAttribute("data-image-url");
+  });
+
+  it("opens the menu without detectable accessibility violations", async () => {
+    const user = userEvent.setup();
+
+    render(<UserAvatarDropdown />);
+
+    // Opens menu
+    await user.click(
+      screen.getByRole("button", {
+        name: /open user menu/i,
+      }),
+    );
+
+    const menu = await screen.findByRole("menu");
+    expect(menu).toBeVisible();
+
+    await expectNoAccessibilityViolations(document.body);
+
+    // Closes menu
+    await user.click(
+      screen.getByRole("button", {
+        name: /open user menu/i,
+      }),
+    );
+    await expectNoAccessibilityViolations(document.body);
   });
 });
