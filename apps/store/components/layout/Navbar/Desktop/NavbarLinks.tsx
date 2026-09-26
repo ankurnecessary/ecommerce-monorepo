@@ -62,6 +62,7 @@ const NavbarLinks = ({
     <div
       className="grow translate-y-px overflow-x-hidden whitespace-nowrap"
       ref={parentNavbarRef}
+      data-testid="navbar-links-viewport"
     >
       <div
         className={cn("inline-flex transition-transform duration-300", {
