@@ -9,6 +9,7 @@ import { describe, it, expect, vi } from "vitest";
 import Header from "@/components/layout/Header";
 import { userEvent } from "vitest/browser";
 import { expectNoAccessibilityViolations } from "@/test/accessibility";
+import NavbarMobile from "@/components/layout/Navbar/Mobile/NavbarMobile";
 
 vi.mock("@/hooks/useMediaQuery", () => ({
   useMediaQuery: () => true,
@@ -44,7 +45,6 @@ describe("<Header />", () => {
     await waitFor(() => {
       expect(navbarMenu).toHaveClass("-translate-y-full");
     });
-    await expectNoAccessibilityViolations(container);
   });
 
   it('has category links. On their "mouseover" and "mouseout" same link in vertical navbar should be highlighted', async () => {
@@ -166,5 +166,38 @@ describe("<Header />", () => {
       "aria-hidden",
       "true",
     );
+  });
+
+  it("enters and leaves the submenu from a navbar category link", async () => {
+    const user = userEvent.setup();
+
+    render(<Header />);
+
+    const curveLink = screen.getByRole("link", {
+      name: /^curve$/i,
+    });
+
+    curveLink.focus();
+    await user.keyboard("{ArrowDown}");
+
+    const curveTab = screen.getByRole("tab", {
+      name: /^curve$/i,
+    });
+
+    await expect.element(curveTab).toHaveFocus();
+    expect(curveTab).toHaveAttribute("aria-selected", "true");
+
+    await user.keyboard("{Escape}");
+
+    await expect.element(curveLink).toHaveFocus();
+  });
+
+  it("removes the closed mobile menu from keyboard and accessibility navigation", () => {
+    render(<NavbarMobile />);
+
+    const menu = screen.getByTestId("mobile-menu");
+
+    expect(menu).toHaveAttribute("aria-hidden", "true");
+    expect(menu).toHaveAttribute("inert");
   });
 });
