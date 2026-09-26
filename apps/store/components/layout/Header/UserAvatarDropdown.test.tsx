@@ -20,18 +20,30 @@ vi.mock("./UserAvatar", () => ({
 }));
 
 describe("UserAvatarDropdown", () => {
-  it("Opens the menu when the trigger is selected", async () => {
+  it("opens the menu when the trigger is selected", async () => {
+    const user = userEvent.setup();
+
     mockUseUser.mockReturnValue({
       isLoaded: true,
-      isSignedIn: undefined,
-      user: undefined,
+      isSignedIn: false,
+      user: null,
     });
+
     render(<UserAvatarDropdown />);
-    const trigger = screen.getByRole("button", { name: "Open user menu" });
-    await userEvent.click(trigger);
+
+    const trigger = screen.getByRole("button", {
+      name: "Open user menu",
+    });
+
+    await user.click(trigger);
+
     expect(
-      screen.getByRole("menuitem", { name: "Sign in" }),
-    ).toBeInTheDocument();
+      await screen.findByRole("menuitem", {
+        name: /sign in/i,
+      }),
+    ).toBeVisible();
+
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
   });
 
   it("shows loading state while Clerk is loading", async () => {
