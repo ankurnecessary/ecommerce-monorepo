@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render} from "@testing-library/react";
 import Header from "@/components/layout/Header";
 
 vi.mock("@/hooks/useMediaQuery", () => ({

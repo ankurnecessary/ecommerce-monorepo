@@ -38,7 +38,7 @@ describe("VerticalScrollContainer", () => {
   });
 
   it("shows scrollbar when content overflows container", async () => {
-    const { getByTestId, getByRole, rerender } = render(
+    const { getByTestId, rerender } = render(
       <VerticalScrollContainer>
         <div style={{ height: "200px" }}>Long Content</div>
       </VerticalScrollContainer>,
@@ -72,7 +72,7 @@ describe("VerticalScrollContainer", () => {
   });
 
   it("should sync thumb position on scroll", () => {
-    const { getByTestId, getByRole, rerender } = render(
+    const { getByTestId, rerender } = render(
       <VerticalScrollContainer>
         <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
@@ -164,7 +164,7 @@ describe("VerticalScrollContainer", () => {
   });
 
   it("should handle mouse down, move, and up events for dragging", () => {
-    const { getByTestId, getByRole, rerender } = render(
+    const { getByTestId, rerender } = render(
       <VerticalScrollContainer>
         <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
@@ -217,7 +217,7 @@ describe("VerticalScrollContainer", () => {
   });
 
   it("updates thumb height on window resize", () => {
-    const { getByTestId, getByRole, rerender } = render(
+    const { getByTestId, rerender } = render(
       <VerticalScrollContainer>
         <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
@@ -266,7 +266,7 @@ describe("VerticalScrollContainer", () => {
     expect(thumb.style.height).not.toBe("");
   });
   it("updates thumb height on window resize1", () => {
-    const { getByTestId, getByRole, rerender } = render(
+    const { getByTestId, rerender } = render(
       <VerticalScrollContainer>
         <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
@@ -329,7 +329,7 @@ describe("VerticalScrollContainer", () => {
   });
 
   it("should handle scroll wheel events", () => {
-    const { getByTestId, getByRole, rerender } = render(
+    const { getByTestId, rerender } = render(
       <VerticalScrollContainer>
         <div style={{ height: "300px" }}>Long Content</div>
       </VerticalScrollContainer>,
