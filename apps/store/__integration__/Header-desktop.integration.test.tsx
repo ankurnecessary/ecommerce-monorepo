@@ -125,4 +125,46 @@ describe("<Header />", () => {
     await userEvent.click(signOutTrigger);
     expect(mockSignOut).toHaveBeenCalled();
   });
+
+  it("supports the complete Categories keyboard journey", async () => {
+    const user = userEvent.setup();
+
+    render(<Header />);
+
+    const trigger = screen.getByRole("button", {
+      name: "Categories",
+    });
+
+    // Testing "Categories" button focus
+    trigger.focus();
+    await user.keyboard("{Enter}");
+
+    const tabs = screen.getAllByRole("tab");
+
+    // Testing category link focus
+    await expect.element(tabs[0]).toHaveFocus();
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+    await user.keyboard("{ArrowDown}");
+
+    await expect.element(tabs[1]).toHaveFocus();
+    expect(tabs[1]).toHaveAttribute("aria-selected", "true");
+
+    await user.keyboard("{Tab}");
+
+    const firstSubcategory = screen.getAllByRole("link", {
+      name: /shirt/i,
+    })[0];
+
+    await expect.element(firstSubcategory).toHaveFocus();
+
+    await user.keyboard("{Escape}");
+
+    await expect.element(trigger).toHaveFocus();
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(screen.getByTestId("navbar-menu")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+  });
 });
