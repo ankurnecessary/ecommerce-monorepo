@@ -6,16 +6,6 @@ import { cleanup } from "@testing-library/react";
 
 expect.extend(matchers);
 
-beforeAll(() => {
-  class ResizeObserverMock {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  }
-
-  globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
-});
-
 vi.mock("@clerk/nextjs", () => ({
   Show: ({
     when,
