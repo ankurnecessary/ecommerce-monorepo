@@ -4,13 +4,15 @@ import VerticalScrollContainer from "@/components/custom-ui/VerticalScrollContai
 
 describe("VerticalScrollContainer", () => {
   it("should render the component", () => {
-    const { getByRole } = render(
+    render(
       <VerticalScrollContainer>
         <div className="content">Test Content</div>
       </VerticalScrollContainer>,
     );
-    const container = getByRole("group", { hidden: true }); // Use role if applicable
-    expect(container).toBeInTheDocument();
+    const verticalScrollContainer = screen.getByTestId(
+      "vertical-scroll-container",
+    );
+    expect(verticalScrollContainer).toBeInTheDocument();
   });
 
   it("renders children correctly", () => {
@@ -42,7 +44,7 @@ describe("VerticalScrollContainer", () => {
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole("group", { hidden: true });
+    const container = screen.getByTestId("vertical-scroll-container");
     Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
@@ -76,7 +78,7 @@ describe("VerticalScrollContainer", () => {
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole("group", { hidden: true });
+    const container = screen.getByTestId("vertical-scroll-container");
     Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
@@ -168,7 +170,7 @@ describe("VerticalScrollContainer", () => {
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole("group", { hidden: true });
+    const container = screen.getByTestId("vertical-scroll-container");
     Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
@@ -221,7 +223,7 @@ describe("VerticalScrollContainer", () => {
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole("group", { hidden: true });
+    const container = screen.getByTestId("vertical-scroll-container");
     Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
@@ -270,7 +272,7 @@ describe("VerticalScrollContainer", () => {
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole("group", { hidden: true });
+    const container = screen.getByTestId("vertical-scroll-container");
     Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
@@ -333,7 +335,7 @@ describe("VerticalScrollContainer", () => {
       </VerticalScrollContainer>,
     );
 
-    const container = getByRole("group", { hidden: true });
+    const container = screen.getByTestId("vertical-scroll-container");
     Object.defineProperty(container, "offsetHeight", {
       configurable: true,
       value: 100,
