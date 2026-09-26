@@ -159,8 +159,7 @@ const VerticalScrollContainer = ({
   return (
     // container
     <div
-      role="group"
-      aria-label="Vertical Scroll Container"
+      data-testid="vertical-scroll-container"
       className={cn(
         "group relative h-full overflow-hidden",
         containerClassName,

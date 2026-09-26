@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import NavbarSubcategories from "@/components/layout/Navbar/Desktop/NavbarSubcategories";
 
@@ -125,7 +125,7 @@ describe("NavbarSubcategories", () => {
   });
 
   it("should render vertical scroll container", () => {
-    const { getByLabelText } = render(
+    render(
       <NavbarSubcategories
         category={{
           id: "testId",
@@ -142,6 +142,9 @@ describe("NavbarSubcategories", () => {
         }}
       />,
     );
-    expect(getByLabelText("Vertical Scroll Container")).toBeInTheDocument();
+    const verticalScrollContainer = screen.getByTestId(
+      "vertical-scroll-container",
+    );
+    expect(verticalScrollContainer).toBeInTheDocument();
   });
 });
