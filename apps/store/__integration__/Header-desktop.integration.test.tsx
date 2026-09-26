@@ -8,6 +8,7 @@ import {
 import { describe, it, expect, vi } from "vitest";
 import Header from "@/components/layout/Header";
 import { userEvent } from "vitest/browser";
+import { expectNoAccessibilityViolations } from "@/test/accessibility";
 
 vi.mock("@/hooks/useMediaQuery", () => ({
   useMediaQuery: () => true,
@@ -29,7 +30,7 @@ describe("<Header />", () => {
       isLoaded: true,
       isSignedIn: true,
     });
-    render(<Header />);
+    const { container } = render(<Header />);
     const categoryLinks = screen.getAllByRole("link", { hidden: true });
     const categoryTrigger = categoryLinks[1];
     const navbarMenu = screen.getByTestId("navbar-menu");
@@ -38,10 +39,12 @@ describe("<Header />", () => {
     await waitFor(() => {
       expect(navbarMenu).not.toHaveClass("-translate-y-full");
     });
+    await expectNoAccessibilityViolations(container);
     fireEvent.mouseOut(categoryTrigger);
     await waitFor(() => {
       expect(navbarMenu).toHaveClass("-translate-y-full");
     });
+    await expectNoAccessibilityViolations(container);
   });
 
   it('has category links. On their "mouseover" and "mouseout" same link in vertical navbar should be highlighted', async () => {
