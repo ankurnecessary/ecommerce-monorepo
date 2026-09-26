@@ -85,7 +85,9 @@ const NavbarLinks = ({
             )}
             aria-describedby="navbar-link-instructions"
             aria-controls="navbar-menu"
-            aria-expanded={isMenuVisible[0]}
+            aria-expanded={
+              isMenuVisible[0] && link.name === selectedHorizontalNavLink
+            }
             onMouseOver={mouseOverHandler(link)}
             onFocus={focusHandler(link)}
             onMouseOut={mouseOutHandler(link)}
