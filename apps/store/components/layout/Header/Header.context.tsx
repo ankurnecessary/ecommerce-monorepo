@@ -1,10 +1,9 @@
 "use client";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useRef } from "react";
 import {
   HeaderContext,
   ToggleMenu,
   SetNavbarElementsDsktp,
-  SetNavbarOffsetDsktp,
   MenuCategory,
 } from "@/components/layout/Header/types";
 import {
@@ -17,6 +16,9 @@ export const headerContext = createContext<HeaderContext>({
   navLinks: [],
   setNavLinks() {},
   desktop: {
+    isRestoringMenuFocusRef: null,
+    menuReturnFocusRef: null,
+    categoryButtonRefs: null,
     isMenuVisible: [false, {} as MenuCategory],
     selectedHorizontalNavLink: "",
     setSelectedHorizontalNavLink() {},
@@ -28,9 +30,7 @@ export const headerContext = createContext<HeaderContext>({
     navbar: {
       parent: null,
       child: null,
-      childOffset: 0,
       setNavbarElementsDsktp() {},
-      setNavbarOffsetDsktp() {},
     },
   },
   mobile: {
@@ -85,20 +85,6 @@ export const HeaderContextProvider = ({
       type: "UPDATE_NAVBAR_ELEMENTS_DSKTP",
       navbarParentDsktp,
       navbarChildDsktp,
-    });
-  };
-
-  /**
-   * To set navbar offset when scroll buttons are used.
-   *
-   * @param navbarChildOffsetDsktp - The offset of the child element.
-   */
-  const setNavbarOffsetDsktp: SetNavbarOffsetDsktp = (
-    navbarChildOffsetDsktp,
-  ) => {
-    dispatchHeaderActions({
-      type: "UPDATE_NAVBAR_OFFSET_DSKTP",
-      navbarChildOffsetDsktp,
     });
   };
 
@@ -161,6 +147,9 @@ export const HeaderContextProvider = ({
     navLinks: categories || header.navLinks,
     setNavLinks,
     desktop: {
+      isRestoringMenuFocusRef: useRef<boolean>(false),
+      menuReturnFocusRef: useRef<HTMLButtonElement | HTMLAnchorElement>(null),
+      categoryButtonRefs: useRef<Array<HTMLButtonElement | null>>([]),
       isMenuVisible: header.isMenuVisibleDsktp,
       selectedHorizontalNavLink: header.selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,
@@ -172,9 +161,7 @@ export const HeaderContextProvider = ({
       navbar: {
         parent: header.navbarParentDsktp,
         child: header.navbarChildDsktp,
-        childOffset: header.navbarChildOffsetDsktp,
         setNavbarElementsDsktp,
-        setNavbarOffsetDsktp,
       },
     },
     mobile: {

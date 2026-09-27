@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import Header from "@/components/layout/Header";
 
 vi.mock("@/hooks/useMediaQuery", () => ({
@@ -26,34 +26,5 @@ describe("Header", () => {
     const { getByText } = render(<Header />);
     const logoLink = getByText("Celeb").closest("a");
     expect(logoLink).toHaveAttribute("href", "/");
-  });
-
-  it('has a "Categories" link. On it\'s "mouseOver" and "mouseOut" events "<NavbarMenu />" will toggle', async () => {
-    const { getByText, getByTestId } = render(<Header />);
-    const categoriesLink = getByText("Categories");
-    expect(categoriesLink).toBeInTheDocument();
-
-    const navbarMenu = getByTestId("navbar-menu");
-    expect(navbarMenu).toBeInTheDocument();
-
-    // Trigger mouseover event
-    fireEvent.mouseOver(categoriesLink);
-
-    // Wait for the class to be applied
-    await waitFor(() => {
-      expect(navbarMenu).toHaveClass(
-        "absolute z-11 h-96 w-full  transition-transform duration-300 flex",
-      );
-    });
-
-    // Trigger mouseout event
-    fireEvent.mouseOut(categoriesLink);
-
-    // Wait for the class to be applied
-    await waitFor(() => {
-      expect(navbarMenu).toHaveClass(
-        "absolute z-11 h-96 w-full -translate-y-full transition-transform duration-300 flex",
-      );
-    });
   });
 });

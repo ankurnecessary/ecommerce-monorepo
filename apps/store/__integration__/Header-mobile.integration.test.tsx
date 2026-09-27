@@ -17,8 +17,8 @@ describe("<Header />", () => {
   it("renders <UserAvatarDropdown /> only on desktop and not on mobile", async () => {
     render(<Header />);
     const userDropdownTrigger = screen.getByRole("button", {
-      name: "Open user menu"
-    })
-    expect(userDropdownTrigger.parentElement).toHaveClass("hidden lg:block")
+      name: "Open user menu",
+    });
+    expect(userDropdownTrigger.parentElement).toHaveClass("hidden lg:block");
   });
 });

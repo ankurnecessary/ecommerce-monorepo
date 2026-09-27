@@ -1,20 +1,10 @@
 import * as matchers from '@testing-library/jest-dom/matchers';
-import { afterEach, beforeAll, expect, vi } from 'vitest';
+import { afterEach, expect, vi } from 'vitest';
 import React from 'react';
 // import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
 import { cleanup } from "@testing-library/react";
 
 expect.extend(matchers);
-
-beforeAll(() => {
-  class ResizeObserverMock {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  }
-
-  globalThis.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
-});
 
 vi.mock("@clerk/nextjs", () => ({
   Show: ({

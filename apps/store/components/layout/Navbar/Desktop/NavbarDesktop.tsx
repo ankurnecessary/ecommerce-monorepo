@@ -2,7 +2,7 @@
 import React from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
-  CategoryMouseEventHandler,
+  CategoryEventHandler,
   HeaderContext,
   MenuCategory,
   NavbarMouseEvent,
@@ -32,10 +32,14 @@ const NavbarDesktop = () => {
     navLinks,
     desktop: {
       toggleMenu,
+      isRestoringMenuFocusRef,
+      menuReturnFocusRef,
+      categoryButtonRefs,
       selectedHorizontalNavLink,
       setSelectedHorizontalNavLink,
       setSelectedVerticalNavLink,
       setVerticalNavScrollToElementId,
+      isMenuVisible,
     },
   }: HeaderContext = useHeaderContext();
 
@@ -43,38 +47,66 @@ const NavbarDesktop = () => {
   const isDesktop = useMediaQuery(MEDIA_QUERIES.DESKTOP_MIN_WIDTH);
   if (!isDesktop) return null;
 
-  const mouseOverHandler: CategoryMouseEventHandler =
+  const showCategoryMenu = (category: MenuCategory, categoryName: string) => {
+    toggleMenu(true, category);
+    setSelectedHorizontalNavLink(categoryName || "");
+    setSelectedVerticalNavLink(category.name || "");
+    setVerticalNavScrollToElementId(
+      category.id ? `vertical-${category.id}` : "",
+    );
+  };
+
+  const mouseOverHandler: CategoryEventHandler =
     (category: MenuCategory): NavbarMouseEvent =>
     (e) => {
       e.stopPropagation();
-      toggleMenu(true, category);
-      setSelectedHorizontalNavLink(category.name || "");
-      setSelectedVerticalNavLink(category.name || "");
-      setVerticalNavScrollToElementId(
-        category.id ? `vertical-${category.id}` : "",
-      );
+      showCategoryMenu(category, category.name);
     };
 
-  const mouseOutHandler: CategoryMouseEventHandler =
-    (category: MenuCategory) => () => {
-      toggleMenu(false, category);
-      setSelectedHorizontalNavLink("");
+  const showCategoryMenuHandler =
+    (navLink: MenuCategory) =>
+    (e: React.SyntheticEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+      e.stopPropagation();
+      const link = e.currentTarget;
+      showCategoryMenu(navLink, link.textContent);
+      menuReturnFocusRef.current = link;
     };
 
-  const categoryMouseOverHandler: NavbarMouseEvent = (e) => {
-    e.stopPropagation();
-    const link = e.target as HTMLAnchorElement;
-    toggleMenu(true, navLinks[0]);
-    setSelectedHorizontalNavLink(link.textContent || "");
-    setSelectedVerticalNavLink(navLinks[0].name || "");
-    setVerticalNavScrollToElementId(`vertical-${navLinks[0].id}`);
+  const focusHandler = (e: React.FocusEvent<HTMLButtonElement>) => {
+    if (isRestoringMenuFocusRef.current) {
+      isRestoringMenuFocusRef.current = false;
+      return;
+    }
+    showCategoryMenuHandler(navLinks[0])(e);
   };
+
+  const mouseOutHandler = (category: MenuCategory) => () => {
+    toggleMenu(false, category);
+    setSelectedHorizontalNavLink("");
+  };
+
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    showCategoryMenuHandler(navLinks[0])(e);
+    requestAnimationFrame(() => {
+      categoryButtonRefs.current[0].focus();
+    });
+  };
+
+  const keyDownHandler =
+    (navLink: MenuCategory, index: number) =>
+    (e: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+      if (e.key !== "ArrowDown") return;
+      showCategoryMenuHandler(navLink)(e);
+      requestAnimationFrame(() => {
+        categoryButtonRefs.current[index].focus();
+      });
+    };
 
   return (
     <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
       {/* Category button */}
       <div className="whitespace-nowrap">
-        <span
+        <button
           className={cn(
             "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-[''] translate-y-px",
             {
@@ -82,8 +114,16 @@ const NavbarDesktop = () => {
                 selectedHorizontalNavLink === "Categories",
             },
           )}
-          onMouseOver={categoryMouseOverHandler}
+          type="button"
+          aria-expanded={isMenuVisible[0]}
+          aria-controls="navbar-menu"
+          aria-describedby="category-menu-instructions"
+          onFocus={focusHandler}
+          onBlur={mouseOutHandler(navLinks[0])}
+          onMouseOver={showCategoryMenuHandler(navLinks[0])}
           onMouseOut={mouseOutHandler(navLinks[0])}
+          onClick={clickHandler}
+          onKeyDown={keyDownHandler(navLinks[0], 0)}
         >
           Categories
           <ChevronDown
@@ -94,13 +134,19 @@ const NavbarDesktop = () => {
               },
             )}
           />
-        </span>
+        </button>
+        <p id="category-menu-instructions" className="sr-only">
+          Press Down Arrow key to open the category menu. Use the Up and Down
+          Arrow keys to browse categories, Tab to browse subcategory links, and
+          Escape to close the menu.
+        </p>
       </div>
 
       {/* horizontal links scroller */}
       <NavbarLinks
         mouseOverHandler={mouseOverHandler}
         mouseOutHandler={mouseOutHandler}
+        keyDownHandler={keyDownHandler}
       />
 
       {/* Buttons to scroll links horizontally */}

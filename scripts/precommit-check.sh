@@ -38,6 +38,9 @@ if [ "$run_api" = true ]; then
 fi
 
 if [ "$run_store" = true ]; then
+  echo "> pnpm --filter store prettier:check"
+  pnpm --filter store prettier:check
+ 
   echo "> pnpm turbo run lint check-types --filter=store"
   pnpm turbo run lint check-types --filter=store
  

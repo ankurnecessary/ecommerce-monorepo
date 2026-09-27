@@ -7,8 +7,9 @@ type ProvidersProps = {
   children: ReactNode;
 };
 
-const ThemeProviderComponent =
-  ThemeProvider as ComponentType<PropsWithChildren<ThemeProviderProps>>;
+const ThemeProviderComponent = ThemeProvider as ComponentType<
+  PropsWithChildren<ThemeProviderProps>
+>;
 
 export function Providers({ children }: ProvidersProps) {
   return (

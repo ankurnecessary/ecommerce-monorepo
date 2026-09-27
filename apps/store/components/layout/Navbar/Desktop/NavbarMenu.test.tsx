@@ -1,9 +1,10 @@
 import { describe, expect, it, Mock, vi } from "vitest";
 import NavbarMenu from "@/components/layout/Navbar/Desktop/NavbarMenu";
-import { fireEvent, render } from "@testing-library/react";
+import { screen, fireEvent, render } from "@testing-library/react";
 import * as HeaderContextModule from "@/components/layout/Header/Header.context";
 import { mockUseHeaderContext } from "@/components/layout/Header/Header.context.test.mock";
 import { MenuCategory } from "@/components/layout/Header/types";
+import { userEvent } from "vitest/browser";
 
 vi.mock("@/hooks/useMediaQuery", () => ({
   useMediaQuery: () => true,
@@ -186,4 +187,54 @@ describe("NavbarMenu", () => {
     // Assert that the hovered category has the 'bg-primary' class
     expect(category).toHaveClass("bg-accent");
   });
+
+  it.each([
+    ["ArrowDown", 0, 1],
+    ["ArrowUp", 0, 1],
+    ["Home", 1, 0],
+    ["End", 0, 1],
+  ])(
+    "%s moves focus from category %i to category %i",
+    async (key, startIndex, expectedIndex) => {
+      const setSelectedVerticalNavLinkMock = vi.fn();
+
+      const navLinks = [
+        {
+          id: "1",
+          name: "Category1",
+          url: "/category1",
+        },
+        {
+          id: "2",
+          name: "Category2",
+          url: "/category2",
+        },
+      ];
+
+      (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
+        mockUseHeaderContext({
+          navLinks,
+          desktop: {
+            isMenuVisible: [true, navLinks[0]],
+            selectedVerticalNavLink: "Category1",
+            setSelectedVerticalNavLink: setSelectedVerticalNavLinkMock,
+            toggleMenu: vi.fn(),
+            setVerticalNavScrollToElementId: vi.fn(),
+          },
+        }),
+      );
+
+      render(<NavbarMenu />);
+
+      const categoryTabs = screen.getAllByRole("tab");
+
+      categoryTabs[startIndex].focus();
+      expect(categoryTabs[startIndex]).toHaveFocus();
+
+      fireEvent.keyDown(categoryTabs[startIndex], {
+        key,
+      });
+      expect(categoryTabs[expectedIndex]).toHaveFocus();
+    },
+  );
 });

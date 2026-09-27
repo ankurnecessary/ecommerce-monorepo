@@ -1,3 +1,4 @@
+import React from "react";
 import { PartialDeep } from "type-fest";
 
 /**
@@ -33,10 +34,6 @@ export type HeaderInitialState = {
    */
   selectedVerticalNavLink: string;
   /**
-   * The offset of the child element in the horizontal navbar which is scrollable.
-   */
-  navbarChildOffsetDsktp: number;
-  /**
    * The navigation links displayed in the header. Either vertical or horizontal.
    * The links are common for both desktop and mobile.
    */
@@ -62,12 +59,6 @@ export type SetNavbarElementsDsktp = (
 ) => void;
 
 /**
- * Sets the offset of the child element in the navbar.
- * @param navbarChildOffsetDsktp - The offset of the child element.
- */
-export type SetNavbarOffsetDsktp = (navbarChildOffsetDsktp: number) => void;
-
-/**
  * A reducer function for managing the header state.
  * @param state - The current state of the header.
  * @param action - The action to be performed on the state.
@@ -79,7 +70,6 @@ export type HeaderReducer = (
     type:
       | "UPDATE_NAVBAR_ELEMENTS_DSKTP"
       | "TOGGLE_MENU_DSKTP"
-      | "UPDATE_NAVBAR_OFFSET_DSKTP"
       | `SET_NAV_LINKS`
       | "SET_SELECTED_HORIZONTAL_NAV_LINK"
       | "SET_SELECTED_VERTICAL_NAV_LINK"
@@ -157,6 +147,15 @@ export type HeaderContext = {
    * Desktop-specific properties and methods.
    */
   desktop: {
+    isRestoringMenuFocusRef: React.RefObject<boolean>;
+    /**
+     * a11y - Carries the reference of the navbar item that triggered / opened the navbar menu
+     */
+    menuReturnFocusRef: React.RefObject<HTMLButtonElement | HTMLAnchorElement>;
+    /**
+     * a11y - Carries references of all the buttons in the navbar menu left panel
+     */
+    categoryButtonRefs: React.RefObject<Array<HTMLButtonElement | null>>;
     /**
      * Indicates whether the desktop menu is visible and the current menu category.
      * The first element is a boolean for visibility, and the second is the menu category.
@@ -208,20 +207,11 @@ export type HeaderContext = {
        */
       child: HTMLDivElement | null;
       /**
-       * The offset of the child element in the navbar.
-       */
-      childOffset: number;
-      /**
        * Sets the parent and child elements of the navbar.
        * @param navbarParentDsktp - The parent element of the navbar.
        * @param navbarChildDsktp - The child element of the navbar.
        */
       setNavbarElementsDsktp: SetNavbarElementsDsktp;
-      /**
-       * Sets the offset of the child element in the navbar.
-       * @param navbarChildOffsetDsktp - The offset of the child element.
-       */
-      setNavbarOffsetDsktp: SetNavbarOffsetDsktp;
     };
   };
   /**
@@ -261,12 +251,19 @@ export type CalculateOffset = (
  * @param e - The mouse event.
  */
 export type NavbarMouseEvent = (
-  e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement, MouseEvent>,
+  e: React.MouseEvent<
+    HTMLDivElement | HTMLAnchorElement | HTMLButtonElement,
+    MouseEvent
+  >,
 ) => void;
 
-export type CategoryMouseEventHandler = (
+export type CategoryEventHandler = (
   category: MenuCategory,
-) => NavbarMouseEvent;
+) => (
+  e: React.SyntheticEvent<
+    HTMLButtonElement | HTMLAnchorElement | HTMLDivElement
+  >,
+) => void;
 
 /**
  * A type that will help in using object in partial way.

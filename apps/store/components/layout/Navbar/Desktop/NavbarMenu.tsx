@@ -2,7 +2,7 @@
 import React from "react";
 import { useHeaderContext } from "@/components/layout/Header/Header.context";
 import {
-  CategoryMouseEventHandler,
+  CategoryEventHandler,
   HeaderContext,
   MenuCategory,
 } from "@/components/layout/Header/types";
@@ -33,6 +33,9 @@ const NavbarMenu = () => {
       setSelectedVerticalNavLink,
       verticalNavScrollToElementId,
       setVerticalNavScrollToElementId,
+      categoryButtonRefs,
+      menuReturnFocusRef,
+      isRestoringMenuFocusRef,
     },
   }: HeaderContext = useHeaderContext();
 
@@ -51,16 +54,32 @@ const NavbarMenu = () => {
 
   // Can be done by FP
   const menuMouseOutHandler = () => {
-    toggleMenu(false, {} as MenuCategory);
+    toggleMenu(false, null);
     setSelectedHorizontalNavLink("");
   };
 
-  const categoryMouseOverHandler: CategoryMouseEventHandler =
+  const menuBlurHandler = (event: React.FocusEvent<HTMLDivElement>) => {
+    const nextElement = event.relatedTarget;
+
+    if (
+      nextElement instanceof Node &&
+      event.currentTarget.contains(nextElement)
+    ) {
+      // Focus is still somewhere inside the navbar menu.
+      return;
+    }
+
+    toggleMenu(false, null);
+    setSelectedHorizontalNavLink("");
+    setSelectedVerticalNavLink("");
+  };
+
+  const categoryMouseOverHandler: CategoryEventHandler =
     (category: MenuCategory) => (e) => {
       e.stopPropagation();
 
       // Fetching link text from the link
-      const link = e.currentTarget as HTMLAnchorElement;
+      const link = e.currentTarget;
       const linkText = link.textContent?.trim() || "";
 
       setSelectedVerticalNavLink(linkText);
@@ -68,9 +87,69 @@ const NavbarMenu = () => {
       setVerticalNavScrollToElementId("");
     };
 
+  const categoryKeyDownCaptureHandler = (e: React.KeyboardEvent) => {
+    if (e.key !== "Escape") return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    isRestoringMenuFocusRef.current = true;
+
+    toggleMenu(false, null);
+    setSelectedHorizontalNavLink("");
+    setSelectedVerticalNavLink("");
+    setVerticalNavScrollToElementId("");
+
+    requestAnimationFrame(() => {
+      const trigger = menuReturnFocusRef.current;
+
+      if (!trigger) {
+        isRestoringMenuFocusRef.current = false;
+        return;
+      }
+
+      trigger.focus();
+    });
+  };
+
+  const categoryKeyDownHandler = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) => {
+    let nextIndex: number | undefined;
+
+    switch (event.key) {
+      case "ArrowDown":
+        nextIndex = (currentIndex + 1) % navLinks.length;
+        break;
+
+      case "ArrowUp":
+        nextIndex = (currentIndex - 1 + navLinks.length) % navLinks.length;
+        break;
+
+      case "Home":
+        nextIndex = 0;
+        break;
+
+      case "End":
+        nextIndex = navLinks.length - 1;
+        break;
+
+      default:
+        return;
+    }
+
+    // Prevent ArrowUp and ArrowDown from scrolling the page.
+    event.preventDefault();
+
+    categoryButtonRefs.current[nextIndex]?.focus();
+  };
   return (
     <div
+      id="navbar-menu"
       data-testid="navbar-menu"
+      inert={isMenuVisible[0] ? undefined : true}
+      aria-hidden={!isMenuVisible[0]}
       className={cn(
         "absolute z-11 flex h-96 w-full overflow-hidden transition-transform duration-300 bg-background",
         {
@@ -78,38 +157,49 @@ const NavbarMenu = () => {
           "shadow-2xl": isVisible,
         },
       )}
+      onFocus={menuMouseOverHandler}
+      onBlur={menuBlurHandler}
       onMouseOver={menuMouseOverHandler}
-      onMouseLeave={menuMouseOutHandler}
+      // onMouseLeave={menuMouseOutHandler}
+      onMouseOut={menuMouseOutHandler}
+      onKeyDownCapture={categoryKeyDownCaptureHandler}
     >
-      <div className="w-64 shrink-0">
+      <div role="tablist" aria-orientation="vertical" className="w-64 shrink-0">
         <VerticalScrollContainer
           contentClassName="p-5 pl-10"
           scrollToElementId={verticalNavScrollToElementId}
         >
-          {navLinks.map((link) => (
+          {navLinks.map((link, index) => (
             // [ ]: Change `key={link.id}` when actual API is made with unique key. Probably id.
-            <span
+            <button
+              ref={(element) => {
+                categoryButtonRefs.current[index] = element;
+              }}
+              type="button"
               key={link.id}
               id={`vertical-${link.id}`}
+              role="tab"
+              tabIndex={selectedVerticalNavLink === link.name ? 0 : -1}
+              aria-selected={selectedVerticalNavLink === link.name}
+              aria-controls="category-panel"
               className={cn(
-                "flex w-full cursor-pointer justify-between px-2 py-3 text-xs",
+                "flex w-full cursor-pointer justify-between px-2 py-3 text-xs text-left",
                 {
-                  "bg-accent":
-                    selectedVerticalNavLink === link.name,
+                  "bg-accent": selectedVerticalNavLink === link.name,
                 },
               )}
               onMouseOver={categoryMouseOverHandler(link)}
+              onFocus={categoryMouseOverHandler(link)}
+              onKeyDown={(event) => categoryKeyDownHandler(event, index)}
             >
               <span>{link.name}</span>
-              <span>
-                <ChevronRight className="h-4 w-4 opacity-25" />
-              </span>
-            </span>
+              <ChevronRight className="h-4 w-4 opacity-25" />
+            </button>
           ))}
         </VerticalScrollContainer>
       </div>
       <div className="my-5 w-px border"></div>
-      <div className="grow px-5">
+      <div role="tabpanel" id="category-panel" className="grow px-5">
         {!!category && <NavbarSubcategories category={category} />}
       </div>
     </div>

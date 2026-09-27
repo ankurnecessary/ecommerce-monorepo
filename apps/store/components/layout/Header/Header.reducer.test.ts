@@ -5,18 +5,6 @@ import {
 } from "@/components/layout/Header/Header.reducer";
 
 describe("headerReducer", () => {
-  it("should handle UPDATE_NAVBAR_OFFSET_DSKTP", () => {
-    const initialState = { ...headerInitialState };
-    const action = {
-      type: "UPDATE_NAVBAR_OFFSET_DSKTP" as const,
-      navbarChildOffsetDsktp: 100,
-    };
-    expect(headerReducer(initialState, action)).toEqual({
-      ...initialState,
-      navbarChildOffsetDsktp: 100,
-    });
-  });
-
   it("should handle UPDATE_NAVBAR_ELEMENTS_DSKTP", () => {
     const initialState = { ...headerInitialState };
     const action = {

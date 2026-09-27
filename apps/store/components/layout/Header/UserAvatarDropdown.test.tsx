@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import UserAvatarDropdown from "./UserAvatarDropdown";
 import { userEvent } from "vitest/browser";
+import { expectNoAccessibilityViolations } from "@/test/accessibility";
 
 const mockSignOut = vi.fn();
 const mockUseUser = vi.fn();
@@ -19,19 +20,30 @@ vi.mock("./UserAvatar", () => ({
 }));
 
 describe("UserAvatarDropdown", () => {
+  it("opens the menu when the trigger is selected", async () => {
+    const user = userEvent.setup();
 
-  it("Opens the menu when the trigger is selected", async () => {
     mockUseUser.mockReturnValue({
       isLoaded: true,
-      isSignedIn: undefined,
-      user: undefined,
+      isSignedIn: false,
+      user: null,
     });
+
     render(<UserAvatarDropdown />);
-    const trigger = screen.getByRole("button", { name: "Open user menu" });
-    await userEvent.click(trigger);
+
+    const trigger = screen.getByRole("button", {
+      name: "Open user menu",
+    });
+
+    await user.click(trigger);
+
     expect(
-      screen.getByRole("menuitem", { name: "Sign in" }),
-    ).toBeInTheDocument();
+      await screen.findByRole("menuitem", {
+        name: /sign in/i,
+      }),
+    ).toBeVisible();
+
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
   });
 
   it("shows loading state while Clerk is loading", async () => {
@@ -299,5 +311,31 @@ describe("UserAvatarDropdown", () => {
     expect(guestAvatar).toHaveAttribute("data-name", "Guest");
 
     expect(guestAvatar).not.toHaveAttribute("data-image-url");
+  });
+
+  it("opens the menu without detectable accessibility violations", async () => {
+    const user = userEvent.setup();
+
+    render(<UserAvatarDropdown />);
+
+    // Opens menu
+    await user.click(
+      screen.getByRole("button", {
+        name: /open user menu/i,
+      }),
+    );
+
+    const menu = await screen.findByRole("menu");
+    expect(menu).toBeVisible();
+
+    await expectNoAccessibilityViolations(document.body);
+
+    // Closes menu
+    await user.click(
+      screen.getByRole("button", {
+        name: /open user menu/i,
+      }),
+    );
+    await expectNoAccessibilityViolations(document.body);
   });
 });
