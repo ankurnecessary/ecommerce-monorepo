@@ -18,10 +18,7 @@ const NavbarSubcategory = ({
       className="group/subcat relative flex w-20 flex-col"
     >
       {!imageLoaded && (
-        <span
-          data-testid="skeleton"
-          className="m-1 flex justify-center"
-        >
+        <span data-testid="skeleton" className="m-1 flex justify-center">
           <Skeleton className="mx-2 h-14.25 w-14.25 rounded-full bg-primary/10" />
         </span>
       )}

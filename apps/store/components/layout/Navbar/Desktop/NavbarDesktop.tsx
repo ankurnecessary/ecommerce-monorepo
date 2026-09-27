@@ -136,7 +136,9 @@ const NavbarDesktop = () => {
           />
         </button>
         <p id="category-menu-instructions" className="sr-only">
-          Press Down Arrow key to open the category menu. Use the Up and Down Arrow keys to browse categories, Tab to browse subcategory links, and Escape to close the menu.
+          Press Down Arrow key to open the category menu. Use the Up and Down
+          Arrow keys to browse categories, Tab to browse subcategory links, and
+          Escape to close the menu.
         </p>
       </div>
 

@@ -156,7 +156,6 @@ describe("HeaderContext", () => {
     });
 
     // Simulate setting navbar offset
-    waitFor(() => {
-    });
+    waitFor(() => {});
   });
 });

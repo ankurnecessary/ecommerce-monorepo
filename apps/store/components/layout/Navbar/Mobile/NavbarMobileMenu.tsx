@@ -29,10 +29,7 @@ const NavbarMobileMenu = ({
       {links.length > 0 && (
         <ul className="px-2">
           {links.map((link) => (
-            <li
-              key={link.id}
-              className="border-b"
-            >
+            <li key={link.id} className="border-b">
               {/* START: When we have {subcategories: [...]} */}
               {!!link.subcategories?.length && (
                 <span

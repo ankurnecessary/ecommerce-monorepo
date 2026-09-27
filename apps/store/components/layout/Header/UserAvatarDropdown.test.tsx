@@ -19,7 +19,6 @@ vi.mock("./UserAvatar", () => ({
 }));
 
 describe("UserAvatarDropdown", () => {
-
   it("Opens the menu when the trigger is selected", async () => {
     mockUseUser.mockReturnValue({
       isLoaded: true,

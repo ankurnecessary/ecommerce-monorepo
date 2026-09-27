@@ -58,7 +58,7 @@ const UserAvatarDropdown = () => {
       </DropdownMenuItem>
     </>
   );
-  
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
