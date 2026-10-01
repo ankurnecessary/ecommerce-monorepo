@@ -5,6 +5,7 @@ staged_files=$(git diff --cached --name-only --diff-filter=ACMR)
 
 run_api=false
 run_store=false
+run_admin=false
 
 for file in $staged_files; do
   case "$file" in
@@ -14,15 +15,19 @@ for file in $staged_files; do
     apps/store/*)
       run_store=true
       ;;
+    apps/admin/*)
+      run_admin=true
+      ;;
     .githooks/*|packages/*|package.json|pnpm-lock.yaml|pnpm-workspace.yaml|turbo.json)
       run_api=true
       run_store=true
+      run_admin=true
       ;;
   esac
 done
 
-if [ "$run_api" = false ] && [ "$run_store" = false ]; then
-  echo "No staged changes affecting apps/api or apps/store. Skipping precommit checks."
+if [ "$run_api" = false ] && [ "$run_store" = false ] && [ "$run_admin" = false ]; then
+  echo "No staged changes affecting apps/api or apps/store or apps/admin. Skipping precommit checks."
   exit 0
 fi
 
@@ -49,4 +54,18 @@ if [ "$run_store" = true ]; then
   
   echo "> pnpm turbo run test:ct --filter=store"
   pnpm turbo run test:ct --filter=store
+fi
+
+if [ "$run_admin" = true ]; then
+  echo "> pnpm --filter admin prettier:check"
+  pnpm --filter admin prettier:check
+
+  echo "> pnpm turbo run lint check-types --filter=admin"
+  pnpm turbo run lint check-types --filter=admin
+
+  echo "> pnpm turbo run test:coverage --filter=admin"
+  pnpm turbo run test:coverage --filter=admin
+
+  echo "> pnpm turbo run test:ct --filter=admin"
+  pnpm turbo run test:ct --filter=admin
 fi
