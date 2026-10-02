@@ -44,7 +44,11 @@ fi
 
 if [ "$run_store" = true ]; then
   echo "> pnpm --filter store prettier:check"
-  pnpm --filter store prettier:check
+  if ! pnpm --filter store prettier:check; then
+    echo "> pnpm --filter store prettier"
+    pnpm --filter store prettier
+    pnpm --filter store prettier:check
+  fi
  
   echo "> pnpm turbo run lint check-types --filter=store"
   pnpm turbo run lint check-types --filter=store
@@ -58,7 +62,11 @@ fi
 
 if [ "$run_admin" = true ]; then
   echo "> pnpm --filter admin prettier:check"
-  pnpm --filter admin prettier:check
+  if ! pnpm --filter admin prettier:check; then
+    echo "> pnpm --filter admin prettier"
+    pnpm --filter admin prettier
+    pnpm --filter admin prettier:check
+  fi
 
   echo "> pnpm turbo run lint check-types --filter=admin"
   pnpm turbo run lint check-types --filter=admin
