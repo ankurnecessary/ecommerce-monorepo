@@ -13,7 +13,7 @@
     "precommit:check": "sh scripts/precommit-check.sh"
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
+    "prettier": "catalog:",
     "turbo": "^2.10.12",
     "typescript": "5.9.3"
   },
