@@ -7,10 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "start": "vite preview",
     "check-types": "tsc --noEmit",
     "prettier": "prettier --write **/*.{js,jsx,json,ts,tsx,scss,css,md}",
-    "prettier:check": "prettier --check **/*.{js,jsx,json,ts,tsx,scss,css,md}"
+    "prettier:check": "prettier --check **/*.{js,jsx,json,ts,tsx,scss,css,md}",
+    "test:coverage": "echo 'No test cases yet.'"
   },
   "dependencies": {
     "react": "^19.2.8",
