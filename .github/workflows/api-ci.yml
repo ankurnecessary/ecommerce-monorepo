@@ -12,6 +12,7 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "turbo.json"
+      - ".npmrc"
       - ".nvmrc"
       - ".github/actions/setup-node-pnpm/**"
       - ".github/workflows/api-ci.yml"

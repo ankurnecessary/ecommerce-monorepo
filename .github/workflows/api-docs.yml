@@ -13,6 +13,7 @@ on:
       - "package.json"
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
+      - ".npmrc"
       - ".nvmrc"
       - ".github/actions/setup-node-pnpm/**"
       - ".github/workflows/api-docs.yml"
