@@ -116,4 +116,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to Amplify
-        run: aws amplify start-job --app-id ${{ secrets.AWS_APP_ID }} --branch-name main --job-type RELEASE --region ${{ secrets.AWS_REGION }}
+        run: aws amplify start-job --app-id ${{ secrets.AWS_STORE_APP_ID }} --branch-name main --job-type RELEASE --region ${{ secrets.AWS_REGION }}
