@@ -9,6 +9,12 @@ catalogs:
     prettier:
       specifier: 3.9.9
       version: 3.9.9
+    react:
+      specifier: 19.2.4
+      version: 19.2.4
+    react-dom:
+      specifier: 19.2.4
+      version: 19.2.4
 
 importers:
 
@@ -27,14 +33,14 @@ importers:
   apps/admin:
     dependencies:
       react:
-        specifier: ^19.2.8
-        version: 19.3.0
+        specifier: 'catalog:'
+        version: 19.2.4
       react-dom:
-        specifier: ^19.2.8
-        version: 19.3.0(react@19.3.0)
+        specifier: 'catalog:'
+        version: 19.2.4(react@19.2.4)
       react-router:
         specifier: ^8.4.0
-        version: 8.4.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 8.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -215,10 +221,10 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: ^19.2.4
+        specifier: 'catalog:'
         version: 19.2.4
       react-dom:
-        specifier: ^19.2.4
+        specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
     devDependencies:
       '@eslint/eslintrc':
@@ -398,10 +404,10 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: ^19.2.4
+        specifier: 'catalog:'
         version: 19.2.4
       react-dom:
-        specifier: ^19.2.4
+        specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
       shadcn:
         specifier: ^4.5.0
@@ -16568,13 +16574,13 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.18
 
-  react-router@8.4.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  react-router@8.4.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@remix-run/route-pattern': 0.22.1
       cookie-es: 3.1.1
-      react: 19.3.0
+      react: 19.2.4
     optionalDependencies:
-      react-dom: 19.3.0(react@19.3.0)
+      react-dom: 19.2.4(react@19.2.4)
 
   react-style-singleton@2.2.3(@types/react@19.2.18)(react@19.2.4):
     dependencies:
