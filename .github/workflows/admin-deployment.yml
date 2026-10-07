@@ -1,4 +1,4 @@
-name: Store:Test, Build, and Deploy
+name: Admin:Test, Build, and Deploy
 
 on:
   push:
