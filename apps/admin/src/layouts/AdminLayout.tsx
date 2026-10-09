@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router';
+import { Link, NavLink, Outlet } from 'react-router';
 
 const AdminLayout = () => {
   return (
@@ -7,6 +7,12 @@ const AdminLayout = () => {
         <NavLink to="/" end>
           Store administration
         </NavLink>
+        <Link className="text-blue-800 underline" to="/category">
+          Category
+        </Link>
+        <Link className="text-blue-800 underline" to="/sign-in">
+          Sign In
+        </Link>
       </header>
       <main>
         <Outlet />
