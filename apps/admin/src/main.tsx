@@ -7,7 +7,10 @@ import { ClerkProvider } from '@clerk/react';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider>
+    <ClerkProvider
+      routerPush={(to) => router.navigate(to)}
+      routerReplace={(to) => router.navigate(to, { replace: true })}
+    >
       <RouterProvider router={router} />
     </ClerkProvider>
   </StrictMode>,
