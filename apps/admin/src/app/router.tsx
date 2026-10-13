@@ -6,6 +6,7 @@ import NotFoundPage from '../pages/errors/NotFoundPage';
 import RouteErrorPage from '../pages/errors/RouteErrorPage';
 import SignInPage from '../pages/sign-in/SignInPage';
 import CategoryPage from '../pages/category/CategoryPage';
+import RequireAuth from '../features/auth/RequireAuth';
 
 export const router = createBrowserRouter([
   {
@@ -13,17 +14,22 @@ export const router = createBrowserRouter([
     Component: SignInPage,
   },
   {
-    path: '/',
-    Component: AdminLayout,
-    ErrorBoundary: RouteErrorPage,
+    Component: RequireAuth,
     children: [
       {
-        index: true,
-        Component: DashboardPage,
-      },
-      {
-        path: 'category',
-        Component: CategoryPage,
+        path: '/',
+        Component: AdminLayout,
+        ErrorBoundary: RouteErrorPage,
+        children: [
+          {
+            index: true,
+            Component: DashboardPage,
+          },
+          {
+            path: 'category',
+            Component: CategoryPage,
+          },
+        ],
       },
     ],
   },
