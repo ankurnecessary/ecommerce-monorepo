@@ -1,4 +1,4 @@
-import { Show } from '@clerk/react';
+import { Show, SignOutButton } from '@clerk/react';
 import { Link, NavLink, Outlet } from 'react-router';
 
 const AdminLayout = () => {
@@ -8,9 +8,9 @@ const AdminLayout = () => {
         <NavLink to="/" end>
           Store administration
         </NavLink>
-        <Link className="text-blue-800 underline" to="/category">
-          Category
-        </Link>
+        <Show when="signed-in">
+          <SignOutButton />
+        </Show>
         <Show when="signed-out">
           <Link className="text-blue-800 underline" to="/sign-in">
             Sign In
