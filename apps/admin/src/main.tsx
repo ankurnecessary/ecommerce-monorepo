@@ -8,6 +8,13 @@ import { ClerkProvider } from '@clerk/react';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ClerkProvider
+      localization={{
+        signIn: {
+          start: {
+            title: "Sign in to Celeb Store's dashboard",
+          },
+        },
+      }}
       routerPush={(to) => router.navigate(to)}
       routerReplace={(to) => router.navigate(to, { replace: true })}
     >
