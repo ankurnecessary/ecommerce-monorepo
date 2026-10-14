@@ -7,11 +7,16 @@ import RouteErrorPage from '../pages/errors/RouteErrorPage';
 import SignInPage from '../pages/sign-in/SignInPage';
 import CategoryPage from '../pages/category/CategoryPage';
 import RequireAuth from '../features/auth/RequireAuth';
+import UnauthorizedPage from '../pages/errors/UnauthorizedPage';
 
 export const router = createBrowserRouter([
   {
     path: '/sign-in',
     Component: SignInPage,
+  },
+  {
+    path: '/unauthorized',
+    Component: UnauthorizedPage,
   },
   {
     Component: RequireAuth,
