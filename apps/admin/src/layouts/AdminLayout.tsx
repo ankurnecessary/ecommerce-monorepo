@@ -1,5 +1,5 @@
 import { Show, SignOutButton } from '@clerk/react';
-import { Link, NavLink, Outlet } from 'react-router';
+import { NavLink, Outlet } from 'react-router';
 
 const AdminLayout = () => {
   return (
@@ -10,11 +10,6 @@ const AdminLayout = () => {
         </NavLink>
         <Show when="signed-in">
           <SignOutButton />
-        </Show>
-        <Show when="signed-out">
-          <Link className="text-blue-800 underline" to="/sign-in">
-            Sign In
-          </Link>
         </Show>
       </header>
       <main>
