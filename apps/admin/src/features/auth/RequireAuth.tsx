@@ -2,7 +2,7 @@ import { useAuth } from '@clerk/react';
 import { Outlet, useNavigate } from 'react-router';
 
 const RequireAuth = () => {
-  const { isLoaded, isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn, sessionClaims } = useAuth();
   const navigate = useNavigate();
 
   if (!isLoaded) {
@@ -15,6 +15,10 @@ const RequireAuth = () => {
 
   if (!isSignedIn) {
     return navigate('/sign-in');
+  }
+
+  if (sessionClaims?.metadata?.role !== 'dashboardUser') {
+    return navigate('/unauthorized');
   }
 
   return <Outlet />;
