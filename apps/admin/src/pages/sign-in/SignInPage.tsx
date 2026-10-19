@@ -5,6 +5,8 @@ const SignInPage = () => {
   return (
     <div className={styles['sign-in-wrapper']}>
       <SignIn
+        path="/sign-in"
+        routing="path"
         appearance={{
           elements: {
             socialButtonsRoot: {

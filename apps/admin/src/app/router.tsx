@@ -11,7 +11,7 @@ import UnauthorizedPage from '../pages/errors/UnauthorizedPage';
 
 export const router = createBrowserRouter([
   {
-    path: '/sign-in',
+    path: '/sign-in/*',
     Component: SignInPage,
   },
   {
