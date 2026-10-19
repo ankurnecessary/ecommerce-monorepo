@@ -13,6 +13,9 @@ const SignInPage = () => {
             dividerRow: {
               display: 'none',
             },
+            lastAuthenticationStrategyBadge: {
+              display: 'none',
+            },
           },
         }}
       />
