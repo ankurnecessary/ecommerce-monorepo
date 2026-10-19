@@ -1,9 +1,9 @@
 import { useAuth } from '@clerk/react';
-import { Outlet, useNavigate } from 'react-router';
+import { Outlet, Navigate, useLocation } from 'react-router';
 
 const RequireAuth = () => {
   const { isLoaded, isSignedIn, sessionClaims } = useAuth();
-  const navigate = useNavigate();
+  const location = useLocation();
 
   if (!isLoaded) {
     return (
@@ -14,11 +14,11 @@ const RequireAuth = () => {
   }
 
   if (!isSignedIn) {
-    return navigate('/sign-in');
+    return <Navigate to="/sign-in" replace state={{ from: location }} />;
   }
 
   if (sessionClaims?.metadata?.role !== 'dashboardUser') {
-    return navigate('/unauthorized');
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return <Outlet />;
