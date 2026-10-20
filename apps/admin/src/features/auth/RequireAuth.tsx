@@ -1,5 +1,5 @@
 import { useAuth } from '@clerk/react';
-import { Outlet, Navigate, useLocation } from 'react-router';
+import { Outlet, Navigate, useLocation, createPath } from 'react-router';
 
 const RequireAuth = () => {
   const { isLoaded, isSignedIn, sessionClaims } = useAuth();
@@ -14,7 +14,12 @@ const RequireAuth = () => {
   }
 
   if (!isSignedIn) {
-    return <Navigate to="/sign-in" replace state={{ from: location }} />;
+    const returnTo = createPath(location);
+    const signInSearch = new URLSearchParams({
+      redirect_url: returnTo,
+    }).toString();
+
+    return <Navigate to={`/sign-in?${signInSearch}`} replace />;
   }
 
   if (sessionClaims?.metadata?.role !== 'dashboardUser') {

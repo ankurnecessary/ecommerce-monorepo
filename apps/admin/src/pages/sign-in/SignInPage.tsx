@@ -1,14 +1,20 @@
 import { SignIn } from '@clerk/react';
+import { useLocation } from 'react-router';
+
 import styles from './SignInPage.module.scss';
-import { useLocation, createPath } from 'react-router';
+
+const getSafeRedirectUrl = (value: string | null) => {
+  if (!value?.startsWith('/') || value.startsWith('//')) {
+    return '/';
+  }
+
+  return value;
+};
 
 const SignInPage = () => {
   const location = useLocation();
-
-  const requestedLocation = location.state?.from;
-  const returnTo = requestedLocation
-    ? createPath(requestedLocation)
-    : undefined;
+  const searchParams = new URLSearchParams(location.search);
+  const returnTo = getSafeRedirectUrl(searchParams.get('redirect_url'));
 
   return (
     <div className={styles['sign-in-wrapper']}>
