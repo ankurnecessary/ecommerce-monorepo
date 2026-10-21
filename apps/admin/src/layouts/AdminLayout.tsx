@@ -1,18 +1,22 @@
-import { Link, NavLink, Outlet } from 'react-router';
+import { Show } from '@clerk/react';
+import { NavLink, Outlet, useNavigate } from 'react-router';
 
 const AdminLayout = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <header>
         <NavLink to="/" end>
           Store administration
         </NavLink>
-        <Link className="text-blue-800 underline" to="/category">
-          Category
-        </Link>
-        <Link className="text-blue-800 underline" to="/sign-in">
-          Sign In
-        </Link>
+        <Show when="signed-in">
+          <button
+            type="button"
+            onClick={() => navigate('/sign-out', { replace: true })}
+          >
+            Sign out
+          </button>
+        </Show>
       </header>
       <main>
         <Outlet />

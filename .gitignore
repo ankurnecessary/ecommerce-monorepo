@@ -48,3 +48,6 @@ cookies.txt
 # grep command = ctrl+shift+f of vscode
 # .rgignore - Add paths that grep command will ignore while doing grep in it
 .rgignore
+
+# screenshot folder
+screenshots

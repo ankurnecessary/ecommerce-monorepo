@@ -1,34 +1,54 @@
 import { createBrowserRouter } from 'react-router';
 
 import AdminLayout from '../layouts/AdminLayout';
-import DashboardPage from '../pages/DashboardPage';
-import NotFoundPage from '../pages/NotFoundPage';
-import RouteErrorPage from '../pages/RouteErrorPage';
-import SignInPage from '../pages/SignInPage';
-import CategoryPage from '../pages/CategoryPage';
+import DashboardPage from '../pages/dashboard/DashboardPage';
+import NotFoundPage from '../pages/errors/NotFoundPage';
+import RouteErrorPage from '../pages/errors/RouteErrorPage';
+import SignInPage from '../pages/sign-in/SignInPage';
+import CategoryPage from '../pages/category/CategoryPage';
+import RequireAuth from '../features/auth/RequireAuth';
+import UnauthorizedPage from '../pages/errors/UnauthorizedPage';
+import SignOutPage from '../pages/sign-out/SignOutPage';
 
 export const router = createBrowserRouter([
   {
-    path: '/sign-in',
-    Component: SignInPage,
-  },
-  {
-    path: '/',
-    Component: AdminLayout,
     ErrorBoundary: RouteErrorPage,
     children: [
       {
-        index: true,
-        Component: DashboardPage,
+        path: '/sign-in/*',
+        Component: SignInPage,
       },
       {
-        path: 'category',
-        Component: CategoryPage,
+        path: '/sign-out',
+        Component: SignOutPage,
+      },
+      {
+        path: '/unauthorized',
+        Component: UnauthorizedPage,
+      },
+      {
+        Component: RequireAuth,
+        children: [
+          {
+            path: '/',
+            Component: AdminLayout,
+            children: [
+              {
+                index: true,
+                Component: DashboardPage,
+              },
+              {
+                path: 'category',
+                Component: CategoryPage,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: '*',
+        Component: NotFoundPage,
       },
     ],
-  },
-  {
-    path: '*',
-    Component: NotFoundPage,
   },
 ]);
