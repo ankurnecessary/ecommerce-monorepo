@@ -8,11 +8,16 @@ import SignInPage from '../pages/sign-in/SignInPage';
 import CategoryPage from '../pages/category/CategoryPage';
 import RequireAuth from '../features/auth/RequireAuth';
 import UnauthorizedPage from '../pages/errors/UnauthorizedPage';
+import SignOutPage from '../pages/sign-out/SignOutPage';
 
 export const router = createBrowserRouter([
   {
     path: '/sign-in/*',
     Component: SignInPage,
+  },
+  {
+    path: '/sign-out',
+    Component: SignOutPage,
   },
   {
     path: '/unauthorized',

@@ -1,7 +1,8 @@
-import { Show, SignOutButton } from '@clerk/react';
-import { NavLink, Outlet } from 'react-router';
+import { Show } from '@clerk/react';
+import { NavLink, Outlet, useNavigate } from 'react-router';
 
 const AdminLayout = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <header>
@@ -9,7 +10,12 @@ const AdminLayout = () => {
           Store administration
         </NavLink>
         <Show when="signed-in">
-          <SignOutButton />
+          <button
+            type="button"
+            onClick={() => navigate('/sign-out', { replace: true })}
+          >
+            Sign out
+          </button>
         </Show>
       </header>
       <main>
