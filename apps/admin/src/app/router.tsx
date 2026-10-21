@@ -12,39 +12,43 @@ import SignOutPage from '../pages/sign-out/SignOutPage';
 
 export const router = createBrowserRouter([
   {
-    path: '/sign-in/*',
-    Component: SignInPage,
-  },
-  {
-    path: '/sign-out',
-    Component: SignOutPage,
-  },
-  {
-    path: '/unauthorized',
-    Component: UnauthorizedPage,
-  },
-  {
-    Component: RequireAuth,
+    ErrorBoundary: RouteErrorPage,
     children: [
       {
-        path: '/',
-        Component: AdminLayout,
-        ErrorBoundary: RouteErrorPage,
+        path: '/sign-in/*',
+        Component: SignInPage,
+      },
+      {
+        path: '/sign-out',
+        Component: SignOutPage,
+      },
+      {
+        path: '/unauthorized',
+        Component: UnauthorizedPage,
+      },
+      {
+        Component: RequireAuth,
         children: [
           {
-            index: true,
-            Component: DashboardPage,
-          },
-          {
-            path: 'category',
-            Component: CategoryPage,
+            path: '/',
+            Component: AdminLayout,
+            children: [
+              {
+                index: true,
+                Component: DashboardPage,
+              },
+              {
+                path: 'category',
+                Component: CategoryPage,
+              },
+            ],
           },
         ],
       },
+      {
+        path: '*',
+        Component: NotFoundPage,
+      },
     ],
-  },
-  {
-    path: '*',
-    Component: NotFoundPage,
   },
 ]);
