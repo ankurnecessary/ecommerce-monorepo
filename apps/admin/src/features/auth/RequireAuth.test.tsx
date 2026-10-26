@@ -33,4 +33,26 @@ describe('RequireAuth', () => {
     expect(screen.getByRole('main')).toHaveAttribute('aria-busy', 'true');
     expect(screen.queryByText('Protected content')).not.toBeInTheDocument();
   });
+
+  it('redirects a signed out user to the sign in page', async () => {
+    useAuthMock.mockReturnValue({
+      isLoaded: true,
+      isSignedIn: false,
+      sessionCliams: null,
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/category']}>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/category" element={<p>Protected content</p>} />
+          </Route>
+          <Route path="/sign-in" element={<p>Sign-in page</p>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByText('Sign-in page')).toBeInTheDocument();
+    expect(screen.queryByText('Protected content')).not.toBeInTheDocument();
+  });
 });
