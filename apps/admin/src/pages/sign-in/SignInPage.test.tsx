@@ -38,4 +38,21 @@ describe('SignInPage', () => {
       '/category',
     );
   });
+
+  it('preserves a valid internal path containing a query string', () => {
+    const searchParams = new URLSearchParams({
+      redirect_url: '/category?page=2&sort=name',
+    });
+
+    render(
+      <MemoryRouter initialEntries={[`/sign-in?${searchParams.toString()}`]}>
+        <SignInPage />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId('clerk-sign-in')).toHaveAttribute(
+      'data-force-redirect-url',
+      '/category?page=2&sort=name',
+    );
+  });
 });
