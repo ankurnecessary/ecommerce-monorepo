@@ -25,4 +25,17 @@ describe('SignInPage', () => {
       '/',
     );
   });
+
+  it('passes a valid internal path such as /category to Clerk', () => {
+    render(
+      <MemoryRouter initialEntries={['/sign-in?redirect_url=/category']}>
+        <SignInPage />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId('clerk-sign-in')).toHaveAttribute(
+      'data-force-redirect-url',
+      '/category',
+    );
+  });
 });
