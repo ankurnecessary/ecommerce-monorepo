@@ -1,7 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router';
+import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
 import { describe, expect, it, vi } from 'vitest';
 import RequireAuth from './RequireAuth';
+
+const RedirectUrlDisplay = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  return <p data-testid="redirect-url">{searchParams.get('redirect_url')}</p>;
+};
 
 const { useAuthMock } = vi.hoisted(() => ({
   useAuthMock: vi.fn(),
@@ -54,5 +61,28 @@ describe('RequireAuth', () => {
 
     expect(await screen.findByText('Sign-in page')).toBeInTheDocument();
     expect(screen.queryByText('Protected content')).not.toBeInTheDocument();
+  });
+
+  it('includes the complete requested path in redirect_url', async () => {
+    useAuthMock.mockReturnValue({
+      isLoaded: true,
+      isSignedIn: false,
+      sessionCliams: null,
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/category?page=2#featured']}>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/category" element={<p>Protected content</p>} />
+          </Route>
+          <Route path="/sign-in" element={<RedirectUrlDisplay />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId('redirect-url')).toHaveTextContent(
+      '/category?page=2#featured',
+    );
   });
 });
