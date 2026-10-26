@@ -85,4 +85,55 @@ describe('RequireAuth', () => {
       '/category?page=2#featured',
     );
   });
+
+  it('redirects a signed-in user with no role to the unauthorized page', async () => {
+    useAuthMock.mockReturnValue({
+      isLoaded: true,
+      isSignedIn: true,
+      sessionClaims: {
+        metadata: {},
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/category']}>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/category" element={<p>Protected content</p>} />
+          </Route>
+
+          <Route path="/unauthorized" element={<p>Unauthorized page</p>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByText('Unauthorized page')).toBeInTheDocument();
+
+    expect(screen.queryByText('Protected content')).not.toBeInTheDocument();
+  });
+
+  it('renders the protected child route for a dashboardUser', () => {
+    useAuthMock.mockReturnValue({
+      isLoaded: true,
+      isSignedIn: true,
+      sessionClaims: {
+        metadata: { role: 'dashboardUser' },
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/category']}>
+        <Routes>
+          <Route element={<RequireAuth />}>
+            <Route path="/category" element={<p>Protected content</p>} />
+          </Route>
+
+          <Route path="/unauthorized" element={<p>Unauthorized page</p>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText('Protected content')).toBeInTheDocument();
+    expect(screen.queryByText('Unauthorized page')).not.toBeInTheDocument();
+  });
 });
