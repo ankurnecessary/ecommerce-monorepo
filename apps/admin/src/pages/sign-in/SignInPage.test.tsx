@@ -55,4 +55,20 @@ describe('SignInPage', () => {
       '/category?page=2&sort=name',
     );
   });
+
+  it('Rejects an absolute external URL such as https://example.com', () => {
+    const searchParams = new URLSearchParams({
+      redirect_url: 'http://example.com',
+    });
+
+    render(
+      <MemoryRouter initialEntries={[`/sign-in?${searchParams.toString()}`]}>
+        <SignInPage />
+      </MemoryRouter>,
+    );
+    expect(screen.getByTestId('clerk-sign-in')).toHaveAttribute(
+      'data-force-redirect-url',
+      '/',
+    );
+  });
 });
