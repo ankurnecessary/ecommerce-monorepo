@@ -71,4 +71,21 @@ describe('SignInPage', () => {
       '/',
     );
   });
+
+  it('Rejects a protocol-relative URL such as //example.com.', () => {
+    const searchParams = new URLSearchParams({
+      redirect_url: '//example.com',
+    });
+
+    render(
+      <MemoryRouter initialEntries={[`/sign-in?${searchParams}`]}>
+        <SignInPage />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId('clerk-sign-in')).toHaveAttribute(
+      'data-force-redirect-url',
+      '/',
+    );
+  });
 });
