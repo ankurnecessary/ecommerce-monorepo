@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, type RouteObject } from 'react-router';
 
 import AdminLayout from '../layouts/AdminLayout';
 import DashboardPage from '../pages/dashboard/DashboardPage';
@@ -10,7 +10,7 @@ import RequireAuth from '../features/auth/RequireAuth';
 import UnauthorizedPage from '../pages/errors/UnauthorizedPage';
 import SignOutPage from '../pages/sign-out/SignOutPage';
 
-export const router = createBrowserRouter([
+export const routes: RouteObject[] = [
   {
     ErrorBoundary: RouteErrorPage,
     children: [
@@ -51,4 +51,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+];
+
+export const router = createBrowserRouter(routes);
