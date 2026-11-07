@@ -2,7 +2,7 @@ packages:
   - "apps/*"
   - "packages/*"
 allowBuilds:
-  '@parcel/watcher': set this to true or false
+  '@parcel/watcher@2.6.0': true
   '@prisma/engines': true
   '@scarf/scarf': true
   bcrypt: true
