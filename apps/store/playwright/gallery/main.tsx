@@ -1,11 +1,11 @@
-import React from "react";
-import { createRoot, type Root } from "react-dom/client";
-import "../../app/globals.css";
+import React from 'react';
+import { createRoot, type Root } from 'react-dom/client';
+import '../../app/globals.css';
 
 const stories = import.meta.glob(
   [
-    "/components/**/*.story.{ts,tsx}",
-    "/playwright/gallery/**/*.story.{ts,tsx}",
+    '/components/**/*.story.{ts,tsx}',
+    '/playwright/gallery/**/*.story.{ts,tsx}',
   ],
   {
     eager: true,
@@ -17,8 +17,8 @@ let root: Root | undefined;
 function findStory(storyId: string) {
   for (const [path, exports] of Object.entries(stories)) {
     const normalizedPath = path
-      .replace(/^\//, "")
-      .replace(/\.story\.(ts|tsx)$/, "");
+      .replace(/^\//, '')
+      .replace(/\.story\.(ts|tsx)$/, '');
     const moduleExports = exports as Record<string, React.ComponentType>;
 
     for (const [exportName, Story] of Object.entries(moduleExports)) {
@@ -36,10 +36,10 @@ function findStory(storyId: string) {
 window.mount = async ({ story, props = {} }) => {
   const Story = findStory(story);
 
-  const container = document.getElementById("root");
+  const container = document.getElementById('root');
 
   if (!container) {
-    throw new Error("Gallery root element was not found");
+    throw new Error('Gallery root element was not found');
   }
 
   if (!root) {

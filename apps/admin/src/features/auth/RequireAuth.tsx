@@ -7,7 +7,7 @@ const RequireAuth = () => {
 
   if (!isLoaded) {
     return (
-      <main className="grid min-h-screen place-items-center" aria-busy="true">
+      <main className='grid min-h-screen place-items-center' aria-busy='true'>
         <p>Checking authentication…</p>
       </main>
     );
@@ -23,7 +23,7 @@ const RequireAuth = () => {
   }
 
   if (sessionClaims?.metadata?.role !== 'dashboardUser') {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to='/unauthorized' replace />;
   }
 
   return <Outlet />;

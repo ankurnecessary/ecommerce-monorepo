@@ -1,8 +1,8 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useHeaderContext } from "@/components/layout/Header/Header.context";
-import { ChevronRight, ChevronLeft } from "lucide-react";
-import { cn } from "@repo/ui/lib/utils";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useHeaderContext } from '@/components/layout/Header/Header.context';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { cn } from '@repo/ui/lib/utils';
 
 const NavbarScroller = () => {
   const {
@@ -32,11 +32,11 @@ const NavbarScroller = () => {
     resizeObserver.observe(navbarParent);
     if (navbarChild) resizeObserver.observe(navbarChild);
 
-    navbarParent.addEventListener("scroll", updatePosition);
+    navbarParent.addEventListener('scroll', updatePosition);
 
     return () => {
       resizeObserver.disconnect();
-      navbarParent.removeEventListener("scroll", updatePosition);
+      navbarParent.removeEventListener('scroll', updatePosition);
     };
   }, [navbarParent, navbarChild]);
 
@@ -45,34 +45,34 @@ const NavbarScroller = () => {
 
     navbarParent.scrollBy({
       left: direction * navbarParent.clientWidth,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
   return (
     <div
-      className={cn("shadow-left flex whitespace-nowrap", {
+      className={cn('shadow-left flex whitespace-nowrap', {
         hidden: position.max <= 1,
       })}
     >
       <button
-        type="button"
-        className="inline-block cursor-pointer p-1 disabled:cursor-auto disabled:opacity-25"
+        type='button'
+        className='inline-block cursor-pointer p-1 disabled:cursor-auto disabled:opacity-25'
         onClick={() => scrollByViewport(-1)}
         disabled={position.left <= 1}
-        aria-label="Scroll categories left"
+        aria-label='Scroll categories left'
       >
-        <ChevronLeft className="h-5 w-4" />
+        <ChevronLeft className='h-5 w-4' />
       </button>
 
       <button
-        type="button"
-        className="inline-block cursor-pointer p-1 disabled:cursor-auto disabled:opacity-25"
+        type='button'
+        className='inline-block cursor-pointer p-1 disabled:cursor-auto disabled:opacity-25'
         onClick={() => scrollByViewport(1)}
         disabled={position.left >= position.max - 1}
-        aria-label="Scroll categories right"
+        aria-label='Scroll categories right'
       >
-        <ChevronRight className="h-5 w-4" />
+        <ChevronRight className='h-5 w-4' />
       </button>
     </div>
   );

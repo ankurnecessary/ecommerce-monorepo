@@ -1,27 +1,27 @@
-"use client";
-import React, { useState } from "react";
-import { useHeaderContext } from "@/components/layout/Header/Header.context";
+'use client';
+import React, { useState } from 'react';
+import { useHeaderContext } from '@/components/layout/Header/Header.context';
 import {
   HeaderContext,
   MenuSubCategory,
-} from "@/components/layout/Header/types";
-import { ChevronLeft, X } from "lucide-react";
-import dynamic from "next/dynamic";
-import { cn } from "@repo/ui/lib/utils";
+} from '@/components/layout/Header/types';
+import { ChevronLeft, X } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { cn } from '@repo/ui/lib/utils';
 
 const NavbarMobileMenu = dynamic(
-  () => import("@/components/layout/Navbar/Mobile/NavbarMobileMenu"),
+  () => import('@/components/layout/Navbar/Mobile/NavbarMobileMenu'),
   {
     ssr: false,
-    loading: () => <div className="p-2">Loading...</div>,
+    loading: () => <div className='p-2'>Loading...</div>,
   },
 );
 
 const NavbarMobileSubmenu = dynamic(
-  () => import("@/components/layout/Navbar/Mobile/NavbarMobileSubmenu"),
+  () => import('@/components/layout/Navbar/Mobile/NavbarMobileSubmenu'),
   {
     ssr: false,
-    loading: () => <div className="p-2">Loading...</div>,
+    loading: () => <div className='p-2'>Loading...</div>,
   },
 );
 
@@ -43,13 +43,13 @@ const NavbarMobile = () => {
     <>
       {/* Mobile Navbar */}
       <div
-        data-testid="mobile-menu"
+        data-testid='mobile-menu'
         className={cn(
-          "fixed left-0 top-0 z-1 h-full w-68 border-r",
-          "bg-background transition-transform duration-300",
-          "lg:hidden",
+          'fixed left-0 top-0 z-1 h-full w-68 border-r',
+          'bg-background transition-transform duration-300',
+          'lg:hidden',
           {
-            "-translate-x-96": !isMenuVisible,
+            '-translate-x-96': !isMenuVisible,
           },
         )}
         inert={isMenuVisible ? undefined : true}
@@ -57,9 +57,9 @@ const NavbarMobile = () => {
       >
         {/* START: Button to collapse main mobile menu */}
         <button
-          className="absolute -right-10 top-0 z-10 p-1 border-pink-300 bg-pink-100 border rounded-full mt-2 text-pink-700 dark:text-pink-500"
+          className='absolute -right-10 top-0 z-10 p-1 border-pink-300 bg-pink-100 border rounded-full mt-2 text-pink-700 dark:text-pink-500'
           onClick={mainMenuHandler}
-          aria-label="Close Menu"
+          aria-label='Close Menu'
         >
           <X />
         </button>
@@ -68,7 +68,7 @@ const NavbarMobile = () => {
         {/* START: Button to collapse sub-menu */}
         {isSubMenuVisible && (
           <button
-            className="absolute left-2 top-2 z-10 bg-primary/15 p-1 pr-2 flex items-center"
+            className='absolute left-2 top-2 z-10 bg-primary/15 p-1 pr-2 flex items-center'
             onClick={() => setIsSubMenuVisible(false)}
           >
             <ChevronLeft size={20} height={20} width={20} /> Back
@@ -77,7 +77,7 @@ const NavbarMobile = () => {
         {/* END: Button to collapse sub-menu */}
 
         {/* START: Main menu links */}
-        <div className="mt-10 h-full overflow-auto">
+        <div className='mt-10 h-full overflow-auto'>
           {isMenuVisible && (
             <NavbarMobileMenu
               links={navLinks}
@@ -90,10 +90,10 @@ const NavbarMobile = () => {
 
         {/* START: Sub-menu links */}
         <div
-          data-testid="mobile-submenu"
+          data-testid='mobile-submenu'
           className={cn(
-            "absolute left-0 top-0 z-2 mt-12 h-full w-full overflow-auto transition-transform duration-300 bg-background",
-            { "-translate-x-full": !isSubMenuVisible },
+            'absolute left-0 top-0 z-2 mt-12 h-full w-full overflow-auto transition-transform duration-300 bg-background',
+            { '-translate-x-full': !isSubMenuVisible },
           )}
         >
           {isSubMenuVisible && (
@@ -106,9 +106,9 @@ const NavbarMobile = () => {
       {/* START: Translucent Backdrop */}
       {isMenuVisible && (
         <div
-          className="fixed inset-0 z-0 bg-black/50"
+          className='fixed inset-0 z-0 bg-black/50'
           onClick={mainMenuHandler}
-          data-testid="backdrop"
+          data-testid='backdrop'
         ></div>
       )}
       {/* END: Translucent Backdrop */}

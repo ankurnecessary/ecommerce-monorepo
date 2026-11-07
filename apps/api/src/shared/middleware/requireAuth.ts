@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
-import { HttpError } from "@/shared/errors/HttpError.js";
-import { authConfig } from "@/modules/auth/config/auth.config.js";
-import { NextFunction, Request, Response } from "express";
-import { z } from "zod";
-import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
+import jwt from 'jsonwebtoken';
+import { HttpError } from '@/shared/errors/HttpError.js';
+import { authConfig } from '@/modules/auth/config/auth.config.js';
+import { NextFunction, Request, Response } from 'express';
+import { z } from 'zod';
+import { ERROR_CODES, ERROR_MESSAGES } from '@/shared/config/constants.js';
 
 const AccessTokenPayloadSchema = z.object({
   id: z.uuid(),
@@ -27,7 +27,7 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
   try {
     const decoded = jwt.verify(accessToken, authConfig.accessToken.secret, {
-      algorithms: ["HS256"],
+      algorithms: ['HS256'],
     });
     const parsed = AccessTokenPayloadSchema.safeParse(decoded);
 

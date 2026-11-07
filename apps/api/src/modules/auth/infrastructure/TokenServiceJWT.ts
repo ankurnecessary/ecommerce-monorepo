@@ -1,7 +1,7 @@
-import { TokenService } from "@/modules/auth/application/ports/TokenService.js";
-import jwt from "jsonwebtoken";
-import { authConfig } from "@/modules/auth/config/auth.config.js";
-import { z } from "zod";
+import { TokenService } from '@/modules/auth/application/ports/TokenService.js';
+import jwt from 'jsonwebtoken';
+import { authConfig } from '@/modules/auth/config/auth.config.js';
+import { z } from 'zod';
 
 const RefreshTokenPayloadSchema = z.object({
   id: z.uuid(),
@@ -22,7 +22,7 @@ export const TokenServiceJWT: TokenService = {
   verifyRefreshToken(refreshToken) {
     try {
       const decoded = jwt.verify(refreshToken, authConfig.refreshToken.secret, {
-        algorithms: ["HS256"],
+        algorithms: ['HS256'],
       });
       const parsed = RefreshTokenPayloadSchema.safeParse(decoded);
 

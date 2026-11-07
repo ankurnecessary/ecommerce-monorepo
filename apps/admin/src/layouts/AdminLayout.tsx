@@ -6,12 +6,12 @@ const AdminLayout = () => {
   return (
     <div>
       <header>
-        <NavLink to="/" end>
+        <NavLink to='/' end>
           Store administration
         </NavLink>
-        <Show when="signed-in">
+        <Show when='signed-in'>
           <button
-            type="button"
+            type='button'
             onClick={() => navigate('/sign-out', { replace: true })}
           >
             Sign out

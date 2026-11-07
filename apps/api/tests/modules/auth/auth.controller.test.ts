@@ -1,62 +1,66 @@
-import { beforeAll, describe, expect, it, vi } from "vitest";
-import { ERROR_CODES, ERROR_MESSAGES, MESSAGES } from "@/shared/config/constants.js";
+import { beforeAll, describe, expect, it, vi } from 'vitest';
+import {
+  ERROR_CODES,
+  ERROR_MESSAGES,
+  MESSAGES,
+} from '@/shared/config/constants.js';
 
-vi.mock("@/modules/auth/application/login.js", () => ({
+vi.mock('@/modules/auth/application/login.js', () => ({
   login: vi.fn(),
 }));
 
-vi.mock("@/modules/auth/application/logout.js", () => ({
+vi.mock('@/modules/auth/application/logout.js', () => ({
   logout: vi.fn(),
 }));
 
-vi.mock("@/modules/auth/application/refresh.js", () => ({
+vi.mock('@/modules/auth/application/refresh.js', () => ({
   refresh: vi.fn(),
 }));
 
-vi.mock("@/modules/auth/application/register.js", () => ({
+vi.mock('@/modules/auth/application/register.js', () => ({
   register: vi.fn(),
 }));
 
-vi.mock("@/modules/auth/config/auth.config.js", () => ({
+vi.mock('@/modules/auth/config/auth.config.js', () => ({
   authConfig: {
-    nodeEnv: "test",
+    nodeEnv: 'test',
     accessToken: {
-      secret: "access-secret",
-      expiresIn: "900",
+      secret: 'access-secret',
+      expiresIn: '900',
     },
     refreshToken: {
-      secret: "refresh-secret",
-      expiresIn: "604800",
+      secret: 'refresh-secret',
+      expiresIn: '604800',
     },
   },
 }));
 
-vi.mock("@/modules/user/infrastructure/UserRepositoryPrisma.js", () => ({
+vi.mock('@/modules/user/infrastructure/UserRepositoryPrisma.js', () => ({
   UserRepositoryPrisma: {},
 }));
 
-vi.mock("@/modules/auth/infrastructure/AuthRepositoryPrisma.js", () => ({
+vi.mock('@/modules/auth/infrastructure/AuthRepositoryPrisma.js', () => ({
   AuthRepositoryPrisma: {},
 }));
 
-vi.mock("@/modules/auth/infrastructure/PasswordHasherBcrypt.js", () => ({
+vi.mock('@/modules/auth/infrastructure/PasswordHasherBcrypt.js', () => ({
   PasswordHasherBcrypt: {},
 }));
 
-vi.mock("@/modules/auth/infrastructure/TokenServiceJWT.js", () => ({
+vi.mock('@/modules/auth/infrastructure/TokenServiceJWT.js', () => ({
   TokenServiceJWT: {},
 }));
 
-import type { Request, Response } from "express";
+import type { Request, Response } from 'express';
 
-let login: typeof import("@/modules/auth/application/login.js").login;
-let logout: typeof import("@/modules/auth/application/logout.js").logout;
-let refresh: typeof import("@/modules/auth/application/refresh.js").refresh;
-let register: typeof import("@/modules/auth/application/register.js").register;
-let registerController: typeof import("@/modules/auth/auth.controller.js").registerController;
-let loginController: typeof import("@/modules/auth/auth.controller.js").loginController;
-let logoutController: typeof import("@/modules/auth/auth.controller.js").logoutController;
-let refreshController: typeof import("@/modules/auth/auth.controller.js").refreshController;
+let login: typeof import('@/modules/auth/application/login.js').login;
+let logout: typeof import('@/modules/auth/application/logout.js').logout;
+let refresh: typeof import('@/modules/auth/application/refresh.js').refresh;
+let register: typeof import('@/modules/auth/application/register.js').register;
+let registerController: typeof import('@/modules/auth/auth.controller.js').registerController;
+let loginController: typeof import('@/modules/auth/auth.controller.js').loginController;
+let logoutController: typeof import('@/modules/auth/auth.controller.js').logoutController;
+let refreshController: typeof import('@/modules/auth/auth.controller.js').refreshController;
 
 const createRes = () => {
   const res = {
@@ -68,13 +72,14 @@ const createRes = () => {
   return res as unknown as Response;
 };
 
-describe("auth.controller", () => {
+describe('auth.controller', () => {
   beforeAll(async () => {
-    const loginModule = await import("@/modules/auth/application/login.js");
-    const logoutModule = await import("@/modules/auth/application/logout.js");
-    const refreshModule = await import("@/modules/auth/application/refresh.js");
-    const registerModule = await import("@/modules/auth/application/register.js");
-    const controllerModule = await import("@/modules/auth/auth.controller.js");
+    const loginModule = await import('@/modules/auth/application/login.js');
+    const logoutModule = await import('@/modules/auth/application/logout.js');
+    const refreshModule = await import('@/modules/auth/application/refresh.js');
+    const registerModule =
+      await import('@/modules/auth/application/register.js');
+    const controllerModule = await import('@/modules/auth/auth.controller.js');
 
     login = loginModule.login;
     logout = logoutModule.logout;
@@ -86,13 +91,13 @@ describe("auth.controller", () => {
     refreshController = controllerModule.refreshController;
   });
 
-  it("registers a user and returns success message", async () => {
+  it('registers a user and returns success message', async () => {
     const req = {
       body: {
-        firstName: "First",
-        lastName: "Last",
-        email: "user@example.com",
-        password: "Password@123",
+        firstName: 'First',
+        lastName: 'Last',
+        email: 'user@example.com',
+        password: 'Password@123',
       },
     } as Request;
     const res = createRes();
@@ -112,55 +117,55 @@ describe("auth.controller", () => {
     });
   });
 
-  it("sets cookies and returns user on login", async () => {
+  it('sets cookies and returns user on login', async () => {
     const req = {
-      body: { username: "user@example.com", password: "password" },
+      body: { username: 'user@example.com', password: 'password' },
     } as Request;
     const res = createRes();
     const loginMock = login as unknown as ReturnType<typeof vi.fn>;
     loginMock.mockResolvedValue({
-      id: "user-1",
-      username: "user@example.com",
-      accessToken: "access-token",
-      refreshToken: "refresh-token",
+      id: 'user-1',
+      username: 'user@example.com',
+      accessToken: 'access-token',
+      refreshToken: 'refresh-token',
     });
 
     await loginController(req, res);
 
     expect(login).toHaveBeenCalled();
-    expect(loginMock.mock.calls[0]?.[0]).toBe("user@example.com");
-    expect(loginMock.mock.calls[0]?.[1]).toBe("password");
-    expect(res.cookie).toHaveBeenCalledWith("accessToken", "access-token", {
+    expect(loginMock.mock.calls[0]?.[0]).toBe('user@example.com');
+    expect(loginMock.mock.calls[0]?.[1]).toBe('password');
+    expect(res.cookie).toHaveBeenCalledWith('accessToken', 'access-token', {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: 'lax',
       maxAge: 900 * 1000,
     });
-    expect(res.cookie).toHaveBeenCalledWith("refreshToken", "refresh-token", {
+    expect(res.cookie).toHaveBeenCalledWith('refreshToken', 'refresh-token', {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: 'lax',
       maxAge: 604800 * 1000,
     });
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
-      id: "user-1",
-      username: "user@example.com",
+      id: 'user-1',
+      username: 'user@example.com',
     });
   });
 
-  it("returns token payload directly for login json mode", async () => {
+  it('returns token payload directly for login json mode', async () => {
     const req = {
-      body: { username: "user@example.com", password: "password" },
-      query: { mode: "json" },
+      body: { username: 'user@example.com', password: 'password' },
+      query: { mode: 'json' },
     } as unknown as Request;
     const res = createRes();
     const loginMock = login as unknown as ReturnType<typeof vi.fn>;
     loginMock.mockResolvedValue({
-      id: "user-1",
-      username: "user@example.com",
-      accessToken: "access-token",
-      refreshToken: "refresh-token",
+      id: 'user-1',
+      username: 'user@example.com',
+      accessToken: 'access-token',
+      refreshToken: 'refresh-token',
     });
 
     await loginController(req, res);
@@ -168,16 +173,16 @@ describe("auth.controller", () => {
     expect(res.cookie).not.toHaveBeenCalled();
     expect(res.status).not.toHaveBeenCalled();
     expect(res.json).toHaveBeenCalledWith({
-      id: "user-1",
-      username: "user@example.com",
-      accessToken: "access-token",
-      refreshToken: "refresh-token",
+      id: 'user-1',
+      username: 'user@example.com',
+      accessToken: 'access-token',
+      refreshToken: 'refresh-token',
     });
   });
 
-  it("clears cookies and returns message on logout", async () => {
+  it('clears cookies and returns message on logout', async () => {
     const req = {
-      cookies: { refreshToken: "refresh-token" },
+      cookies: { refreshToken: 'refresh-token' },
     } as unknown as Request;
     const res = createRes();
     const logoutMock = logout as unknown as ReturnType<typeof vi.fn>;
@@ -186,76 +191,76 @@ describe("auth.controller", () => {
     await logoutController(req, res);
 
     expect(logout).toHaveBeenCalledWith(
-      "refresh-token",
+      'refresh-token',
       expect.any(Object),
       expect.any(Object),
     );
-    expect(res.clearCookie).toHaveBeenCalledWith("accessToken", {
+    expect(res.clearCookie).toHaveBeenCalledWith('accessToken', {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: 'lax',
     });
-    expect(res.clearCookie).toHaveBeenCalledWith("refreshToken", {
+    expect(res.clearCookie).toHaveBeenCalledWith('refreshToken', {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: 'lax',
     });
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
-      message: "Logged out successfully",
+      message: 'Logged out successfully',
     });
   });
 
-  it("refreshes cookies and returns success message", async () => {
+  it('refreshes cookies and returns success message', async () => {
     const req = {
-      cookies: { refreshToken: "refresh-token" },
+      cookies: { refreshToken: 'refresh-token' },
     } as unknown as Request;
     const res = createRes();
     const refreshMock = refresh as unknown as ReturnType<typeof vi.fn>;
     refreshMock.mockResolvedValue({
-      accessToken: "new-access-token",
-      refreshToken: "new-refresh-token",
+      accessToken: 'new-access-token',
+      refreshToken: 'new-refresh-token',
     });
 
     await refreshController(req, res);
 
     expect(refresh).toHaveBeenCalledWith(
-      "refresh-token",
+      'refresh-token',
       expect.any(Object),
       expect.any(Object),
     );
-    expect(res.cookie).toHaveBeenCalledWith("accessToken", "new-access-token", {
+    expect(res.cookie).toHaveBeenCalledWith('accessToken', 'new-access-token', {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: 'lax',
       maxAge: 900 * 1000,
     });
     expect(res.cookie).toHaveBeenCalledWith(
-      "refreshToken",
-      "new-refresh-token",
+      'refreshToken',
+      'new-refresh-token',
       {
         httpOnly: true,
         secure: false,
-        sameSite: "lax",
+        sameSite: 'lax',
         maxAge: 604800 * 1000,
       },
     );
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ message: "Tokens refreshed" });
+    expect(res.json).toHaveBeenCalledWith({ message: 'Tokens refreshed' });
   });
 
-  it("returns refreshed token in JSON when header token mode is used", async () => {
+  it('returns refreshed token in JSON when header token mode is used', async () => {
     const req = {
-      cookies: { refreshToken: "refresh-token" },
+      cookies: { refreshToken: 'refresh-token' },
       header: vi.fn((name: string) =>
-        name.toLowerCase() === "x-refresh-token" ? "refresh-token" : undefined,
+        name.toLowerCase() === 'x-refresh-token' ? 'refresh-token' : undefined,
       ),
     } as unknown as Request;
     const res = createRes();
     const refreshMock = refresh as unknown as ReturnType<typeof vi.fn>;
     refreshMock.mockResolvedValue({
-      accessToken: "new-access-token",
-      refreshToken: "new-refresh-token",
+      accessToken: 'new-access-token',
+      refreshToken: 'new-refresh-token',
     });
 
     await refreshController(req, res);
@@ -263,27 +268,27 @@ describe("auth.controller", () => {
     expect(res.cookie).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
-      refreshToken: "new-refresh-token",
+      refreshToken: 'new-refresh-token',
     });
   });
 
-  it("returns 401 when refresh token is invalid", async () => {
+  it('returns 401 when refresh token is invalid', async () => {
     const req = {
-      cookies: { refreshToken: "bad-token" },
+      cookies: { refreshToken: 'bad-token' },
     } as unknown as Request;
     const res = createRes();
     const refreshMock = refresh as unknown as ReturnType<typeof vi.fn>;
     refreshMock.mockResolvedValue(null);
 
     await expect(refreshController(req, res)).rejects.toMatchObject({
-      name: "HttpError",
+      name: 'HttpError',
       statusCode: 401,
       code: ERROR_CODES.INVALID_REFRESH_TOKEN,
       message: ERROR_MESSAGES.INVALID_REFRESH_TOKEN,
     });
 
     expect(refresh).toHaveBeenCalledWith(
-      "bad-token",
+      'bad-token',
       expect.any(Object),
       expect.any(Object),
     );

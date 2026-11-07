@@ -9,8 +9,8 @@ const UnauthorizedPage = () => {
         Your account does not have permission to access the administration
         dashboard.
       </p>
-      <SignOutButton redirectUrl="/sign-in">
-        <button type="button">Sign out and use another account</button>
+      <SignOutButton redirectUrl='/sign-in'>
+        <button type='button'>Sign out and use another account</button>
       </SignOutButton>
     </main>
   );

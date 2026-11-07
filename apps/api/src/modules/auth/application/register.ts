@@ -1,18 +1,18 @@
-import UserRepository from "@/modules/user/domain/UserRepository.js";
-import { User } from "@/modules/user/domain/User.js";
-import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
-import { HttpError } from "@/shared/errors/HttpError.js";
-import { PasswordHasher } from "./ports/PasswordHasher.js";
+import UserRepository from '@/modules/user/domain/UserRepository.js';
+import { User } from '@/modules/user/domain/User.js';
+import { ERROR_CODES, ERROR_MESSAGES } from '@/shared/config/constants.js';
+import { HttpError } from '@/shared/errors/HttpError.js';
+import { PasswordHasher } from './ports/PasswordHasher.js';
 
 export type UserRegistrationData = Pick<
   User,
-  "firstName" | "lastName" | "email" | "password"
+  'firstName' | 'lastName' | 'email' | 'password'
 >;
 
 export const register = async (
   userData: UserRegistrationData,
   userRepo: UserRepository,
-  hasher: Pick<PasswordHasher, "hash">,
+  hasher: Pick<PasswordHasher, 'hash'>,
 ) => {
   // Check for email duplication
   const user = await userRepo.findByEmail(userData.email);

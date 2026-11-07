@@ -15,7 +15,7 @@ const SignOutPage = () => {
   }, [signOut]);
 
   return (
-    <main className="grid min-h-screen place-items-center" aria-busy="true">
+    <main className='grid min-h-screen place-items-center' aria-busy='true'>
       <p>Signing out.</p>
     </main>
   );

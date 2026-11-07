@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   loginController,
   logoutController,
   refreshController,
   registerController,
-} from "./auth.controller.js";
-import { validateLoginBody, validateRegisterBody } from "./auth.validation.js";
+} from './auth.controller.js';
+import { validateLoginBody, validateRegisterBody } from './auth.validation.js';
 
 const router = Router();
 
@@ -74,7 +74,7 @@ const router = Router();
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post("/register", validateRegisterBody, registerController);
+router.post('/register', validateRegisterBody, registerController);
 
 /**
  * @openapi
@@ -139,7 +139,7 @@ router.post("/register", validateRegisterBody, registerController);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post("/login", validateLoginBody, loginController);
+router.post('/login', validateLoginBody, loginController);
 
 /**
  * @openapi
@@ -177,7 +177,7 @@ router.post("/login", validateLoginBody, loginController);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post("/logout", logoutController);
+router.post('/logout', logoutController);
 
 /**
  * @openapi
@@ -215,6 +215,6 @@ router.post("/logout", logoutController);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post("/refresh", refreshController);
+router.post('/refresh', refreshController);
 
 export default router;

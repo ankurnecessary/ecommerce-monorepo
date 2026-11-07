@@ -1,4 +1,4 @@
-import type { ImgHTMLAttributes } from "react";
+import type { ImgHTMLAttributes } from 'react';
 
 export default function MockNextImage(
   props: ImgHTMLAttributes<HTMLImageElement>,

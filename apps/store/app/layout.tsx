@@ -1,29 +1,29 @@
-import type { Metadata } from "next";
-import { Poppins, Merriweather, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-import { Header } from "@/components/layout";
-import { Providers } from "@/components/theme/Providers";
-import { ClerkProvider } from "@clerk/nextjs";
+import type { Metadata } from 'next';
+import { Poppins, Merriweather, JetBrains_Mono } from 'next/font/google';
+import './globals.css';
+import { Header } from '@/components/layout';
+import { Providers } from '@/components/theme/Providers';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const fontSans = Poppins({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400"],
+  subsets: ['latin'],
+  variable: '--font-sans',
+  weight: ['400'],
 });
 
 const fontSerif = Merriweather({
-  subsets: ["latin"],
-  variable: "--font-serif",
+  subsets: ['latin'],
+  variable: '--font-serif',
 });
 
 const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+  subsets: ['latin'],
+  variable: '--font-mono',
 });
 
 export const metadata: Metadata = {
-  title: "CELEB Store",
-  description: "This is an ecommerce store.",
+  title: 'CELEB Store',
+  description: 'This is an ecommerce store.',
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} antialiased`}
       >

@@ -1,18 +1,18 @@
-"use client";
-import React from "react";
-import { useHeaderContext } from "@/components/layout/Header/Header.context";
+'use client';
+import React from 'react';
+import { useHeaderContext } from '@/components/layout/Header/Header.context';
 import {
   CategoryEventHandler,
   HeaderContext,
   MenuCategory,
   NavbarMouseEvent,
-} from "@/components/layout/Header/types";
-import NavbarLinks from "@/components/layout/Navbar/Desktop/NavbarLinks";
-import NavbarScroller from "@/components/layout/Navbar/Desktop/NavbarScroller";
-import { ChevronDown } from "lucide-react";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { MEDIA_QUERIES } from "@/constants";
-import { cn } from "@repo/ui/lib/utils";
+} from '@/components/layout/Header/types';
+import NavbarLinks from '@/components/layout/Navbar/Desktop/NavbarLinks';
+import NavbarScroller from '@/components/layout/Navbar/Desktop/NavbarScroller';
+import { ChevronDown } from 'lucide-react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { MEDIA_QUERIES } from '@/constants';
+import { cn } from '@repo/ui/lib/utils';
 // [x] Check how horizontal menu nav items are getting highlighted on hover on shien.com.
 // [x]: test-case: Check how horizontal menu nav items are getting highlighted on hover on shien.com.
 // [x]: test-case: Add test cases for the navbar menu flap's category section.
@@ -49,10 +49,10 @@ const NavbarDesktop = () => {
 
   const showCategoryMenu = (category: MenuCategory, categoryName: string) => {
     toggleMenu(true, category);
-    setSelectedHorizontalNavLink(categoryName || "");
-    setSelectedVerticalNavLink(category.name || "");
+    setSelectedHorizontalNavLink(categoryName || '');
+    setSelectedVerticalNavLink(category.name || '');
     setVerticalNavScrollToElementId(
-      category.id ? `vertical-${category.id}` : "",
+      category.id ? `vertical-${category.id}` : '',
     );
   };
 
@@ -82,7 +82,7 @@ const NavbarDesktop = () => {
 
   const mouseOutHandler = (category: MenuCategory) => () => {
     toggleMenu(false, category);
-    setSelectedHorizontalNavLink("");
+    setSelectedHorizontalNavLink('');
   };
 
   const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,7 +95,7 @@ const NavbarDesktop = () => {
   const keyDownHandler =
     (navLink: MenuCategory, index: number) =>
     (e: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-      if (e.key !== "ArrowDown") return;
+      if (e.key !== 'ArrowDown') return;
       showCategoryMenuHandler(navLink)(e);
       requestAnimationFrame(() => {
         categoryButtonRefs.current[index].focus();
@@ -103,21 +103,21 @@ const NavbarDesktop = () => {
     };
 
   return (
-    <nav className="container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex">
+    <nav className='container mx-auto hidden w-[calc(100%-4rem)] px-6 text-sm lg:flex'>
       {/* Category button */}
-      <div className="whitespace-nowrap">
+      <div className='whitespace-nowrap'>
         <button
           className={cn(
             "relative inline-block p-2 pb-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-[''] translate-y-px",
             {
-              "bg-primary/10 after:scale-x-100":
-                selectedHorizontalNavLink === "Categories",
+              'bg-primary/10 after:scale-x-100':
+                selectedHorizontalNavLink === 'Categories',
             },
           )}
-          type="button"
+          type='button'
           aria-expanded={isMenuVisible[0]}
-          aria-controls="navbar-menu"
-          aria-describedby="category-menu-instructions"
+          aria-controls='navbar-menu'
+          aria-describedby='category-menu-instructions'
           onFocus={focusHandler}
           onBlur={mouseOutHandler(navLinks[0])}
           onMouseOver={showCategoryMenuHandler(navLinks[0])}
@@ -128,14 +128,14 @@ const NavbarDesktop = () => {
           Categories
           <ChevronDown
             className={cn(
-              "mb-px ml-1 inline-block w-4 text-xs transition-transform duration-300",
+              'mb-px ml-1 inline-block w-4 text-xs transition-transform duration-300',
               {
-                "rotate-180": selectedHorizontalNavLink === "Categories",
+                'rotate-180': selectedHorizontalNavLink === 'Categories',
               },
             )}
           />
         </button>
-        <p id="category-menu-instructions" className="sr-only">
+        <p id='category-menu-instructions' className='sr-only'>
           Press Down Arrow key to open the category menu. Use the Up and Down
           Arrow keys to browse categories, Tab to browse subcategory links, and
           Escape to close the menu.

@@ -1,9 +1,9 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from 'vitest';
 
-import { logout } from "@/modules/auth/application/logout.js";
+import { logout } from '@/modules/auth/application/logout.js';
 
-describe("logout", () => {
-  it("returns early when refresh token is missing", async () => {
+describe('logout', () => {
+  it('returns early when refresh token is missing', async () => {
     const authRepo = {
       clearRefreshTokenIfExists: vi.fn(),
     };
@@ -17,7 +17,7 @@ describe("logout", () => {
     expect(authRepo.clearRefreshTokenIfExists).not.toHaveBeenCalled();
   });
 
-  it("returns early when refresh token is invalid", async () => {
+  it('returns early when refresh token is invalid', async () => {
     const authRepo = {
       clearRefreshTokenIfExists: vi.fn(),
     };
@@ -25,43 +25,43 @@ describe("logout", () => {
       verifyRefreshToken: vi.fn().mockReturnValue(null),
     };
 
-    await logout("bad-token", authRepo, tokenService);
+    await logout('bad-token', authRepo, tokenService);
 
-    expect(tokenService.verifyRefreshToken).toHaveBeenCalledWith("bad-token");
+    expect(tokenService.verifyRefreshToken).toHaveBeenCalledWith('bad-token');
     expect(authRepo.clearRefreshTokenIfExists).not.toHaveBeenCalled();
   });
 
-  it("clears refresh token when payload is valid", async () => {
+  it('clears refresh token when payload is valid', async () => {
     const authRepo = {
       clearRefreshTokenIfExists: vi.fn(),
     };
     const tokenService = {
       verifyRefreshToken: vi.fn().mockReturnValue({
-        id: "user-1",
-        email: "user@example.com",
+        id: 'user-1',
+        email: 'user@example.com',
       }),
     };
 
-    await logout("refresh-token", authRepo, tokenService);
+    await logout('refresh-token', authRepo, tokenService);
 
-    expect(authRepo.clearRefreshTokenIfExists).toHaveBeenCalledWith("user-1");
+    expect(authRepo.clearRefreshTokenIfExists).toHaveBeenCalledWith('user-1');
   });
 
-  it("rethrows when clearing the refresh token fails", async () => {
+  it('rethrows when clearing the refresh token fails', async () => {
     const authRepo = {
       clearRefreshTokenIfExists: vi
         .fn()
-        .mockRejectedValue(new Error("Clear failed")),
+        .mockRejectedValue(new Error('Clear failed')),
     };
     const tokenService = {
       verifyRefreshToken: vi.fn().mockReturnValue({
-        id: "user-1",
-        email: "user@example.com",
+        id: 'user-1',
+        email: 'user@example.com',
       }),
     };
 
-    await expect(logout("refresh-token", authRepo, tokenService)).rejects.toThrow(
-      "Clear failed",
-    );
+    await expect(
+      logout('refresh-token', authRepo, tokenService),
+    ).rejects.toThrow('Clear failed');
   });
 });

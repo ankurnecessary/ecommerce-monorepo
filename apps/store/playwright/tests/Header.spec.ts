@@ -1,8 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from '@playwright/test';
 
-const HEADER_STORY = "components/layout/Header/Header/Default";
+const HEADER_STORY = 'components/layout/Header/Header/Default';
 
-test("shows the user dropdown on desktop", async ({ mount, page }) => {
+test('shows the user dropdown on desktop', async ({ mount, page }) => {
   await page.setViewportSize({
     width: 1024,
     height: 800,
@@ -11,13 +11,13 @@ test("shows the user dropdown on desktop", async ({ mount, page }) => {
   const header = await mount(HEADER_STORY);
 
   await expect(
-    header.getByRole("button", {
-      name: "Open user menu",
+    header.getByRole('button', {
+      name: 'Open user menu',
     }),
   ).toBeVisible();
 });
 
-test("hides the user dropdown on mobile", async ({ mount, page }) => {
+test('hides the user dropdown on mobile', async ({ mount, page }) => {
   await page.setViewportSize({
     width: 1023,
     height: 800,
@@ -25,15 +25,15 @@ test("hides the user dropdown on mobile", async ({ mount, page }) => {
 
   const header = await mount(HEADER_STORY);
 
-  const trigger = header.getByRole("button", {
-    name: "Open user menu",
+  const trigger = header.getByRole('button', {
+    name: 'Open user menu',
     includeHidden: true,
   });
 
   await expect(trigger).toBeHidden();
 });
 
-test("scrolls hidden navbar links into view during keyboard navigation", async ({
+test('scrolls hidden navbar links into view during keyboard navigation', async ({
   mount,
   page,
 }) => {
@@ -44,22 +44,22 @@ test("scrolls hidden navbar links into view during keyboard navigation", async (
 
   const component = await mount(HEADER_STORY);
 
-  const navbar = component.getByRole("navigation");
-  const categoriesTrigger = navbar.getByRole("button", {
+  const navbar = component.getByRole('navigation');
+  const categoriesTrigger = navbar.getByRole('button', {
     name: /^categories/i,
   });
 
-  const categoryLinks = navbar.getByRole("link");
+  const categoryLinks = navbar.getByRole('link');
   const linkCount = await categoryLinks.count();
   const finalCategoryLink = categoryLinks.nth(linkCount - 1);
 
-  const viewport = component.getByTestId("navbar-links-viewport");
+  const viewport = component.getByTestId('navbar-links-viewport');
 
-  const leftScroller = navbar.getByRole("button", {
+  const leftScroller = navbar.getByRole('button', {
     name: /scroll categories left/i,
   });
 
-  const rightScroller = navbar.getByRole("button", {
+  const rightScroller = navbar.getByRole('button', {
     name: /scroll categories right/i,
   });
 
@@ -75,7 +75,7 @@ test("scrolls hidden navbar links into view during keyboard navigation", async (
   await categoriesTrigger.focus();
 
   for (let index = 0; index < linkCount; index += 1) {
-    await page.keyboard.press("Tab");
+    await page.keyboard.press('Tab');
   }
 
   await expect(finalCategoryLink).toBeFocused();

@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 @source "../../../../apps/**/*.{ts,tsx}";
@@ -145,7 +145,7 @@
     @apply bg-background text-foreground;
   }
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
   :where(
@@ -155,8 +155,8 @@
     select,
     textarea,
     summary,
-    [contenteditable="true"],
-    [tabindex]:not([tabindex="-1"])
+    [contenteditable='true'],
+    [tabindex]:not([tabindex='-1'])
   ):focus-visible {
     @apply outline-none ring-4 ring-ring ring-offset-2 ring-offset-background;
   }

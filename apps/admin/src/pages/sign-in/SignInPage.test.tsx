@@ -6,7 +6,7 @@ import SignInPage from './SignInPage';
 vi.mock('@clerk/react', () => ({
   SignIn: ({ forceRedirectUrl }: { forceRedirectUrl?: string }) => (
     <div
-      data-testid="clerk-sign-in"
+      data-testid='clerk-sign-in'
       data-force-redirect-url={forceRedirectUrl}
     />
   ),

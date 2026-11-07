@@ -1,10 +1,10 @@
-import { ChevronRight } from "lucide-react";
-import React from "react";
-import NavbarMobileLink from "@/components/layout/Navbar/Mobile/NavbarMobileLink";
+import { ChevronRight } from 'lucide-react';
+import React from 'react';
+import NavbarMobileLink from '@/components/layout/Navbar/Mobile/NavbarMobileLink';
 import {
   MenuCategory,
   MenuSubCategory,
-} from "@/components/layout/Header/types";
+} from '@/components/layout/Header/types';
 
 type navbarMobileMenu = {
   links: MenuCategory[];
@@ -25,20 +25,20 @@ const NavbarMobileMenu = ({
 
   return (
     <>
-      {links.length === 0 && <div className="pl-2">No links found!!</div>}
+      {links.length === 0 && <div className='pl-2'>No links found!!</div>}
       {links.length > 0 && (
-        <ul className="px-2">
+        <ul className='px-2'>
           {links.map((link) => (
-            <li key={link.id} className="border-b">
+            <li key={link.id} className='border-b'>
               {/* START: When we have {subcategories: [...]} */}
               {!!link.subcategories?.length && (
                 <span
-                  className="flex justify-between p-2"
+                  className='flex justify-between p-2'
                   onClick={() => categoryClickHandler(link.subcategories || [])}
                 >
                   <span>{link.name}</span>
-                  <button className="bg-primary/15 p-1">
-                    <ChevronRight className="h-5 w-5" />
+                  <button className='bg-primary/15 p-1'>
+                    <ChevronRight className='h-5 w-5' />
                   </button>
                 </span>
               )}

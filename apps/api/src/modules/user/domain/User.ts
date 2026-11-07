@@ -1,4 +1,4 @@
-import { REGEX, VALIDATION_ERROR_MESSAGES } from "@/shared/config/constants.js";
+import { REGEX, VALIDATION_ERROR_MESSAGES } from '@/shared/config/constants.js';
 
 export interface UserProps {
   id?: string;
@@ -44,7 +44,7 @@ export class User {
 
   public get id(): string {
     if (!this.props.id) {
-      throw new Error("User id is not set");
+      throw new Error('User id is not set');
     }
 
     return this.props.id;
@@ -68,7 +68,7 @@ export class User {
 
   public get role(): string {
     if (!this.props.role) {
-      throw new Error("Role is not set");
+      throw new Error('Role is not set');
     }
     return this.props.role;
   }

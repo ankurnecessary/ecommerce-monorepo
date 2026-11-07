@@ -5,7 +5,7 @@ const NotFoundPage = () => {
     <main>
       <h1>Page not found</h1>
       <p>The requested page doesn't exist</p>
-      <Link to="/">Return to dashboard</Link>
+      <Link to='/'>Return to dashboard</Link>
     </main>
   );
 };
