@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
 
   resolve: {
+    dedupe: ["react", "react-dom"],
     alias: {
       "@": fileURLToPath(new URL("../../", import.meta.url)),
 

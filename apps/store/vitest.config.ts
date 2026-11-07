@@ -44,6 +44,7 @@ export default defineConfig({
           setupFiles: ['./vitestSetup-integration.tsx'],
         },
         resolve: {
+          dedupe: ['react', 'react-dom'],
           alias: {
             "@": path.resolve(import.meta.dirname, "./"),
             "next/link": path.resolve(
@@ -79,6 +80,7 @@ export default defineConfig({
           setupFiles: ['./vitestSetup.tsx'],
         },
         resolve: {
+          dedupe: ['react', 'react-dom'],
           alias: {
             "@": path.resolve(import.meta.dirname, "./"),
             "next/link": path.resolve(
