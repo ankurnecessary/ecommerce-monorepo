@@ -2,6 +2,7 @@ packages:
   - "apps/*"
   - "packages/*"
 allowBuilds:
+  '@parcel/watcher@2.6.0': true
   '@prisma/engines': true
   '@scarf/scarf': true
   bcrypt: true
@@ -16,3 +17,4 @@ catalog:
   prettier: 3.9.9
   react: 19.2.7
   react-dom: 19.2.7
+nodeLinker: hoisted

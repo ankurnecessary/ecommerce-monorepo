@@ -1,14 +1,14 @@
-import { SignUp } from "@clerk/nextjs";
-import type { Metadata } from "next";
+import { SignUp } from '@clerk/nextjs';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Sign up | CELEB Store",
-  description: "Create a CELEB Store account.",
+  title: 'Sign up | CELEB Store',
+  description: 'Create a CELEB Store account.',
 };
 
 export default function SignupPage() {
   return (
-    <main className="mx-auto w-full max-w-md px-4 py-12">
+    <main className='mx-auto w-full max-w-md px-4 py-12'>
       <SignUp />
     </main>
   );

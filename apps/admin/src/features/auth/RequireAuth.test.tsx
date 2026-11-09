@@ -7,7 +7,7 @@ const RedirectUrlDisplay = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  return <p data-testid="redirect-url">{searchParams.get('redirect_url')}</p>;
+  return <p data-testid='redirect-url'>{searchParams.get('redirect_url')}</p>;
 };
 
 const { useAuthMock } = vi.hoisted(() => ({
@@ -30,7 +30,7 @@ describe('RequireAuth', () => {
       <MemoryRouter initialEntries={['/category']}>
         <Routes>
           <Route element={<RequireAuth />}>
-            <Route path="/category" element={<p>Protected content</p>} />
+            <Route path='/category' element={<p>Protected content</p>} />
           </Route>
         </Routes>
       </MemoryRouter>,
@@ -52,9 +52,9 @@ describe('RequireAuth', () => {
       <MemoryRouter initialEntries={['/category']}>
         <Routes>
           <Route element={<RequireAuth />}>
-            <Route path="/category" element={<p>Protected content</p>} />
+            <Route path='/category' element={<p>Protected content</p>} />
           </Route>
-          <Route path="/sign-in" element={<p>Sign-in page</p>} />
+          <Route path='/sign-in' element={<p>Sign-in page</p>} />
         </Routes>
       </MemoryRouter>,
     );
@@ -74,9 +74,9 @@ describe('RequireAuth', () => {
       <MemoryRouter initialEntries={['/category?page=2#featured']}>
         <Routes>
           <Route element={<RequireAuth />}>
-            <Route path="/category" element={<p>Protected content</p>} />
+            <Route path='/category' element={<p>Protected content</p>} />
           </Route>
-          <Route path="/sign-in" element={<RedirectUrlDisplay />} />
+          <Route path='/sign-in' element={<RedirectUrlDisplay />} />
         </Routes>
       </MemoryRouter>,
     );
@@ -99,10 +99,10 @@ describe('RequireAuth', () => {
       <MemoryRouter initialEntries={['/category']}>
         <Routes>
           <Route element={<RequireAuth />}>
-            <Route path="/category" element={<p>Protected content</p>} />
+            <Route path='/category' element={<p>Protected content</p>} />
           </Route>
 
-          <Route path="/unauthorized" element={<p>Unauthorized page</p>} />
+          <Route path='/unauthorized' element={<p>Unauthorized page</p>} />
         </Routes>
       </MemoryRouter>,
     );
@@ -125,10 +125,10 @@ describe('RequireAuth', () => {
       <MemoryRouter initialEntries={['/category']}>
         <Routes>
           <Route element={<RequireAuth />}>
-            <Route path="/category" element={<p>Protected content</p>} />
+            <Route path='/category' element={<p>Protected content</p>} />
           </Route>
 
-          <Route path="/unauthorized" element={<p>Unauthorized page</p>} />
+          <Route path='/unauthorized' element={<p>Unauthorized page</p>} />
         </Routes>
       </MemoryRouter>,
     );

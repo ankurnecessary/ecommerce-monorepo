@@ -2,18 +2,18 @@ import * as matchers from '@testing-library/jest-dom/matchers';
 import { afterEach, expect, vi } from 'vitest';
 import React from 'react';
 // import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
-import { cleanup } from "@testing-library/react";
+import { cleanup } from '@testing-library/react';
 
 expect.extend(matchers);
 
-vi.mock("@clerk/nextjs", () => ({
+vi.mock('@clerk/nextjs', () => ({
   Show: ({
     when,
     children,
   }: {
-    when: "signed-in" | "signed-out";
+    when: 'signed-in' | 'signed-out';
     children: React.ReactNode;
-  }) => (when === "signed-out" ? <>{children}</> : null),
+  }) => (when === 'signed-out' ? <>{children}</> : null),
 
   useClerk: () => ({
     signOut: vi.fn(),

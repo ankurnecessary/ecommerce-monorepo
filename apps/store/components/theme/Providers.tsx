@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import type { ComponentType, PropsWithChildren, ReactNode } from "react";
-import { ThemeProvider, type ThemeProviderProps } from "next-themes";
+import type { ComponentType, PropsWithChildren, ReactNode } from 'react';
+import { ThemeProvider, type ThemeProviderProps } from 'next-themes';
 
 type ProvidersProps = {
   children: ReactNode;
@@ -14,8 +14,8 @@ const ThemeProviderComponent = ThemeProvider as ComponentType<
 export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProviderComponent
-      attribute="class"
-      defaultTheme="system"
+      attribute='class'
+      defaultTheme='system'
       enableSystem
       disableTransitionOnChange
     >

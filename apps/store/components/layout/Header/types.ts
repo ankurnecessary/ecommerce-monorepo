@@ -1,5 +1,5 @@
-import React from "react";
-import { PartialDeep } from "type-fest";
+import React from 'react';
+import { PartialDeep } from 'type-fest';
 
 /**
  * Toggles the visibility of the desktop menu.
@@ -68,13 +68,13 @@ export type HeaderReducer = (
   state: HeaderInitialState,
   action: {
     type:
-      | "UPDATE_NAVBAR_ELEMENTS_DSKTP"
-      | "TOGGLE_MENU_DSKTP"
+      | 'UPDATE_NAVBAR_ELEMENTS_DSKTP'
+      | 'TOGGLE_MENU_DSKTP'
       | `SET_NAV_LINKS`
-      | "SET_SELECTED_HORIZONTAL_NAV_LINK"
-      | "SET_SELECTED_VERTICAL_NAV_LINK"
-      | "SET_VERTICAL_NAV_SCROLL_TO_ELEMENT_ID"
-      | "TOGGLE_MOBILE_MENU";
+      | 'SET_SELECTED_HORIZONTAL_NAV_LINK'
+      | 'SET_SELECTED_VERTICAL_NAV_LINK'
+      | 'SET_VERTICAL_NAV_SCROLL_TO_ELEMENT_ID'
+      | 'TOGGLE_MOBILE_MENU';
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   },
@@ -243,7 +243,7 @@ export type ToggleMobileMenu = (isMenuVisible: boolean) => void;
  * @returns A function that takes the parent and child navbar elements and returns a function that takes an offset value.
  */
 export type CalculateOffset = (
-  directions: "left" | "right",
+  directions: 'left' | 'right',
 ) => (navbarParent: number, navbarChild: number) => (offset: number) => number;
 
 /**

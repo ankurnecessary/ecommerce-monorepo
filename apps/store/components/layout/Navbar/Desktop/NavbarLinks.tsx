@@ -1,13 +1,13 @@
-"use client";
-import Link from "next/link";
-import React, { useEffect, useRef } from "react";
-import { useHeaderContext } from "@/components/layout/Header/Header.context";
+'use client';
+import Link from 'next/link';
+import React, { useEffect, useRef } from 'react';
+import { useHeaderContext } from '@/components/layout/Header/Header.context';
 import {
   CategoryEventHandler,
   MenuCategory,
-} from "@/components/layout/Header/types";
-import { Skeleton } from "@repo/ui/components/skeleton";
-import { cn } from "@repo/ui/lib/utils";
+} from '@/components/layout/Header/types';
+import { Skeleton } from '@repo/ui/components/skeleton';
+import { cn } from '@repo/ui/lib/utils';
 
 type NavbarLinksProps = {
   mouseOverHandler: CategoryEventHandler;
@@ -60,18 +60,18 @@ const NavbarLinks = ({
 
   return (
     <div
-      className="grow translate-y-px overflow-x-hidden whitespace-nowrap"
+      className='grow translate-y-px overflow-x-hidden whitespace-nowrap'
       ref={parentNavbarRef}
-      data-testid="navbar-links-viewport"
+      data-testid='navbar-links-viewport'
     >
       <div
-        className={cn("inline-flex transition-transform duration-300", {
-          "pt-3": navLinks.length === 0,
+        className={cn('inline-flex transition-transform duration-300', {
+          'pt-3': navLinks.length === 0,
         })}
         ref={childNavbarRef}
       >
         {/* [ ]: Change this condition when API call is implemented */}
-        {navLinks.length === 0 && <Skeleton className="h-4 w-137.5" />}
+        {navLinks.length === 0 && <Skeleton className='h-4 w-137.5' />}
         {navLinks.map((link, index) => (
           <Link
             key={link.id}
@@ -79,12 +79,12 @@ const NavbarLinks = ({
             className={cn(
               "translate-y-px relative inline-block p-2 pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:content-['']",
               {
-                "bg-accent after:scale-x-100":
+                'bg-accent after:scale-x-100':
                   selectedHorizontalNavLink === link.name,
               },
             )}
-            aria-describedby="navbar-link-instructions"
-            aria-controls="navbar-menu"
+            aria-describedby='navbar-link-instructions'
+            aria-controls='navbar-menu'
             aria-expanded={
               isMenuVisible[0] && link.name === selectedHorizontalNavLink
             }
@@ -97,7 +97,7 @@ const NavbarLinks = ({
             {link.name}
           </Link>
         ))}
-        <p id="navbar-link-instructions" className="sr-only">
+        <p id='navbar-link-instructions' className='sr-only'>
           Press Enter to visit this category, or Down Arrow to browse its
           subcategories.
         </p>

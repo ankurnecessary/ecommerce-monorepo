@@ -1,12 +1,12 @@
-import type { NextFunction, Request, Response } from "express";
-import { z } from "zod";
-import { HttpError } from "@/shared/errors/HttpError.js";
+import type { NextFunction, Request, Response } from 'express';
+import { z } from 'zod';
+import { HttpError } from '@/shared/errors/HttpError.js';
 import {
   ERROR_CODES,
   ERROR_MESSAGES,
   REGEX,
   VALIDATION_ERROR_MESSAGES,
-} from "@/shared/config/constants.js";
+} from '@/shared/config/constants.js';
 
 // Validation for user registration data
 const RegisterBodySchema = z.object({
@@ -44,7 +44,7 @@ export const validateRegisterBody = (
 
   if (!parsed.success) {
     const details = parsed.error.issues.map((issue) => ({
-      field: issue.path.join(".") || "body",
+      field: issue.path.join('.') || 'body',
       message: issue.message,
       code: issue.code,
     }));
@@ -79,7 +79,7 @@ export const validateLoginBody = (
 
   if (!parsed.success) {
     const details = parsed.error.issues.map((issue) => ({
-      field: issue.path.join(".") || "body",
+      field: issue.path.join('.') || 'body',
       message: issue.message,
       code: issue.code,
     }));

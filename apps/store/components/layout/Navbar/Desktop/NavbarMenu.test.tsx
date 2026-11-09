@@ -1,43 +1,43 @@
-import { describe, expect, it, Mock, vi } from "vitest";
-import NavbarMenu from "@/components/layout/Navbar/Desktop/NavbarMenu";
-import { screen, fireEvent, render } from "@testing-library/react";
-import * as HeaderContextModule from "@/components/layout/Header/Header.context";
-import { mockUseHeaderContext } from "@/components/layout/Header/Header.context.test.mock";
-import { MenuCategory } from "@/components/layout/Header/types";
-import { userEvent } from "vitest/browser";
+import { describe, expect, it, Mock, vi } from 'vitest';
+import NavbarMenu from '@/components/layout/Navbar/Desktop/NavbarMenu';
+import { screen, fireEvent, render } from '@testing-library/react';
+import * as HeaderContextModule from '@/components/layout/Header/Header.context';
+import { mockUseHeaderContext } from '@/components/layout/Header/Header.context.test.mock';
+import { MenuCategory } from '@/components/layout/Header/types';
+import { userEvent } from 'vitest/browser';
 
-vi.mock("@/hooks/useMediaQuery", () => ({
+vi.mock('@/hooks/useMediaQuery', () => ({
   useMediaQuery: () => true,
 }));
 
-describe("NavbarMenu", () => {
-  it("renders in the DOM.", () => {
+describe('NavbarMenu', () => {
+  it('renders in the DOM.', () => {
     const { getByTestId } = render(<NavbarMenu />);
-    expect(getByTestId("navbar-menu")).toBeInTheDocument();
+    expect(getByTestId('navbar-menu')).toBeInTheDocument();
   });
 
-  it("applies the correct class based on visibility", () => {
+  it('applies the correct class based on visibility', () => {
     const { getByTestId, rerender } = render(<NavbarMenu />);
-    const menu = getByTestId("navbar-menu");
+    const menu = getByTestId('navbar-menu');
 
     // Mock `isMenuVisible` as false
-    expect(menu).toHaveClass("-translate-y-full");
+    expect(menu).toHaveClass('-translate-y-full');
 
     (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
         desktop: {
           isMenuVisible: [
             true,
-            { id: "1", name: "Category1", url: "/category1" },
+            { id: '1', name: 'Category1', url: '/category1' },
           ],
         },
       }),
     );
     rerender(<NavbarMenu />);
-    expect(menu).not.toHaveClass("-translate-y-full");
+    expect(menu).not.toHaveClass('-translate-y-full');
   });
 
-  it("calls menuMouseOverHandler on mouse over", () => {
+  it('calls menuMouseOverHandler on mouse over', () => {
     const toggleMenuMock = vi.fn();
     const setSelectedHorizontalNavLinkMock = vi.fn();
     const setSelectedVerticalNavLinkMock = vi.fn();
@@ -54,7 +54,7 @@ describe("NavbarMenu", () => {
     );
 
     const { getByTestId } = render(<NavbarMenu />);
-    const menu = getByTestId("navbar-menu");
+    const menu = getByTestId('navbar-menu');
 
     fireEvent.mouseOver(menu);
     expect(toggleMenuMock).toHaveBeenCalledWith(true, expect.any(Object));
@@ -62,7 +62,7 @@ describe("NavbarMenu", () => {
     expect(setSelectedVerticalNavLinkMock).toHaveBeenCalled();
   });
 
-  it("calls categoryMouseOverHandler on category hover", async () => {
+  it('calls categoryMouseOverHandler on category hover', async () => {
     const setSelectedHorizontalNavLinkMock = vi.fn();
     const toggleMenuMock = vi.fn();
     const setSelectedVerticalNavLinkMock = vi.fn();
@@ -70,12 +70,12 @@ describe("NavbarMenu", () => {
 
     (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
-        navLinks: [{ id: "1", name: "Category", url: "/category" }],
+        navLinks: [{ id: '1', name: 'Category', url: '/category' }],
         desktop: {
           setSelectedHorizontalNavLink: setSelectedHorizontalNavLinkMock,
           isMenuVisible: [
             true,
-            { id: "1", name: "Category", url: "/category" },
+            { id: '1', name: 'Category', url: '/category' },
           ],
           toggleMenu: toggleMenuMock,
           setSelectedVerticalNavLink: setSelectedVerticalNavLinkMock,
@@ -85,61 +85,61 @@ describe("NavbarMenu", () => {
     );
 
     const { getByTestId } = render(<NavbarMenu />);
-    const verticalScrollContainer = getByTestId("navbar-menu").querySelector(
+    const verticalScrollContainer = getByTestId('navbar-menu').querySelector(
       '[data-testid="vertical-scrollable-content"]',
     );
-    const navLink = verticalScrollContainer?.querySelector("span");
+    const navLink = verticalScrollContainer?.querySelector('span');
     expect(navLink).toBeInTheDocument();
     fireEvent.mouseOver(navLink as HTMLAnchorElement);
 
     expect(toggleMenuMock).toHaveBeenCalledWith(true, {
-      id: "1",
-      name: "Category",
-      url: "/category",
+      id: '1',
+      name: 'Category',
+      url: '/category',
     });
-    expect(setSelectedVerticalNavLinkMock).toHaveBeenCalledWith("Category");
-    expect(setVerticalNavScrollToElementIdMock).toHaveBeenCalledWith("");
+    expect(setSelectedVerticalNavLinkMock).toHaveBeenCalledWith('Category');
+    expect(setVerticalNavScrollToElementIdMock).toHaveBeenCalledWith('');
   });
 
-  it("should have a link with id `scrollToElementId` when `scrollToElementId` is passed", () => {
+  it('should have a link with id `scrollToElementId` when `scrollToElementId` is passed', () => {
     (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
-        navLinks: [{ id: "1", name: "Category", url: "/category" }],
+        navLinks: [{ id: '1', name: 'Category', url: '/category' }],
         desktop: {
           isMenuVisible: [
             true,
-            { id: "1", name: "Category", url: "/category" },
+            { id: '1', name: 'Category', url: '/category' },
           ],
-          verticalNavScrollToElementId: "1",
+          verticalNavScrollToElementId: '1',
         },
       }),
     );
 
     const { getByTestId } = render(<NavbarMenu />);
-    const verticalScrollContainer = getByTestId("navbar-menu").querySelector(
+    const verticalScrollContainer = getByTestId('navbar-menu').querySelector(
       '[data-testid="vertical-scrollable-content"]',
     );
     expect(
-      verticalScrollContainer?.querySelector("#vertical-1"),
+      verticalScrollContainer?.querySelector('#vertical-1'),
     ).toBeInTheDocument(); // "vertical-" is constant part of the id
   });
 
-  it("should highlight the hovered category", () => {
+  it('should highlight the hovered category', () => {
     const setSelectedVerticalNavLinkMock = vi.fn();
 
     // Initial mock setup
     (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
         navLinks: [
-          { id: "1", name: "Category1", url: "/category1" },
-          { id: "2", name: "Category2", url: "/category2" },
+          { id: '1', name: 'Category1', url: '/category1' },
+          { id: '2', name: 'Category2', url: '/category2' },
         ],
         desktop: {
           isMenuVisible: [
             true,
-            { id: "1", name: "Category1", url: "/category1" },
+            { id: '1', name: 'Category1', url: '/category1' },
           ],
-          selectedVerticalNavLink: "Category1", // Initially set to 'Category1'
+          selectedVerticalNavLink: 'Category1', // Initially set to 'Category1'
           setSelectedVerticalNavLink: setSelectedVerticalNavLinkMock,
           toggleMenu: vi.fn(),
           setVerticalNavScrollToElementId: vi.fn(),
@@ -148,10 +148,10 @@ describe("NavbarMenu", () => {
     );
 
     const { getByTestId, rerender } = render(<NavbarMenu />);
-    const verticalScrollContainer = getByTestId("navbar-menu").querySelector(
+    const verticalScrollContainer = getByTestId('navbar-menu').querySelector(
       '[data-testid="vertical-scrollable-content"]',
     );
-    const category = verticalScrollContainer?.querySelector("#vertical-2");
+    const category = verticalScrollContainer?.querySelector('#vertical-2');
 
     expect(category).toBeInTheDocument();
 
@@ -162,15 +162,15 @@ describe("NavbarMenu", () => {
     (HeaderContextModule.useHeaderContext as Mock).mockReturnValue(
       mockUseHeaderContext({
         navLinks: [
-          { id: "1", name: "Category1", url: "/category1" },
-          { id: "2", name: "Category2", url: "/category2" },
+          { id: '1', name: 'Category1', url: '/category1' },
+          { id: '2', name: 'Category2', url: '/category2' },
         ],
         desktop: {
           isMenuVisible: [
             true,
-            { id: "2", name: "Category2", url: "/category2" },
+            { id: '2', name: 'Category2', url: '/category2' },
           ], // Update to 'Category2'
-          selectedVerticalNavLink: "Category2", // Update to 'Category2'
+          selectedVerticalNavLink: 'Category2', // Update to 'Category2'
           setSelectedVerticalNavLink: setSelectedVerticalNavLinkMock,
           toggleMenu: vi.fn(),
           setVerticalNavScrollToElementId: vi.fn(),
@@ -182,32 +182,32 @@ describe("NavbarMenu", () => {
     rerender(<NavbarMenu />);
 
     // Assert that the mock function was called with 'Category2'
-    expect(setSelectedVerticalNavLinkMock).toHaveBeenCalledWith("Category2");
+    expect(setSelectedVerticalNavLinkMock).toHaveBeenCalledWith('Category2');
 
     // Assert that the hovered category has the 'bg-primary' class
-    expect(category).toHaveClass("bg-accent");
+    expect(category).toHaveClass('bg-accent');
   });
 
   it.each([
-    ["ArrowDown", 0, 1],
-    ["ArrowUp", 0, 1],
-    ["Home", 1, 0],
-    ["End", 0, 1],
+    ['ArrowDown', 0, 1],
+    ['ArrowUp', 0, 1],
+    ['Home', 1, 0],
+    ['End', 0, 1],
   ])(
-    "%s moves focus from category %i to category %i",
+    '%s moves focus from category %i to category %i',
     async (key, startIndex, expectedIndex) => {
       const setSelectedVerticalNavLinkMock = vi.fn();
 
       const navLinks = [
         {
-          id: "1",
-          name: "Category1",
-          url: "/category1",
+          id: '1',
+          name: 'Category1',
+          url: '/category1',
         },
         {
-          id: "2",
-          name: "Category2",
-          url: "/category2",
+          id: '2',
+          name: 'Category2',
+          url: '/category2',
         },
       ];
 
@@ -216,7 +216,7 @@ describe("NavbarMenu", () => {
           navLinks,
           desktop: {
             isMenuVisible: [true, navLinks[0]],
-            selectedVerticalNavLink: "Category1",
+            selectedVerticalNavLink: 'Category1',
             setSelectedVerticalNavLink: setSelectedVerticalNavLinkMock,
             toggleMenu: vi.fn(),
             setVerticalNavScrollToElementId: vi.fn(),
@@ -226,7 +226,7 @@ describe("NavbarMenu", () => {
 
       render(<NavbarMenu />);
 
-      const categoryTabs = screen.getAllByRole("tab");
+      const categoryTabs = screen.getAllByRole('tab');
 
       categoryTabs[startIndex].focus();
       expect(categoryTabs[startIndex]).toHaveFocus();

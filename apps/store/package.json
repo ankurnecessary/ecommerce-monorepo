@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:analyze": "next experimental-analyze",
+    "build:analyze": "cross-env ANALYZE=true next build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -25,7 +25,6 @@
     "lighthouse": "lhci autorun",
     "lighthouse:windows": "sh ./shell-scripts/lighthouse-windows.sh",
     "lighthouse:wsl": "bash ./shell-scripts/lighthouse-wsl.sh",
-    "validate-html": "html-w3c-validator",
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
@@ -63,7 +62,6 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "html-w3c-validator": "^1.7.0",
     "jsdom": "^26.0.0",
     "kill-port": "^2.0.1",
     "lighthouse": "^12.8.1",

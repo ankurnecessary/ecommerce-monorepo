@@ -1,18 +1,18 @@
-import React from "react";
-import Link from "next/link";
-import { Navbar } from "@/components/layout";
-import NavbarMenu from "@/components/layout/Navbar/Desktop/NavbarMenu";
-import { HeaderContextProvider } from "@/components/layout/Header/Header.context";
-import { Search } from "lucide-react";
-import { links } from "@/components/layout/Navbar/XnavbarLinkObj";
-import MobileHamburgerButton from "@/components/layout/Header/MobileHamburgerButton";
+import React from 'react';
+import Link from 'next/link';
+import { Navbar } from '@/components/layout';
+import NavbarMenu from '@/components/layout/Navbar/Desktop/NavbarMenu';
+import { HeaderContextProvider } from '@/components/layout/Header/Header.context';
+import { Search } from 'lucide-react';
+import { links } from '@/components/layout/Navbar/XnavbarLinkObj';
+import MobileHamburgerButton from '@/components/layout/Header/MobileHamburgerButton';
 import {
   InputGroupInput,
   InputGroupAddon,
   InputGroupButton,
   InputGroup,
-} from "@repo/ui/components/input-group";
-import UserAvatarDropdown from "./UserAvatarDropdown";
+} from '@repo/ui/components/input-group';
+import UserAvatarDropdown from './UserAvatarDropdown';
 
 const Header = () => {
   // [ ]: Replace "links" with <HeaderContextProvider/> with an API call to fetch the links
@@ -21,42 +21,42 @@ const Header = () => {
 
   return (
     <HeaderContextProvider categories={links}>
-      <header className="relative z-12 border-b bg-background lg:h-29.25">
-        <div className="relative flex items-center justify-between lg:container lg:mx-auto lg:py-5">
+      <header className='relative z-12 border-b bg-background lg:h-29.25'>
+        <div className='relative flex items-center justify-between lg:container lg:mx-auto lg:py-5'>
           {/* Logo container */}
-          <div className="absolute left-1/2 -translate-x-1/2 lg:left-28">
+          <div className='absolute left-1/2 -translate-x-1/2 lg:left-28'>
             <h1 className={`relative p-1 text-3xl font-bold uppercase`}>
-              <Link href={"/"}>Celeb</Link>
+              <Link href={'/'}>Celeb</Link>
             </h1>
           </div>
 
           {/* [Moblie only]: For left side of the header  */}
-          <div className="border-r lg:grow">
+          <div className='border-r lg:grow'>
             {/* For hamburger menu button */}
             <MobileHamburgerButton />
           </div>
 
           {/* For the center of the header */}
-          <div className="lg:grow">
+          <div className='lg:grow'>
             {/* [Mobile only]: Center space for logo which is absolutely positioned */}
             <div
-              role="search"
-              className="mx-auto my-1 hidden w-1/2 lg:invisible lg:flex"
+              role='search'
+              className='mx-auto my-1 hidden w-1/2 lg:invisible lg:flex'
             >
               {/* lg:invisible - Just remove this class from the <div> above to see the search text box */}
-              <InputGroup className="border border-primary rounded-none has-[>[data-align=inline-end]]:[&>input]:pe-0 overflow-hidden">
+              <InputGroup className='border border-primary rounded-none has-[>[data-align=inline-end]]:[&>input]:pe-0 overflow-hidden'>
                 <InputGroupInput
-                  className="px-0 py-0 pl-1"
-                  placeholder="Search..."
+                  className='px-0 py-0 pl-1'
+                  placeholder='Search...'
                 />
                 <InputGroupAddon
-                  className="p-0 has-[>button]:me-0"
-                  align="inline-end"
+                  className='p-0 has-[>button]:me-0'
+                  align='inline-end'
                 >
                   <InputGroupButton
-                    className="h-8 w-8 rounded-none bg-primary text-white border-0 hover:border-0 hover:bg-primary/80"
-                    aria-label="search"
-                    variant="secondary"
+                    className='h-8 w-8 rounded-none bg-primary text-white border-0 hover:border-0 hover:bg-primary/80'
+                    aria-label='search'
+                    variant='secondary'
                   >
                     <Search />
                   </InputGroupButton>
@@ -66,13 +66,13 @@ const Header = () => {
           </div>
 
           {/* For the right side of the header */}
-          <div className="flex lg:grow lg:justify-end">
+          <div className='flex lg:grow lg:justify-end'>
             {/* Start: [Mobile only]: <div> */}
-            <div className="lg:hidden">
+            <div className='lg:hidden'>
               {/* [Mobile only]: Search button */}
               <button
-                className="border-l px-4 py-3"
-                aria-label="Open search bar"
+                className='border-l px-4 py-3'
+                aria-label='Open search bar'
               >
                 <Search />
               </button>
@@ -80,7 +80,7 @@ const Header = () => {
             {/* End: [Mobile only]: <div> */}
 
             {/* Start: [Desktop only]: <div> */}
-            <div className="hidden pr-16 lg:block">
+            <div className='hidden pr-16 lg:block'>
               {/* You can add those items which are only visible on desktop version */}
               <UserAvatarDropdown />
             </div>

@@ -1,18 +1,18 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   projects: [
     {
-      name: "components",
+      name: 'components',
 
-      testDir: "./playwright/tests",
+      testDir: './playwright/tests',
 
       use: {
-        ...devices["Desktop Chrome"],
+        ...devices['Desktop Chrome'],
 
-        baseURL: "http://localhost:5173/playwright/gallery/index.html",
+        baseURL: 'http://localhost:5173/playwright/gallery/index.html',
 
-        serviceWorkers: "block",
+        serviceWorkers: 'block',
 
         reuseContext: true,
       },
@@ -20,9 +20,9 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "pnpm exec vite --config playwright/gallery/vite.config.ts",
+    command: 'pnpm exec vite --config playwright/gallery/vite.config.ts',
 
-    url: "http://localhost:5173/playwright/gallery/index.html",
+    url: 'http://localhost:5173/playwright/gallery/index.html',
 
     reuseExistingServer: !process.env.CI,
   },

@@ -2,7 +2,7 @@ import {
   ERROR_CODES,
   ErrorMessages,
   type ErrorCode,
-} from "@/shared/config/constants.js";
+} from '@/shared/config/constants.js';
 
 export class HttpError extends Error {
   statusCode: number;
@@ -19,6 +19,6 @@ export class HttpError extends Error {
     this.statusCode = statusCode;
     this.code = code;
     this.details = details;
-    this.name = "HttpError";
+    this.name = 'HttpError';
   }
 }

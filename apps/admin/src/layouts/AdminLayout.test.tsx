@@ -14,11 +14,11 @@ describe('AdminLayout', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <Routes>
-          <Route path="/" element={<AdminLayout />}>
+          <Route path='/' element={<AdminLayout />}>
             <Route index element={<p>Dashboard content</p>} />
           </Route>
 
-          <Route path="/sign-out" element={<p>Sign-out page</p>} />
+          <Route path='/sign-out' element={<p>Sign-out page</p>} />
         </Routes>
       </MemoryRouter>,
     );

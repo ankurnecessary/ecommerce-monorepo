@@ -19,10 +19,10 @@ const SignInPage = () => {
   return (
     <div className={styles['sign-in-wrapper']}>
       <SignIn
-        path="/sign-in"
-        routing="path"
+        path='/sign-in'
+        routing='path'
         forceRedirectUrl={returnTo}
-        fallbackRedirectUrl="/"
+        fallbackRedirectUrl='/'
         appearance={{
           elements: {
             socialButtonsRoot: {

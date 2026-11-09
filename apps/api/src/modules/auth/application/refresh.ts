@@ -1,11 +1,11 @@
-import { AuthRepository } from "@/modules/auth/domain/AuthRepository.js";
-import { TokenService } from "@/modules/auth/application/ports/TokenService.js";
+import { AuthRepository } from '@/modules/auth/domain/AuthRepository.js';
+import { TokenService } from '@/modules/auth/application/ports/TokenService.js';
 
 export const refresh = async (
   refreshToken: string | undefined,
   authRepo: Pick<
     AuthRepository,
-    "saveRefreshToken" | "getRefreshTokenByUserId"
+    'saveRefreshToken' | 'getRefreshTokenByUserId'
   >,
   tokenService: TokenService,
 ) => {

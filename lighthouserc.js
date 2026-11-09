@@ -8,9 +8,9 @@ module.exports = {
         throttlingMethod: 'devtools', // Use real-world throttling like DevTools
         // preset: 'desktop',
         emulatedFormFactor: 'mobile', // Aligns screen size and interaction model
-        "chromeFlags": "--headless --disable-gpu --no-sandbox",
-        "port": 9222,
-        "disableStorageReset": true
+        chromeFlags: '--headless --disable-gpu --no-sandbox',
+        port: 9222,
+        disableStorageReset: true,
       },
     },
     upload: {
@@ -43,6 +43,6 @@ module.exports = {
         // Optional: if you bundle or tree-shake heavily
         'unused-javascript': 'off',
       },
-    }
-  }
+    },
+  },
 };

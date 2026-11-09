@@ -1,10 +1,10 @@
-import { AuthRepository } from "@/modules/auth/domain/AuthRepository.js";
-import { TokenService } from "./ports/TokenService.js";
+import { AuthRepository } from '@/modules/auth/domain/AuthRepository.js';
+import { TokenService } from './ports/TokenService.js';
 
 export const logout = async (
   refreshToken: string | undefined,
-  authRepo: Pick<AuthRepository, "clearRefreshTokenIfExists">,
-  tokenService: Pick<TokenService, "verifyRefreshToken">,
+  authRepo: Pick<AuthRepository, 'clearRefreshTokenIfExists'>,
+  tokenService: Pick<TokenService, 'verifyRefreshToken'>,
 ) => {
   if (!refreshToken) return;
 

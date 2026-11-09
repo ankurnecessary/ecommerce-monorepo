@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { HttpError } from "@/shared/errors/HttpError.js";
-import { ERROR_CODES, ERROR_MESSAGES } from "@/shared/config/constants.js";
+import { NextFunction, Request, Response } from 'express';
+import { HttpError } from '@/shared/errors/HttpError.js';
+import { ERROR_CODES, ERROR_MESSAGES } from '@/shared/config/constants.js';
 
 export function errorHandler(
   err: Error,

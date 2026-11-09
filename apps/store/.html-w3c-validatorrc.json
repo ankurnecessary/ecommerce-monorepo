@@ -1,9 +1,0 @@
-{
-  "urls": [
-    "http://localhost:3000/"
-  ],
-  "severities": [
-    "warning",
-    "error"
-  ]
-}
