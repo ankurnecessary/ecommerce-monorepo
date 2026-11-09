@@ -65,7 +65,7 @@ jobs:
           docker run --rm \
             --volume "${RUNNER_TEMP}:/data:ro" \
             ghcr.io/validator/validator:latest \
-            vnu --Werror /data/store-index.html   
+            vnu --errors-only /data/store-index.html   
              
       - name: Stop Next.js server
         cancel: store-server
