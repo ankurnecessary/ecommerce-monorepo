@@ -94,7 +94,6 @@ jobs:
 
       - name: Run lighthouse
         run: |
-          pnpm install -g @lhci/cli@0.13.0
           pnpm --filter store lighthouse
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
